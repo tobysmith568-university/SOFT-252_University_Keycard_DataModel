@@ -5,6 +5,9 @@
  */
 package Locations;
 
+import Listeners.IObserver;
+import Listeners.ISubject;
+import Locations.States.EmergencyStatus;
 import Locations.States.IRoomState;
 
 
@@ -12,10 +15,8 @@ import Locations.States.IRoomState;
  *
  * @author tsmith10
  */
-public abstract class Location {
+public abstract class Location implements ISubject, IObserver {
     private IRoomState currentState;
     
-    public void SetEmergencyState(IRoomState newState){
-        throw new UnsupportedOperationException();
-    }
+    public abstract void SetRoomState(EmergencyStatus newState);
 }

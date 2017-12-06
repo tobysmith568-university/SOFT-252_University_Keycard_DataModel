@@ -5,6 +5,7 @@
  */
 package Locations;
 
+import Locations.States.EmergencyStatus;
 import Locations.States.IRoomState;
 
 /**
@@ -13,4 +14,12 @@ import Locations.States.IRoomState;
  */
 public abstract class Room extends Location implements IRoomState{
     private String number;
+    private EmergencyStatus status;
+    private IRoomState currentState;
+    
+    @Override
+    public void SetRoomState(EmergencyStatus newState) {
+        status = newState;
+        currentState = status.getEmergencyState();
+    }
 }

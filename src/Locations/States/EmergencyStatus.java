@@ -14,6 +14,11 @@ public enum EmergencyStatus {
     EMERGENCY;
     
     public IRoomState getEmergencyState(){
-        throw new UnsupportedOperationException();
+        switch (this){
+            case EMERGENCY:
+                return new EmergencyState();
+            default:
+                return new NormalState();
+        }
     }
 }

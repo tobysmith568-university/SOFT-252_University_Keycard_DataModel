@@ -5,9 +5,7 @@
  */
 package Locations;
 
-import Listeners.IObserver;
 import Locations.States.EmergencyStatus;
-import Locations.States.IRoomState;
 import java.util.ArrayList;
 
 /**
@@ -15,14 +13,16 @@ import java.util.ArrayList;
  * @author tsmith10
  */
 public class Floor extends Location {
+    private Building building;
     private String floorNumber;
     private ArrayList<Room> rooms = new ArrayList<Room>();
     
-    public Floor(String floorNumber){
+    public Floor(Building building, String floorNumber){
+        this.building = building;
         this.floorNumber = floorNumber;
     }
     
-    public void CreateRoom(String roomNumber) {
+    public void CreateRoom(Floor floor, String roomNumber) {
         throw new UnsupportedOperationException();
     }    
 
@@ -33,23 +33,11 @@ public class Floor extends Location {
         }
     }
 
-    @Override
-    public void UpdateObservers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Building GetBuilding() {
+        return this.building;
     }
 
-    @Override
-    public void RegisterObserver(IObserver observer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void RemoveObserver(IObserver observer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void ObservedUpdate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String GetFloorNumber() {
+        return floorNumber;
     }
 }

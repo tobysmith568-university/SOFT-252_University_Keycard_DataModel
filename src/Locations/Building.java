@@ -7,7 +7,6 @@ package Locations;
 
 import Listeners.IObserver;
 import Locations.States.EmergencyStatus;
-import Locations.States.IRoomState;
 import java.util.ArrayList;
 
 /**
@@ -15,17 +14,19 @@ import java.util.ArrayList;
  * @author tsmith10
  */
 public class Building extends Location{
+    private Campus campus;
     private String name;
     private String shortCode;
     private ArrayList<Floor> floors = new ArrayList<Floor>();
     
-    public Building(String name, String shortCode){
+    public Building(Campus campus, String name, String shortCode){
+        this.campus = campus;
         this.name = name;
         this.shortCode = shortCode;
     }
     
-    public void CreateFloor(String floorNumber){
-        floors.add(new Floor(floorNumber));
+    public void CreateFloor(Building building, String floorNumber){
+        floors.add(new Floor(building, floorNumber));
     }
 
     @Override
@@ -35,23 +36,11 @@ public class Building extends Location{
         }
     }
 
-    @Override
-    public void UpdateObservers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String GetName() {
+        return name;
     }
 
-    @Override
-    public void RegisterObserver(IObserver observer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void RemoveObserver(IObserver observer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void ObservedUpdate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Campus GetCampus() {
+        return campus;
     }
 }

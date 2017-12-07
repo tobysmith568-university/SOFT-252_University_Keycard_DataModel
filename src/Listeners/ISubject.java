@@ -5,12 +5,14 @@
  */
 package Listeners;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Toby
  */
-public interface ISubject {
-    public void UpdateObservers();
-    public void RegisterObserver(IObserver observer);
-    public void RemoveObserver(IObserver observer);
+public interface ISubject {    
+    public <T> void UpdateObservers(T updateInformation);
+    public boolean RegisterObserver(IObserver observer);
+    public boolean RemoveObserver(IObserver observer);
 }

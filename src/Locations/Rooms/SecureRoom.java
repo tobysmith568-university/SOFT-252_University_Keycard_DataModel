@@ -13,16 +13,18 @@ import People.Keycard;
 
 /**
  *
- * @author tsmith10
+ * @author Toby
  */
-public class StudentLab extends Room {
+public class SecureRoom extends Room {
     
-    public StudentLab(Floor floor, String number) {
+    public SecureRoom(Floor floor, String number) {
         super(floor, number);
     }
 
     @Override
     public boolean AccessRequest(Keycard keycard) {
+        
+        boolean isGivingAccess = currentState.AccessRequest(keycard);
         
         /* INSERT ROOM-SPECIFIC LOGIC */
         
@@ -31,9 +33,9 @@ public class StudentLab extends Room {
         
         String message = "Access request in " + campus.GetName() + 
                 " " + building.GetName() + " " + floor.GetFloorNumber() + 
-                number + ".";
+                number + (isGivingAccess ? ": Access Granted" : ": Access Denied");
         
         super.UpdateObservers(message);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }   
+        return isGivingAccess;
+    }    
 }

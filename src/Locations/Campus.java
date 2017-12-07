@@ -5,9 +5,7 @@
  */
 package Locations;
 
-import Listeners.IObserver;
 import Locations.States.EmergencyStatus;
-import Locations.States.IRoomState;
 import java.util.ArrayList;
 
 /**
@@ -22,8 +20,8 @@ public class Campus extends Location{
         this.name = name;
     }
     
-    public void CreateBuilding(String name, String shortCode){
-        buildings.add(new Building(name, shortCode));
+    public void CreateBuilding(Campus campus, String name, String shortCode){
+        buildings.add(new Building(campus, name, shortCode));
     }
 
     @Override
@@ -33,23 +31,7 @@ public class Campus extends Location{
         }
     }
 
-    @Override
-    public void UpdateObservers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void RegisterObserver(IObserver observer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void RemoveObserver(IObserver observer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void ObservedUpdate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String GetName() {
+        return name;
     }
 }

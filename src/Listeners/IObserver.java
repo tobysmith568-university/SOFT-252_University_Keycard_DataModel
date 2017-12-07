@@ -10,5 +10,5 @@ package Listeners;
  * @author Toby
  */
 public interface IObserver {
-    public void ObservedUpdate();
+    public <T> void ObservedUpdate(T updateInformation);
 }

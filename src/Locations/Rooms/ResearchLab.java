@@ -13,11 +13,11 @@ import People.Keycard;
 
 /**
  *
- * @author tsmith10
+ * @author Toby
  */
-public class StudentLab extends Room {
+public class ResearchLab extends Room {
     
-    public StudentLab(Floor floor, String number) {
+    public ResearchLab(Floor floor, String number){
         super(floor, number);
     }
 
@@ -35,5 +35,5 @@ public class StudentLab extends Room {
         
         super.UpdateObservers(message);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }   
+    }
 }

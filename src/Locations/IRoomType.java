@@ -3,19 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control;
+package Locations;
+
+import People.Keycard;
 
 /**
  *
  * @author tsmith10
  */
-public class UniversityKeycards {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-    }
-    
+public interface IRoomType {
+    public boolean AccessRequest(Keycard keycard);
 }

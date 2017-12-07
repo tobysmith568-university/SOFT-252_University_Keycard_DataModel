@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Locations.States;
+package Locations.RoomTypes;
 
+import Locations.IRoomType;
 import People.Keycard;
 import People.Role;
 
@@ -12,24 +13,22 @@ import People.Role;
  *
  * @author tsmith10
  */
-public class NormalState implements IRoomState {
+public class StaffRoom implements IRoomType {
 
     @Override
     public boolean AccessRequest(Keycard keycard) {
         Role role = keycard.GetRole();
         
         switch (role){
-            case VISITOR:
             case STAFFMEMBER:
-            case STUDENT:
             case CLEANER:
             case MANAGER:
             case SECURITY:
+            case EMERGENCYRESPONDER:
                     return true;
             default:
                 return false;
         }
-        
     }
     
 }

@@ -9,28 +9,53 @@ import Listeners.IObserver;
 import Listeners.ISubject;
 import Locations.States.EmergencyStatus;
 import Locations.States.IRoomState;
+import People.Keycard;
 import java.util.ArrayList;
 
 /**
  *
  * @author tsmith10
  */
-public abstract class Room extends Location implements IRoomState, ISubject{
+public class Room extends Location implements IRoomState, ISubject {
     protected Floor floor;
     protected String number;
-    private EmergencyStatus status;
-    public IRoomState currentState;
+    
+    protected RoomType type;
+    private IRoomType roomType;
+    
+    protected EmergencyStatus status;
+    private IRoomState currentState;
+    
     private ArrayList<IObserver> observers = new ArrayList<IObserver>();
+    
+    public Room(Floor floor, String number, RoomType roomType){
+        this.floor = floor;
+        this.number = number;
+        this.type = roomType;
+        this.roomType = roomType.GetRoomType();
+    }
     
     @Override
     public void SetRoomState(EmergencyStatus newState){
         status = newState;
         currentState = status.getEmergencyState();
     }
-    
-    public Room(Floor floor, String number){
-        this.floor = floor;
-        this.number = number;
+
+    @Override
+    public boolean AccessRequest(Keycard keycard) {   
+        Building building = floor.GetBuilding();
+        Campus campus = building.GetCampus();
+        
+        boolean roomAccess = roomType.AccessRequest(keycard);
+        boolean stateAccess = currentState.AccessRequest(keycard);
+        boolean timeAccess = keycard.GetRole().HasTimeAccess();
+        
+        String message = "Access request in " + campus.GetName() + 
+                " " + building.GetName() + " " + floor.GetFloorNumber() + 
+                number + ": " + (roomAccess && stateAccess && timeAccess);
+        
+        UpdateObservers(message);
+        return roomAccess && stateAccess && timeAccess;
     }
 
     @Override

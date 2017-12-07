@@ -10,5 +10,15 @@ package People;
  * @author tsmith10
  */
 public class Keycard {
-    
+    private Role role;
+    private String cardID;
+
+    public Keycard(Role role, String cardID) {
+        this.role = role;
+        this.cardID = cardID;
+    }
+
+    public Role GetRole() {
+        return role;
+    }
 }

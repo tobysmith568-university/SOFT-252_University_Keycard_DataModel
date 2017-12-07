@@ -19,10 +19,6 @@ public class Campus extends Location{
     public Campus(String name){
         this.name = name;
     }
-    
-    public void CreateBuilding(Campus campus, String name, String shortCode){
-        buildings.add(new Building(campus, name, shortCode));
-    }
 
     @Override
     public void SetRoomState(EmergencyStatus newState) {
@@ -33,5 +29,9 @@ public class Campus extends Location{
 
     public String GetName() {
         return name;
+    }
+    
+    public void CreateBuilding(Campus campus, String name, String shortCode){
+        buildings.add(new Building(campus, name, shortCode));
     }
 }

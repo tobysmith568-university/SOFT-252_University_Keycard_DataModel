@@ -7,7 +7,6 @@ package Locations;
 
 import Listeners.IObserver;
 import Locations.States.EmergencyStatus;
-import Locations.States.IRoomState;
 
 
 /**
@@ -15,7 +14,6 @@ import Locations.States.IRoomState;
  * @author tsmith10
  */
 public abstract class Location implements IObserver {
-    private IRoomState currentState;
     
     protected abstract void SetRoomState(EmergencyStatus newState);
     

@@ -21,17 +21,6 @@ public class Floor extends Location {
         this.building = building;
         this.floorNumber = floorNumber;
     }
-    
-    public void CreateRoom(Floor floor, String roomNumber) {
-        throw new UnsupportedOperationException();
-    }    
-
-    @Override
-    public void SetRoomState(EmergencyStatus newState) {
-        for (int i = 0; i < rooms.size(); i++) {
-            rooms.get(i).SetRoomState(newState);
-        }
-    }
 
     public Building GetBuilding() {
         return this.building;
@@ -39,5 +28,16 @@ public class Floor extends Location {
 
     public String GetFloorNumber() {
         return floorNumber;
+    }   
+
+    @Override
+    public void SetRoomState(EmergencyStatus newState) {
+        for (int i = 0; i < rooms.size(); i++) {
+            rooms.get(i).SetRoomState(newState);
+        }
     }
+    
+    public void CreateRoom(Floor floor, String roomNumber) {
+        throw new UnsupportedOperationException();
+    } 
 }

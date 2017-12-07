@@ -5,7 +5,6 @@
  */
 package Locations;
 
-import Listeners.IObserver;
 import Locations.States.EmergencyStatus;
 import java.util.ArrayList;
 
@@ -24,9 +23,13 @@ public class Building extends Location{
         this.name = name;
         this.shortCode = shortCode;
     }
-    
-    public void CreateFloor(Building building, String floorNumber){
-        floors.add(new Floor(building, floorNumber));
+
+    public String GetName() {
+        return name;
+    }
+
+    public Campus GetCampus() {
+        return campus;
     }
 
     @Override
@@ -35,12 +38,8 @@ public class Building extends Location{
             floors.get(i).SetRoomState(newState);
         }
     }
-
-    public String GetName() {
-        return name;
-    }
-
-    public Campus GetCampus() {
-        return campus;
+    
+    public void CreateFloor(Building building, String floorNumber){
+        floors.add(new Floor(building, floorNumber));
     }
 }

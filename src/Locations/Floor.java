@@ -17,8 +17,7 @@ public class Floor extends Location {
     private String floorNumber;
     private ArrayList<Room> rooms = new ArrayList<Room>();
     
-    public Floor(Building building, String floorNumber){
-        this.building = building;
+    public Floor(String floorNumber){
         this.floorNumber = floorNumber;
     }
 
@@ -37,7 +36,9 @@ public class Floor extends Location {
         }
     }
     
-    public void CreateRoom(Floor floor, String roomNumber) {
-        throw new UnsupportedOperationException();
+    public Room AddRoom(RoomType type) {
+        Room room = new Room(Integer.toString(rooms.size()), type);
+        rooms.add(room);
+        return room;
     } 
 }

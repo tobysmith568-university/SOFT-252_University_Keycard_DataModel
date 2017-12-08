@@ -18,8 +18,7 @@ public class Building extends Location{
     private String shortCode;
     private ArrayList<Floor> floors = new ArrayList<Floor>();
     
-    public Building(Campus campus, String name, String shortCode){
-        this.campus = campus;
+    public Building(String name, String shortCode){
         this.name = name;
         this.shortCode = shortCode;
     }
@@ -39,7 +38,9 @@ public class Building extends Location{
         }
     }
     
-    public void CreateFloor(Building building, String floorNumber){
-        floors.add(new Floor(building, floorNumber));
+    public Floor AddFloor(){
+        Floor floor = new Floor(Integer.toString(floors.size()));
+        floors.add(floor);
+        return floor;
     }
 }

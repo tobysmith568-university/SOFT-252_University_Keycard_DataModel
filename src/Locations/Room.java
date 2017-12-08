@@ -28,11 +28,11 @@ public class Room extends Location implements IRoomState, ISubject {
     
     private ArrayList<IObserver> observers = new ArrayList<IObserver>();
     
-    public Room(Floor floor, String number, RoomType roomType){
-        this.floor = floor;
+    public Room(String number, RoomType roomType){
         this.number = number;
         this.type = roomType;
         this.roomType = roomType.GetRoomType();
+        SetRoomState(null);
     }
     
     @Override

@@ -31,7 +31,9 @@ public class Campus extends Location{
         return name;
     }
     
-    public void CreateBuilding(Campus campus, String name, String shortCode){
-        buildings.add(new Building(campus, name, shortCode));
+    public Building AddBuilding(String name, String shortCode){
+        Building building = new Building(name, shortCode);
+        buildings.add(building);
+        return building;
     }
 }

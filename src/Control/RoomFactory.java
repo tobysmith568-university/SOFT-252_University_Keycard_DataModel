@@ -9,6 +9,7 @@ import Locations.Floor;
 import Locations.Room;
 import Locations.RoomType;
 import static Locations.States.LocationState.NOEMERGENCY;
+import Listeners.IStateObserver;
 
 /**
  *
@@ -16,12 +17,15 @@ import static Locations.States.LocationState.NOEMERGENCY;
  */
 public class RoomFactory {
     
+    static IStateObserver log = Log.Logger();
+    
     public static Room Create(String number, RoomType type, Floor floor){
         Room room = new Room(number);
         
         room.SetFloor(floor);        
         room.SetRoomType(type);
         room.SetRoomState(NOEMERGENCY);
+        room.RegisterAccessObserver(log);
         
         return room;
     }

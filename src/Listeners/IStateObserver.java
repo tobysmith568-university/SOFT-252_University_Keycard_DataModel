@@ -5,11 +5,13 @@
  */
 package Listeners;
 
+import Locations.Location;
+import Locations.States.LocationState;
+
 /**
  *
  * @author Toby
  */
-public interface ISubject {    
-    public boolean RegisterObserver(IObserver observer);
-    public boolean RemoveObserver(IObserver observer);
-}
+public interface IStateObserver{
+        public void ObservedStateUpdate(Location location, LocationState locationState);
+    }

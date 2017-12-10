@@ -29,11 +29,6 @@ public class Floor extends Location {
 
     public String GetFloorNumber() {
         return floorNumber;
-    }
-
-    @Override
-    public String GetFullName() {
-        return fullName;
     }  
 
     @Override

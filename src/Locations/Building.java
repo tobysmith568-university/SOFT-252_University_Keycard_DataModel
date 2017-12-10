@@ -34,11 +34,6 @@ public class Building extends Location{
     }
 
     @Override
-    public String GetFullName() {
-        return fullName;
-    }
-
-    @Override
     public void SetRoomState(LocationState newState) {
         Iterator iterator = floors.entrySet().iterator();
         while (iterator.hasNext()){

@@ -12,6 +12,8 @@ import Locations.States.LocationState;
  *
  * @author Toby
  */
-public interface IStateSubject extends ISubject{
-    public void UpdateObservers(Location location, LocationState locationState);
+public interface IStateSubject {
+    public boolean AddStateObserver(IStateObserver observer);
+    public boolean RemoveStateObserver(IStateObserver observer);
+    public void UpdateStateObservers(Location location, LocationState locationState);
 }

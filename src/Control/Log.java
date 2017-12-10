@@ -5,7 +5,7 @@
  */
 package Control;
 
-import Listeners.IObserver;
+import Listeners.IAccessObserver;
 import Locations.Location;
 import Locations.Room;
 import Locations.States.LocationState;
@@ -18,12 +18,13 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import Listeners.IStateObserver;
 
 /**
  *
  * @author Toby
  */
-public class Log implements IObserver{
+public class Log implements IStateObserver, IAccessObserver{
     
     private static Log singleton;
     private DateTimeFormatter messageFormat = DateTimeFormatter.ofPattern("[dd/mm/yy] [HH:MM:ss]");
@@ -73,12 +74,12 @@ public class Log implements IObserver{
     }
 
     @Override
-    public void ObservedUpdate(Location location, LocationState locationState) {
+    public void ObservedStateUpdate(Location location, LocationState locationState) {
         LogEmergency(location, locationState);
     }
 
     @Override
-    public void ObservedUpdate(Keycard keycard, Room room, boolean wasSuccessful) {
+    public void ObservedAccessUpdate(Keycard keycard, Room room, boolean wasSuccessful) {
         LogAccess(keycard, room, wasSuccessful);
     }
 }

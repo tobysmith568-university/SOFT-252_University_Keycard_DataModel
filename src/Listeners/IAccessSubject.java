@@ -12,6 +12,8 @@ import People.Keycard;
  *
  * @author Toby
  */
-public interface IAccessSubject extends ISubject{
-    public void UpdateObservers(Keycard keycard, Room room, boolean wasSuccessful);
+public interface IAccessSubject{
+    public boolean AddAccessObserver(IAccessObserver observer);
+    public boolean RemoveAccessObserver(IAccessObserver observer);
+    public void UpdateAccessObservers(Keycard keycard, Room room, boolean wasSuccessful);
 }

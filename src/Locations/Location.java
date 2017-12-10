@@ -5,9 +5,11 @@
  */
 package Locations;
 
-import Listeners.IObserver;
 import Listeners.IStateSubject;
+import Locations.States.ILocationState;
 import Locations.States.LocationState;
+import java.util.ArrayList;
+import Listeners.IStateObserver;
 
 
 /**
@@ -15,29 +17,47 @@ import Locations.States.LocationState;
  * @author tsmith10
  */
 public abstract class Location implements IStateSubject{
+    protected ArrayList<IStateObserver> stateObservers = new ArrayList<>();    
+    protected String fullName;    
+    protected LocationState state;
+    protected ILocationState iState;
     
-    protected String fullName;
-        
-    protected abstract void SetRoomState(LocationState newState);
+    public void SetRoomState(LocationState newState){
+        state = newState;
+        iState = state.GetLocationState();
+        UpdateStateObservers(this, state);
+    }  
     
-    public abstract String GetFullName();
+    public String GetFullName(){
+        return fullName;
+    }
+    
+    public LocationState GetState(){
+        return state;
+    }
     
     public void SetFullName(String name){
         this.fullName = name;
     }
 
     @Override
-    public void UpdateObservers(Location location, LocationState locationState) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean AddStateObserver(IStateObserver observer) {
+        if (observer != null && !stateObservers.contains(observer)) {
+            stateObservers.add(observer);
+            return true;
+        }
+        return false;
+    }    
+
+    @Override
+    public boolean RemoveStateObserver(IStateObserver observer) {
+        return stateObservers.remove(observer);
     }
 
     @Override
-    public boolean RegisterObserver(IObserver observer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean RemoveObserver(IObserver observer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void UpdateStateObservers(Location location, LocationState locationState) {
+        stateObservers.forEach((stateObserver) -> {
+            stateObserver.ObservedStateUpdate(location, locationState);
+        });
     }
 }

@@ -19,14 +19,10 @@ public class Campus extends Location{
     
     public Campus(String name){
         this.name = name;
+        this.fullName = name;
     }
 
     public String GetName() {
-        return name;
-    }
-
-    @Override
-    public String GetFullName() {
         return name;
     }
 

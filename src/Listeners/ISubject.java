@@ -10,7 +10,6 @@ package Listeners;
  * @author Toby
  */
 public interface ISubject {    
-    public <T> void UpdateObservers(T updateInformation);
     public boolean RegisterObserver(IObserver observer);
     public boolean RemoveObserver(IObserver observer);
 }

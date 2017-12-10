@@ -12,7 +12,7 @@ import People.Role;
  *
  * @author tsmith10
  */
-public class EmergencyState implements IRoomState {
+public class EmergencyState implements ILocationState {
 
     @Override
     public boolean AccessRequest(Keycard keycard) {

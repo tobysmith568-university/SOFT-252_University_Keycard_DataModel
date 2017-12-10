@@ -9,16 +9,27 @@ package Locations.States;
  *
  * @author tsmith10
  */
-public enum EmergencyStatus {
+public enum LocationState {
     NOEMERGENCY,
     EMERGENCY;
     
-    public IRoomState getEmergencyState(){
+    public ILocationState GetLocationState(){
         switch (this){
             case EMERGENCY:
                 return new EmergencyState();
             default:
                 return new NormalState();
+        }
+    }
+    
+    public String GetName(){
+        switch (this){
+            case NOEMERGENCY:
+                return "No emergency";
+            case EMERGENCY:
+                return "Emergency";
+            default:
+                return this.toString();
         }
     }
 }

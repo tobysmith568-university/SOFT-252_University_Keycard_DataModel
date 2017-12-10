@@ -6,21 +6,38 @@
 package Locations;
 
 import Listeners.IObserver;
-import Locations.States.EmergencyStatus;
+import Listeners.IStateSubject;
+import Locations.States.LocationState;
 
 
 /**
  *
  * @author tsmith10
  */
-public abstract class Location implements IObserver {
+public abstract class Location implements IStateSubject{
     
-    protected abstract void SetRoomState(EmergencyStatus newState);
+    protected String fullName;
+        
+    protected abstract void SetRoomState(LocationState newState);
     
+    public abstract String GetFullName();
+    
+    public void SetFullName(String name){
+        this.fullName = name;
+    }
+
     @Override
-    public <T> void ObservedUpdate(T data){
-        if (data instanceof EmergencyStatus){
-            SetRoomState((EmergencyStatus)data);
-        }
+    public void UpdateObservers(Location location, LocationState locationState) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean RegisterObserver(IObserver observer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean RemoveObserver(IObserver observer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

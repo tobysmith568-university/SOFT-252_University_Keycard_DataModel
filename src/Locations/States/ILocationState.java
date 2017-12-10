@@ -11,6 +11,6 @@ import People.Keycard;
  *
  * @author tsmith10
  */
-public interface IRoomState {
+public interface ILocationState {
     public boolean AccessRequest(Keycard keycard);
 }

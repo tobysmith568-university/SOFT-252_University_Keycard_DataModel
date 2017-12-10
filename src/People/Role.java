@@ -5,10 +5,6 @@
  */
 package People;
 
-import Locations.RoomType;
-import static Locations.RoomType.*;
-import Locations.States.EmergencyStatus;
-import static Locations.States.EmergencyStatus.*;
 import java.time.LocalTime;
 
 /**

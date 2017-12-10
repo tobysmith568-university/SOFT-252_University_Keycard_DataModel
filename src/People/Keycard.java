@@ -11,14 +11,24 @@ package People;
  */
 public class Keycard {
     private Role role;
+    private String name;
     private String cardID;
 
-    public Keycard(Role role, String cardID) {
+    public Keycard(Role role, String name, String cardID) {
         this.role = role;
+        this.name = name;
         this.cardID = cardID;
     }
 
     public Role GetRole() {
         return role;
+    }
+
+    public String GetName() {
+        return name;
+    }
+
+    public String GetCardID() {
+        return cardID;
     }
 }

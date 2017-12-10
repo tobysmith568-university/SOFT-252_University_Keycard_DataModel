@@ -5,16 +5,13 @@
  */
 package Listeners;
 
-import Locations.Location;
 import Locations.Room;
-import Locations.States.LocationState;
 import People.Keycard;
 
 /**
  *
  * @author Toby
  */
-public interface IObserver {
-    public void ObservedUpdate(Location location, LocationState locationState);
-    public void ObservedUpdate(Keycard keycard, Room room, boolean wasSuccessful);
+public interface IAccessSubject extends ISubject{
+    public void UpdateObservers(Keycard keycard, Room room, boolean wasSuccessful);
 }

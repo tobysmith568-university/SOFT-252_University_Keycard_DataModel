@@ -5,8 +5,9 @@
  */
 package Locations;
 
-import Locations.States.EmergencyStatus;
-import java.util.ArrayList;
+import Locations.States.LocationState;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  *
@@ -14,26 +15,33 @@ import java.util.ArrayList;
  */
 public class Campus extends Location{
     private String name;
-    private ArrayList<Building> buildings = new ArrayList<Building>();
+    private HashMap<String, Building> buildings = new HashMap<>();
     
     public Campus(String name){
         this.name = name;
     }
 
-    @Override
-    public void SetRoomState(EmergencyStatus newState) {
-        for (int i = 0; i < buildings.size(); i++) {
-            buildings.get(i).SetRoomState(newState);
-        }
-    }
-
     public String GetName() {
         return name;
+    }
+
+    @Override
+    public String GetFullName() {
+        return name;
+    }
+
+    @Override
+    public void SetRoomState(LocationState newState) {
+        Iterator iterator = buildings.entrySet().iterator();
+        while (iterator.hasNext()){
+            ((Building)iterator.next()).SetRoomState(newState);
+        }
     }
     
     public Building AddBuilding(String name, String shortCode){
         Building building = new Building(name, shortCode);
-        buildings.add(building);
+        buildings.put(name, building);
+        building.SetFullName(this.name + " " + name);
         return building;
     }
 }

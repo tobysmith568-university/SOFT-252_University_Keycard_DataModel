@@ -31,7 +31,7 @@ public class UniversityKeycards {
         floor0.AddRoom(STUDENTLAB);
         floor0.AddRoom(STAFFROOM);
         floor0.AddRoom(SECUREROOM);
-        floor0.AddRoom(STUDENTLAB);        
+        floor0.AddRoom(STUDENTLAB);
         
         Floor floor1 = building1.AddFloor();
         floor1.AddRoom(STUDENTLAB);
@@ -40,7 +40,7 @@ public class UniversityKeycards {
         floor1.AddRoom(SECUREROOM);
         floor1.AddRoom(RESEARCHLAB);
         
-        Keycard card = new Keycard(STUDENT, "0000001");
+        Keycard card = new Keycard(STUDENT, "Dave", "0000001");
         
         subject.AccessRequest(card);
     }    

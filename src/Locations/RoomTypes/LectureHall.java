@@ -7,7 +7,6 @@ package Locations.RoomTypes;
 
 import Locations.IRoomType;
 import People.Keycard;
-import People.Role;
 
 /**
  *

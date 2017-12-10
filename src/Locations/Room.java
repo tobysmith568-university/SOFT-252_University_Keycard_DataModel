@@ -5,75 +5,79 @@
  */
 package Locations;
 
+import Listeners.IAccessSubject;
 import Listeners.IObserver;
-import Listeners.ISubject;
-import Locations.States.EmergencyStatus;
-import Locations.States.IRoomState;
+import Locations.States.LocationState;
 import People.Keycard;
 import java.util.ArrayList;
+import Locations.States.ILocationState;
 
 /**
  *
  * @author tsmith10
  */
-public class Room extends Location implements IRoomState, ISubject {
+public class Room extends Location implements ILocationState, IAccessSubject {
     protected Floor floor;
     protected String number;
     
     protected RoomType type;
-    private IRoomType roomType;
+    private IRoomType iType;
     
-    protected EmergencyStatus status;
-    private IRoomState currentState;
+    protected LocationState state;
+    private ILocationState iState;
     
-    private ArrayList<IObserver> observers = new ArrayList<IObserver>();
+    private ArrayList<IObserver> observers = new ArrayList<>();
     
-    public Room(String number, RoomType roomType){
-        this.number = number;
-        this.type = roomType;
-        this.roomType = roomType.GetRoomType();
-        SetRoomState(null);
+    public Room(String number){
+        if (number.length() == 1)
+            this.number = "0" + number;
+        else
+            this.number = number;
+    }
+
+    public String GetNumber() {
+        return number;
     }
     
-    @Override
-    public void SetRoomState(EmergencyStatus newState){
-        status = newState;
-        currentState = status.getEmergencyState();
+    public LocationState GetState(){
+        return state;
+    }
+    
+    public void SetFloor(Floor floor){
+        this.floor = floor;
+    }
+    
+    public void SetRoomType(RoomType type) {
+        this.type = type;
+        this.iType = this.type.GetRoomType();
     }
 
     @Override
-    public boolean AccessRequest(Keycard keycard) {   
+    public String GetFullName() {
+        return fullName;
+    }
+    
+    @Override
+    public void SetRoomState(LocationState newState){
+        state = newState;
+        iState = state.GetLocationState();
+    }
+
+    @Override
+    public boolean AccessRequest(Keycard keycard) {
         Building building = floor.GetBuilding();
         Campus campus = building.GetCampus();
         
-        boolean roomAccess = roomType.AccessRequest(keycard);
-        boolean stateAccess = currentState.AccessRequest(keycard);
+        boolean roomAccess = iType.AccessRequest(keycard);
+        boolean stateAccess = iState.AccessRequest(keycard);
         boolean timeAccess = keycard.GetRole().HasTimeAccess();
         
-        String message = "Access request in " + campus.GetName() + 
-                " " + building.GetName() + " " + floor.GetFloorNumber() + 
-                number + ": " + (roomAccess && stateAccess && timeAccess);
-        
-        UpdateObservers(message);
+        UpdateObservers(keycard, this, roomAccess && stateAccess && timeAccess);
         return roomAccess && stateAccess && timeAccess;
     }
 
     @Override
-    public boolean RemoveObserver(IObserver observer){
-        return observers.remove(observer);
-    }
-
-    @Override
-    public boolean RegisterObserver(IObserver observer){
-        if (!observers.contains(observer))
-            return observers.add(observer);
-        return false;
-    }
-
-    @Override
-    public <T> void UpdateObservers(T updateInformation){
-        for (int i = 0; i < observers.size(); i++) {
-            observers.get(i).ObservedUpdate(updateInformation);
-        }
+    public void UpdateObservers(Keycard keycard, Room room, boolean wasSuccessful) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

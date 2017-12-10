@@ -5,8 +5,9 @@
  */
 package Locations;
 
-import Locations.States.EmergencyStatus;
-import java.util.ArrayList;
+import Locations.States.LocationState;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  *
@@ -16,10 +17,11 @@ public class Building extends Location{
     private Campus campus;
     private String name;
     private String shortCode;
-    private ArrayList<Floor> floors = new ArrayList<Floor>();
+    private HashMap<String, Floor> floors = new HashMap<>();
     
     public Building(String name, String shortCode){
         this.name = name;
+        this.fullName = name;
         this.shortCode = shortCode;
     }
 
@@ -32,15 +34,22 @@ public class Building extends Location{
     }
 
     @Override
-    public void SetRoomState(EmergencyStatus newState) {
-        for (int i = 0; i < floors.size(); i++) {
-            floors.get(i).SetRoomState(newState);
+    public String GetFullName() {
+        return fullName;
+    }
+
+    @Override
+    public void SetRoomState(LocationState newState) {
+        Iterator iterator = floors.entrySet().iterator();
+        while (iterator.hasNext()){
+            ((Floor)iterator.next()).SetRoomState(newState);
         }
     }
     
     public Floor AddFloor(){
         Floor floor = new Floor(Integer.toString(floors.size()));
-        floors.add(floor);
+        floors.put(floor.GetFloorNumber(), floor);
+        floor.SetFullName(this.name + " " + floor.GetFloorNumber());
         return floor;
     }
 }

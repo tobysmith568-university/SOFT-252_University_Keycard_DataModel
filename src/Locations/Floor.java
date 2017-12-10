@@ -5,8 +5,10 @@
  */
 package Locations;
 
-import Locations.States.EmergencyStatus;
-import java.util.ArrayList;
+import Control.RoomFactory;
+import Locations.States.LocationState;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  *
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 public class Floor extends Location {
     private Building building;
     private String floorNumber;
-    private ArrayList<Room> rooms = new ArrayList<Room>();
+    private HashMap<String, Room> rooms = new HashMap<>();
     
     public Floor(String floorNumber){
         this.floorNumber = floorNumber;
@@ -27,18 +29,25 @@ public class Floor extends Location {
 
     public String GetFloorNumber() {
         return floorNumber;
-    }   
+    }
 
     @Override
-    public void SetRoomState(EmergencyStatus newState) {
-        for (int i = 0; i < rooms.size(); i++) {
-            rooms.get(i).SetRoomState(newState);
+    public String GetFullName() {
+        return fullName;
+    }  
+
+    @Override
+    public void SetRoomState(LocationState newState) {
+        Iterator iterator = rooms.entrySet().iterator();
+        while (iterator.hasNext()){
+            ((Room)iterator.next()).SetRoomState(newState);
         }
     }
     
     public Room AddRoom(RoomType type) {
-        Room room = new Room(Integer.toString(rooms.size()), type);
-        rooms.add(room);
+        Room room = RoomFactory.Create(Integer.toString(rooms.size()), type, this);
+        rooms.put(room.GetNumber(), room);
+        room.SetFullName(this.fullName + room.GetNumber());
         return room;
-    } 
+    }
 }

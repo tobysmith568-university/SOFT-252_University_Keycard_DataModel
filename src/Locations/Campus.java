@@ -41,7 +41,7 @@ public class Campus extends Location{
     public Building AddBuilding(String name, String shortCode){
         Building building = new Building(name, shortCode);
         buildings.put(name, building);
-        building.SetFullName(this.name + " " + name);
+        building.SetFullName(this.name + " " + shortCode);
         return building;
     }
 }

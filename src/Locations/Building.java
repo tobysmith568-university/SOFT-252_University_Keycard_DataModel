@@ -49,7 +49,7 @@ public class Building extends Location{
     public Floor AddFloor(){
         Floor floor = new Floor(Integer.toString(floors.size()));
         floors.put(floor.GetFloorNumber(), floor);
-        floor.SetFullName(this.name + " " + floor.GetFloorNumber());
+        floor.SetFullName(this.name + floor.GetFloorNumber());
         return floor;
     }
 }

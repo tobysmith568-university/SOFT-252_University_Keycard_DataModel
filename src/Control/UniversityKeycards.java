@@ -13,10 +13,13 @@ import static Locations.RoomType.*;
 import static Locations.States.LocationState.*;
 import People.Keycard;
 import static People.Role.*;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
@@ -31,29 +34,34 @@ public class UniversityKeycards {
      */
     public static void main(String[] args) {
         
-        ArrayList<Campus> campuses = new ArrayList<>();
+        ArrayList<Campus> campuses = LoadState();
         
-        campuses.add(new Campus("Main Campus"));
+        
+        
+        //ArrayList<Campus> campuses = new ArrayList<>();
+        
+        //campuses.add(new Campus("Main Campus"));
         
         Campus campus1 = campuses.get(0);
-        campus1.AddBuilding("Babbage", "BGB");
+        //campus1.AddBuilding("Babbage", "BGB");
         
         Building building1 = campus1.GetChild("Babbage");
-        building1.AddFloor();
+        /*building1.AddFloor();
+        building1.AddFloor();*/
                 
         Floor floor0 = building1.GetChild("0");
-        floor0.AddRoom(STUDENTLAB);
+        /*floor0.AddRoom(STUDENTLAB);
         floor0.AddRoom(STUDENTLAB);
         floor0.AddRoom(STAFFROOM);
         floor0.AddRoom(SECUREROOM);
-        floor0.AddRoom(STUDENTLAB);
+        floor0.AddRoom(STUDENTLAB);*/
         
         Floor floor1 = building1.GetChild("1");
-        floor1.AddRoom(STUDENTLAB);
+        /*floor1.AddRoom(STUDENTLAB);
         floor1.AddRoom(STUDENTLAB);
         floor1.AddRoom(STUDENTLAB);
         floor1.AddRoom(SECUREROOM);
-        floor1.AddRoom(RESEARCHLAB);
+        floor1.AddRoom(RESEARCHLAB);*/
         
         Keycard card = new Keycard(STUDENT, "Dave", "0000001");
         Keycard card2 = new Keycard(EMERGENCYRESPONDER, "Fireman", "0000002");
@@ -80,7 +88,7 @@ public class UniversityKeycards {
     }
 
     public static boolean SaveState(ArrayList<Campus> campuses){
-        File objFile = new File("STATE");
+        File objFile = new File("Current.state");
         
         try (ObjectOutputStream objOut = new ObjectOutputStream(
                                             new BufferedOutputStream(
@@ -92,5 +100,31 @@ public class UniversityKeycards {
             return false;
         }
         return true;
+    }
+    
+    public static ArrayList<Campus> LoadState(){
+        File objFile = new File("Current.state");
+        if(!objFile.exists() || !objFile.canRead())
+            Log.Log("ERROR: Problem accessing file");
+            
+        //Try to read the file and create new data model
+        try(ObjectInputStream objIn = new ObjectInputStream(
+                new BufferedInputStream(
+                new FileInputStream(objFile))))
+        {
+            Object data = objIn.readObject();
+            //We know that this should be a Warehouse object try to cast it to a Warehouse
+            ArrayList<Campus> newCampuses = (ArrayList<Campus>)data;
+            //If we have a Warehouse object...
+            if(newCampuses == null){
+                Log.Log("Error: Problem reading file");
+            }
+            return newCampuses;
+        }
+        catch(ClassNotFoundException | IOException | ClassCastException ex)
+        {
+            Log.Log("ERROR: " + ex.getMessage());
+            return null;
+        }
     }
 }

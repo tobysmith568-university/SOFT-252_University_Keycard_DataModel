@@ -19,7 +19,7 @@ import java.io.Serializable;
  * @author tsmith10
  */
 public abstract class Location implements IStateSubject, Serializable{
-    protected transient ArrayList<IStateObserver> stateObservers = new ArrayList<>();    
+    protected ArrayList<IStateObserver> stateObservers = new ArrayList<>();    
     protected String fullName;    
     protected LocationState state;
     protected ILocationState iState;

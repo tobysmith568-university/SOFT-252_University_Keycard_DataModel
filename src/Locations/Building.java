@@ -32,8 +32,9 @@ public class Building extends Location{
     public Floor GetChild(String name){
         if (!floors.containsKey(name))
             return null;
-        else
+        else{
             return floors.get(name);
+        }
     }
 
     public Campus GetCampus() {

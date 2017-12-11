@@ -16,12 +16,12 @@ import Locations.States.ILocationState;
  * @author tsmith10
  */
 public class Room extends Location implements ILocationState, IAccessSubject {
-    protected transient ArrayList<IAccessObserver> accessObservers = new ArrayList<>();
+    protected ArrayList<IAccessObserver> accessObservers = new ArrayList<>();
     protected Floor floor;
     protected String number;
     
     protected RoomType type;
-    protected IRoomType iType;    
+    protected IRoomType iType;
     
     public Room(String number){
         if (number.length() == 1)
@@ -70,6 +70,7 @@ public class Room extends Location implements ILocationState, IAccessSubject {
 
     @Override
     public void UpdateAccessObservers(Keycard keycard, Room room, boolean wasSuccessful) {
+        System.out.println(accessObservers.size());
         accessObservers.forEach((observer) -> {
             observer.ObservedAccessUpdate(keycard, room, wasSuccessful);
         });

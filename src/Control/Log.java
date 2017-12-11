@@ -19,12 +19,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import Listeners.IStateObserver;
+import java.io.Serializable;
 
 /**
  *
  * @author Toby
  */
-public class Log implements IStateObserver, IAccessObserver{
+public class Log implements IStateObserver, IAccessObserver, Serializable{
     
     private static Log singleton;
     private DateTimeFormatter messageFormat = DateTimeFormatter.ofPattern("'['dd/MM/yy'] ['HH:mm:ss']'");

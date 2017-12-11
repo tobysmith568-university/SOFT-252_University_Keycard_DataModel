@@ -25,7 +25,7 @@ public enum LocationState {
     public String GetName(){
         switch (this){
             case NOEMERGENCY:
-                return "No emergency";
+                return "No Emergency";
             case EMERGENCY:
                 return "Emergency";
             default:

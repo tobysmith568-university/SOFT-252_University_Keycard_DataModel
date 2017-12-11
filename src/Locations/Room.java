@@ -16,7 +16,7 @@ import Locations.States.ILocationState;
  * @author tsmith10
  */
 public class Room extends Location implements ILocationState, IAccessSubject {
-    protected ArrayList<IAccessObserver> accessObservers = new ArrayList<>();
+    protected transient ArrayList<IAccessObserver> accessObservers = new ArrayList<>();
     protected Floor floor;
     protected String number;
     
@@ -73,5 +73,10 @@ public class Room extends Location implements ILocationState, IAccessSubject {
         accessObservers.forEach((observer) -> {
             observer.ObservedAccessUpdate(keycard, room, wasSuccessful);
         });
+    }
+
+    @Override
+    public Location GetChild(String name) {
+        return null;
     }
 }

@@ -6,11 +6,12 @@
 package Locations;
 
 import People.Keycard;
+import java.io.Serializable;
 
 /**
  *
  * @author tsmith10
  */
-public interface IRoomType {
+public interface IRoomType extends Serializable{
     public boolean AccessRequest(Keycard keycard);
 }

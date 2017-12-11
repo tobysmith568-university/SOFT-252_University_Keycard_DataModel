@@ -6,11 +6,12 @@
 package Locations.States;
 
 import People.Keycard;
+import java.io.Serializable;
 
 /**
  *
  * @author tsmith10
  */
-public interface ILocationState {
+public interface ILocationState extends Serializable{
     public boolean AccessRequest(Keycard keycard);
 }

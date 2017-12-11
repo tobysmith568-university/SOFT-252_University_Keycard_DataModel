@@ -40,28 +40,35 @@ public class Log implements IStateObserver, IAccessObserver{
         return singleton;
     }
     
-    private String LogHeader(Location location){
-        return LocalDateTime.now().format(messageFormat) + " " + location.GetFullName();
+    private String LogPrefix(){
+        return LocalDateTime.now().format(messageFormat);
     }
     
     private void LogAccess(Keycard keycard, Room room, boolean wasSuccessful) {
-        String message = LogHeader(room) + " (" + room.GetState().GetName() +
+        String output = LogPrefix() + " " + room.GetFullName() + " (" + room.GetState().GetName() +
                 (wasSuccessful ? ") granted access to " : ") denied access to ") +
                 keycard.GetName() + " (" + keycard.GetCardID() + ")";
         
-        FileLog(message);
-        System.out.println(message);
+        LogToFile(output);
+        System.out.println(output);
     }
     
     private void LogEmergency(Location location, LocationState state) {
-        String message = LogHeader(location) + " is now in the state: " + 
+        String output = LogPrefix() + " " + location.GetFullName() + " is now in the state: " + 
                 state.GetName();
                 
-        FileLog(message);
-        System.out.println(message);        
+        LogToFile(output);
+        System.out.println(output);        
     }
     
-    private boolean FileLog(String message){
+    public static void Log(String message){
+        String output = singleton.LogPrefix() + " " + message;
+        
+        singleton.LogToFile(output);
+        System.out.println(output);
+    }
+    
+    private boolean LogToFile(String message){
         try {
             String fileName = "Log for " + LocalDateTime.now().format(fileFormat);
             Path path = Paths.get(fileName);

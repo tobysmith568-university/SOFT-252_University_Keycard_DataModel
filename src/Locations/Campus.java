@@ -27,6 +27,14 @@ public class Campus extends Location{
     }
     
     @Override
+    public Building GetChild(String name){
+        if (!buildings.containsKey(name))
+            return null;
+        else
+            return buildings.get(name);
+    }
+    
+    @Override
     protected void ActualSetRoomState(LocationState newState){
         super.ActualSetRoomState(newState);
         Iterator iterator = buildings.values().iterator();
@@ -39,6 +47,7 @@ public class Campus extends Location{
     public Building AddBuilding(String name, String shortCode){
         Building building = new Building(name, shortCode);
         building.SetFullName(this.name + " " + shortCode);
+        buildings.put(building.GetName(), building);
         return building;
     }
 }

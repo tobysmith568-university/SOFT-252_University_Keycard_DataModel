@@ -193,3 +193,92 @@
 [11/12/17] [01:19:34] Main Campus BBG 101 (No emergency) denied access to Fireman (0000002)
 [11/12/17] [01:19:34] Main Campus BBG 102 (Emergency) denied access to Dave (0000001)
 [11/12/17] [01:19:34] Main Campus BBG 102 (Emergency) granted access to Fireman (0000002)
+[11/12/17] [12:13:36] 00 is now in the state: No emergency
+[11/12/17] [12:13:36] 01 is now in the state: No emergency
+[11/12/17] [12:13:36] 02 is now in the state: No emergency
+[11/12/17] [12:13:36] 03 is now in the state: No emergency
+[11/12/17] [12:13:36] 04 is now in the state: No emergency
+[11/12/17] [12:13:36] 00 is now in the state: No emergency
+[11/12/17] [12:13:36] 01 is now in the state: No emergency
+[11/12/17] [12:13:36] 02 is now in the state: No emergency
+[11/12/17] [12:13:36] 03 is now in the state: No emergency
+[11/12/17] [12:13:36] 04 is now in the state: No emergency
+[11/12/17] [12:13:36] Main Campus BBG 101 (No emergency) granted access to Dave (0000001)
+[11/12/17] [12:13:36] Main Campus BBG 101 (No emergency) denied access to Fireman (0000002)
+[11/12/17] [12:13:36] Main Campus BBG 102 (No emergency) granted access to Dave (0000001)
+[11/12/17] [12:13:36] Main Campus BBG 102 (No emergency) denied access to Fireman (0000002)
+[11/12/17] [12:13:36] Main Campus BBG is now in the state: Emergency
+[11/12/17] [12:13:36] Main Campus BBG 101 (Emergency) denied access to Dave (0000001)
+[11/12/17] [12:13:36] Main Campus BBG 101 (Emergency) granted access to Fireman (0000002)
+[11/12/17] [12:13:36] Main Campus BBG 102 (Emergency) denied access to Dave (0000001)
+[11/12/17] [12:13:36] Main Campus BBG 102 (Emergency) granted access to Fireman (0000002)
+[11/12/17] [12:13:36] Main Campus BBG 101 is now in the state: No emergency
+[11/12/17] [12:13:36] Main Campus BBG 101 (No emergency) granted access to Dave (0000001)
+[11/12/17] [12:13:36] Main Campus BBG 101 (No emergency) denied access to Fireman (0000002)
+[11/12/17] [12:13:36] Main Campus BBG 102 (Emergency) denied access to Dave (0000001)
+[11/12/17] [12:13:36] Main Campus BBG 102 (Emergency) granted access to Fireman (0000002)
+[11/12/17] [13:06:20] 00 is now in the state: No Emergency
+[11/12/17] [13:06:20] 01 is now in the state: No Emergency
+[11/12/17] [13:06:20] 02 is now in the state: No Emergency
+[11/12/17] [13:06:20] 03 is now in the state: No Emergency
+[11/12/17] [13:06:20] 04 is now in the state: No Emergency
+[11/12/17] [13:06:20] 00 is now in the state: No Emergency
+[11/12/17] [13:06:20] 01 is now in the state: No Emergency
+[11/12/17] [13:06:20] 02 is now in the state: No Emergency
+[11/12/17] [13:06:20] 03 is now in the state: No Emergency
+[11/12/17] [13:06:20] 04 is now in the state: No Emergency
+[11/12/17] [13:06:20] Main Campus BBG 101 (No Emergency) granted access to Dave (0000001)
+[11/12/17] [13:06:20] Main Campus BBG 101 (No Emergency) denied access to Fireman (0000002)
+[11/12/17] [13:06:20] Main Campus BBG 102 (No Emergency) granted access to Dave (0000001)
+[11/12/17] [13:06:20] Main Campus BBG 102 (No Emergency) denied access to Fireman (0000002)
+[11/12/17] [13:06:20] Main Campus BBG is now in the state: Emergency
+[11/12/17] [13:06:20] Main Campus BBG 101 (Emergency) denied access to Dave (0000001)
+[11/12/17] [13:06:20] Main Campus BBG 101 (Emergency) granted access to Fireman (0000002)
+[11/12/17] [13:06:20] Main Campus BBG 102 (Emergency) denied access to Dave (0000001)
+[11/12/17] [13:06:20] Main Campus BBG 102 (Emergency) granted access to Fireman (0000002)
+[11/12/17] [13:06:20] Main Campus BBG 101 is now in the state: No Emergency
+[11/12/17] [13:06:20] Main Campus BBG 101 (No Emergency) granted access to Dave (0000001)
+[11/12/17] [13:06:20] Main Campus BBG 101 (No Emergency) denied access to Fireman (0000002)
+[11/12/17] [13:06:20] Main Campus BBG 102 (Emergency) denied access to Dave (0000001)
+[11/12/17] [13:06:20] Main Campus BBG 102 (Emergency) granted access to Fireman (0000002)
+[11/12/17] [13:06:20] All Locations written to file.
+[11/12/17] [13:07:36] 00 is now in the state: No Emergency
+[11/12/17] [13:07:36] 01 is now in the state: No Emergency
+[11/12/17] [13:07:36] 02 is now in the state: No Emergency
+[11/12/17] [13:07:36] 03 is now in the state: No Emergency
+[11/12/17] [13:07:36] 04 is now in the state: No Emergency
+[11/12/17] [13:07:36] 00 is now in the state: No Emergency
+[11/12/17] [13:07:36] 01 is now in the state: No Emergency
+[11/12/17] [13:07:36] 02 is now in the state: No Emergency
+[11/12/17] [13:07:36] 03 is now in the state: No Emergency
+[11/12/17] [13:07:36] 04 is now in the state: No Emergency
+[11/12/17] [13:07:36] Main Campus BBG 101 (No Emergency) granted access to Dave (0000001)
+[11/12/17] [13:07:36] Main Campus BBG 101 (No Emergency) denied access to Fireman (0000002)
+[11/12/17] [13:07:36] Main Campus BBG 102 (No Emergency) granted access to Dave (0000001)
+[11/12/17] [13:07:36] Main Campus BBG 102 (No Emergency) denied access to Fireman (0000002)
+[11/12/17] [13:07:36] Main Campus BBG is now in the state: Emergency
+[11/12/17] [13:07:36] Main Campus BBG 101 (Emergency) denied access to Dave (0000001)
+[11/12/17] [13:07:36] Main Campus BBG 101 (Emergency) granted access to Fireman (0000002)
+[11/12/17] [13:07:36] Main Campus BBG 102 (Emergency) denied access to Dave (0000001)
+[11/12/17] [13:07:36] Main Campus BBG 102 (Emergency) granted access to Fireman (0000002)
+[11/12/17] [13:07:36] Main Campus BBG 101 is now in the state: No Emergency
+[11/12/17] [13:07:36] Main Campus BBG 101 (No Emergency) granted access to Dave (0000001)
+[11/12/17] [13:07:36] Main Campus BBG 101 (No Emergency) denied access to Fireman (0000002)
+[11/12/17] [13:07:36] Main Campus BBG 102 (Emergency) denied access to Dave (0000001)
+[11/12/17] [13:07:36] Main Campus BBG 102 (Emergency) granted access to Fireman (0000002)
+[11/12/17] [13:07:36] All Locations written to file.
+[11/12/17] [13:26:19] 00 is now in the state: No Emergency
+[11/12/17] [13:26:19] 01 is now in the state: No Emergency
+[11/12/17] [13:26:19] 02 is now in the state: No Emergency
+[11/12/17] [13:26:19] 03 is now in the state: No Emergency
+[11/12/17] [13:26:19] 04 is now in the state: No Emergency
+[11/12/17] [13:27:15] 00 is now in the state: No Emergency
+[11/12/17] [13:27:15] 01 is now in the state: No Emergency
+[11/12/17] [13:27:15] 02 is now in the state: No Emergency
+[11/12/17] [13:27:15] 03 is now in the state: No Emergency
+[11/12/17] [13:27:15] 04 is now in the state: No Emergency
+[11/12/17] [13:27:31] 00 is now in the state: No Emergency
+[11/12/17] [13:27:31] 01 is now in the state: No Emergency
+[11/12/17] [13:27:31] 02 is now in the state: No Emergency
+[11/12/17] [13:27:31] 03 is now in the state: No Emergency
+[11/12/17] [13:27:31] 04 is now in the state: No Emergency

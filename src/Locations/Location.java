@@ -11,14 +11,15 @@ import Locations.States.ILocationState;
 import Locations.States.LocationState;
 import java.util.ArrayList;
 import Listeners.IStateObserver;
+import java.io.Serializable;
 
 
 /**
  *
  * @author tsmith10
  */
-public abstract class Location implements IStateSubject{
-    protected ArrayList<IStateObserver> stateObservers = new ArrayList<>();    
+public abstract class Location implements IStateSubject, Serializable{
+    protected transient ArrayList<IStateObserver> stateObservers = new ArrayList<>();    
     protected String fullName;    
     protected LocationState state;
     protected ILocationState iState;
@@ -46,6 +47,8 @@ public abstract class Location implements IStateSubject{
     public LocationState GetState(){
         return state;
     }
+    
+    public abstract Location GetChild(String name);
     
     public void SetFullName(String name){
         this.fullName = name;

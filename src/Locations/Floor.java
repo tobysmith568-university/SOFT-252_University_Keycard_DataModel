@@ -30,6 +30,14 @@ public class Floor extends Location {
     public String GetFloorNumber() {
         return floorNumber;
     }  
+    
+    @Override
+    public Room GetChild(String name){
+        if (!rooms.containsKey(name))
+            return null;
+        else
+            return rooms.get(name);
+    }
 
     @Override
     protected void ActualSetRoomState(LocationState newState) {

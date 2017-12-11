@@ -27,6 +27,14 @@ public class Building extends Location{
     public String GetName() {
         return name;
     }
+    
+    @Override
+    public Floor GetChild(String name){
+        if (!floors.containsKey(name))
+            return null;
+        else
+            return floors.get(name);
+    }
 
     public Campus GetCampus() {
         return campus;
@@ -43,8 +51,8 @@ public class Building extends Location{
     
     public Floor AddFloor(){
         Floor floor = new Floor(Integer.toString(floors.size()));
-        floors.put(floor.GetFloorNumber(), floor);
         floor.SetFullName(this.fullName + " " + floor.GetFloorNumber());
+        floors.put(floor.GetFloorNumber(), floor);
         return floor;
     }
 }

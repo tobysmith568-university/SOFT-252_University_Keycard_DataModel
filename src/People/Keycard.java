@@ -5,11 +5,13 @@
  */
 package People;
 
+import java.io.Serializable;
+
 /**
  *
  * @author tsmith10
  */
-public class Keycard {
+public class Keycard implements Serializable{
     private Role role;
     private String name;
     private String cardID;

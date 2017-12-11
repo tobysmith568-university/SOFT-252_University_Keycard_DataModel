@@ -13,6 +13,12 @@ import static Locations.RoomType.*;
 import static Locations.States.LocationState.*;
 import People.Keycard;
 import static People.Role.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,39 +30,67 @@ public class UniversityKeycards {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Campus campus1 = new Campus("Main Campus");
-        Building building1 = campus1.AddBuilding("Babbage", "BBG");
         
-        Floor floor0 = building1.AddFloor();
+        ArrayList<Campus> campuses = new ArrayList<>();
+        
+        campuses.add(new Campus("Main Campus"));
+        
+        Campus campus1 = campuses.get(0);
+        campus1.AddBuilding("Babbage", "BGB");
+        
+        Building building1 = campus1.GetChild("Babbage");
+        building1.AddFloor();
+                
+        Floor floor0 = building1.GetChild("0");
         floor0.AddRoom(STUDENTLAB);
         floor0.AddRoom(STUDENTLAB);
         floor0.AddRoom(STAFFROOM);
         floor0.AddRoom(SECUREROOM);
         floor0.AddRoom(STUDENTLAB);
         
-        Floor floor1 = building1.AddFloor();
+        Floor floor1 = building1.GetChild("1");
         floor1.AddRoom(STUDENTLAB);
-        Room subject1 = floor1.AddRoom(STUDENTLAB);
-        Room subject2 = floor1.AddRoom(STUDENTLAB);
+        floor1.AddRoom(STUDENTLAB);
+        floor1.AddRoom(STUDENTLAB);
         floor1.AddRoom(SECUREROOM);
         floor1.AddRoom(RESEARCHLAB);
         
         Keycard card = new Keycard(STUDENT, "Dave", "0000001");
         Keycard card2 = new Keycard(EMERGENCYRESPONDER, "Fireman", "0000002");
         
-        subject1.AccessRequest(card);
-        subject1.AccessRequest(card2);     
-        subject2.AccessRequest(card);
-        subject2.AccessRequest(card2);
+        Room room1 = floor1.GetChild("01");
+        Room room2 = floor1.GetChild("02");
+        
+        room1.AccessRequest(card);
+        room1.AccessRequest(card2);     
+        room2.AccessRequest(card);
+        room2.AccessRequest(card2);
         building1.SetRoomState(EMERGENCY);        
-        subject1.AccessRequest(card);
-        subject1.AccessRequest(card2);        
-        subject2.AccessRequest(card);
-        subject2.AccessRequest(card2);
-        subject1.SetRoomState(NOEMERGENCY);        
-        subject1.AccessRequest(card);
-        subject1.AccessRequest(card2);     
-        subject2.AccessRequest(card);
-        subject2.AccessRequest(card2);
-    }    
+        room1.AccessRequest(card);
+        room1.AccessRequest(card2);        
+        room2.AccessRequest(card);
+        room2.AccessRequest(card2);
+        room1.SetRoomState(NOEMERGENCY);        
+        room1.AccessRequest(card);
+        room1.AccessRequest(card2);     
+        room2.AccessRequest(card);
+        room2.AccessRequest(card2);
+        
+        SaveState(campuses);
+    }
+
+    public static boolean SaveState(ArrayList<Campus> campuses){
+        File objFile = new File("STATE");
+        
+        try (ObjectOutputStream objOut = new ObjectOutputStream(
+                                            new BufferedOutputStream(
+                                            new FileOutputStream(objFile)))){
+            objOut.writeObject(campuses);
+            Log.Log("All Locations written to file.");
+        } catch (IOException ex) {
+            Log.Log("ERROR: " + ex.getMessage());
+            return false;
+        }
+        return true;
+    }
 }

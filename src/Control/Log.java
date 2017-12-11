@@ -27,8 +27,8 @@ import Listeners.IStateObserver;
 public class Log implements IStateObserver, IAccessObserver{
     
     private static Log singleton;
-    private DateTimeFormatter messageFormat = DateTimeFormatter.ofPattern("[dd/mm/yy] [HH:MM:ss]");
-    private DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd-mm-yy");
+    private DateTimeFormatter messageFormat = DateTimeFormatter.ofPattern("'['dd/MM/yy'] ['HH:mm:ss']'");
+    private DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd-MM-yy");
     
     private Log(){
     }
@@ -41,7 +41,7 @@ public class Log implements IStateObserver, IAccessObserver{
     }
     
     private String LogHeader(Location location){
-        return LocalDateTime.now().format(messageFormat) + " " + location.GetFullName() + " ";
+        return LocalDateTime.now().format(messageFormat) + " " + location.GetFullName();
     }
     
     private void LogAccess(Keycard keycard, Room room, boolean wasSuccessful) {

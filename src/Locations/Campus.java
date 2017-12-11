@@ -18,25 +18,26 @@ public class Campus extends Location{
     private HashMap<String, Building> buildings = new HashMap<>();
     
     public Campus(String name){
-        this.name = name;
-        this.fullName = name;
+        super();
+        this.name = this.fullName = name;
     }
 
     public String GetName() {
         return name;
     }
-
+    
     @Override
-    public void SetRoomState(LocationState newState) {
-        Iterator iterator = buildings.entrySet().iterator();
+    protected void ActualSetRoomState(LocationState newState){
+        super.ActualSetRoomState(newState);
+        Iterator iterator = buildings.values().iterator();
         while (iterator.hasNext()){
-            ((Building)iterator.next()).SetRoomState(newState);
+            ((Building)iterator.next()).ActualSetRoomState(newState);
         }
+        
     }
     
     public Building AddBuilding(String name, String shortCode){
         Building building = new Building(name, shortCode);
-        buildings.put(name, building);
         building.SetFullName(this.name + " " + shortCode);
         return building;
     }

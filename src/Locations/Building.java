@@ -20,8 +20,7 @@ public class Building extends Location{
     private HashMap<String, Floor> floors = new HashMap<>();
     
     public Building(String name, String shortCode){
-        this.name = name;
-        this.fullName = name;
+        this.name = this.fullName = name;
         this.shortCode = shortCode;
     }
 
@@ -34,17 +33,18 @@ public class Building extends Location{
     }
 
     @Override
-    public void SetRoomState(LocationState newState) {
-        Iterator iterator = floors.entrySet().iterator();
+    protected void ActualSetRoomState(LocationState newState) {
+        super.ActualSetRoomState(newState);
+        Iterator iterator = floors.values().iterator();
         while (iterator.hasNext()){
-            ((Floor)iterator.next()).SetRoomState(newState);
+            ((Floor)iterator.next()).ActualSetRoomState(newState);
         }
     }
     
     public Floor AddFloor(){
         Floor floor = new Floor(Integer.toString(floors.size()));
         floors.put(floor.GetFloorNumber(), floor);
-        floor.SetFullName(this.name + floor.GetFloorNumber());
+        floor.SetFullName(this.fullName + " " + floor.GetFloorNumber());
         return floor;
     }
 }

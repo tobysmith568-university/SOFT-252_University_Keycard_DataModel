@@ -7,7 +7,6 @@ package Locations;
 
 import Listeners.IAccessObserver;
 import Listeners.IAccessSubject;
-import Listeners.IStateObserver;
 import People.Keycard;
 import java.util.ArrayList;
 import Locations.States.ILocationState;
@@ -26,9 +25,9 @@ public class Room extends Location implements ILocationState, IAccessSubject {
     
     public Room(String number){
         if (number.length() == 1)
-            this.number = "0" + number;
+            this.number = this.fullName = "0" + number;
         else
-            this.number = number;
+            this.number = this.fullName = number;
     }
 
     public String GetNumber() {
@@ -56,18 +55,23 @@ public class Room extends Location implements ILocationState, IAccessSubject {
 
     @Override
     public boolean AddAccessObserver(IAccessObserver observer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (accessObservers.contains(observer))
+            return false;
+        else{
+            accessObservers.add(observer);
+            return accessObservers.contains(observer);
+        }
     }
 
     @Override
     public boolean RemoveAccessObserver(IAccessObserver observer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return accessObservers.remove(observer);
     }
 
     @Override
     public void UpdateAccessObservers(Keycard keycard, Room room, boolean wasSuccessful) {
-        for (IAccessObserver iAccessObserver : IAccessObservers) {
-            iAccessObserver.
-        }
+        accessObservers.forEach((observer) -> {
+            observer.ObservedAccessUpdate(keycard, room, wasSuccessful);
+        });
     }
 }

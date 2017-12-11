@@ -20,7 +20,7 @@ public class Floor extends Location {
     private HashMap<String, Room> rooms = new HashMap<>();
     
     public Floor(String floorNumber){
-        this.floorNumber = floorNumber;
+        this.floorNumber = this.fullName = floorNumber;        
     }
 
     public Building GetBuilding() {
@@ -32,10 +32,11 @@ public class Floor extends Location {
     }  
 
     @Override
-    public void SetRoomState(LocationState newState) {
-        Iterator iterator = rooms.entrySet().iterator();
+    protected void ActualSetRoomState(LocationState newState) {
+        super.ActualSetRoomState(newState);
+        Iterator iterator = rooms.values().iterator();
         while (iterator.hasNext()){
-            ((Room)iterator.next()).SetRoomState(newState);
+            ((Room)iterator.next()).ActualSetRoomState(newState);
         }
     }
     

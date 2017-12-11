@@ -5,11 +5,11 @@
  */
 package Control;
 
+import Listeners.IAccessObserver;
 import Locations.Floor;
 import Locations.Room;
 import Locations.RoomType;
 import static Locations.States.LocationState.NOEMERGENCY;
-import Listeners.IStateObserver;
 
 /**
  *
@@ -17,15 +17,15 @@ import Listeners.IStateObserver;
  */
 public class RoomFactory {
     
-    static IStateObserver log = Log.Logger();
+    private static IAccessObserver log = Log.Logger();
     
     public static Room Create(String number, RoomType type, Floor floor){
         Room room = new Room(number);
         
         room.SetFloor(floor);        
         room.SetRoomType(type);
+        room.AddAccessObserver(log);
         room.SetRoomState(NOEMERGENCY);
-        room.RegisterAccessObserver(log);
         
         return room;
     }

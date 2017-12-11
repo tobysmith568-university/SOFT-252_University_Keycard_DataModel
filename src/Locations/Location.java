@@ -5,6 +5,7 @@
  */
 package Locations;
 
+import Control.Log;
 import Listeners.IStateSubject;
 import Locations.States.ILocationState;
 import Locations.States.LocationState;
@@ -22,11 +23,21 @@ public abstract class Location implements IStateSubject{
     protected LocationState state;
     protected ILocationState iState;
     
+    private static IStateObserver log = Log.Logger();
+    
+    protected Location(){
+        AddStateObserver(log);
+    }
+    
     public void SetRoomState(LocationState newState){
+        ActualSetRoomState(newState);
+        UpdateStateObservers(this, state);
+    }
+    
+    protected void ActualSetRoomState(LocationState newState){
         state = newState;
         iState = state.GetLocationState();
-        UpdateStateObservers(this, state);
-    }  
+    }
     
     public String GetFullName(){
         return fullName;
@@ -41,23 +52,24 @@ public abstract class Location implements IStateSubject{
     }
 
     @Override
-    public boolean AddStateObserver(IStateObserver observer) {
-        if (observer != null && !stateObservers.contains(observer)) {
+    public final boolean AddStateObserver(IStateObserver observer) {
+        if (stateObservers.contains(observer))
+            return false;
+        else {
             stateObservers.add(observer);
-            return true;
+            return stateObservers.contains(observer);
         }
-        return false;
     }    
 
     @Override
-    public boolean RemoveStateObserver(IStateObserver observer) {
+    public final boolean RemoveStateObserver(IStateObserver observer) {
         return stateObservers.remove(observer);
     }
 
     @Override
-    public void UpdateStateObservers(Location location, LocationState locationState) {
-        stateObservers.forEach((stateObserver) -> {
-            stateObserver.ObservedStateUpdate(location, locationState);
+    public final void UpdateStateObservers(Location location, LocationState locationState) {
+        stateObservers.forEach((observer) -> {
+            observer.ObservedStateUpdate(location, locationState);
         });
     }
 }

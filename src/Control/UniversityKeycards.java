@@ -10,6 +10,7 @@ import Locations.Campus;
 import Locations.Floor;
 import Locations.Room;
 import static Locations.RoomType.*;
+import static Locations.States.LocationState.*;
 import People.Keycard;
 import static People.Role.*;
 
@@ -35,13 +36,27 @@ public class UniversityKeycards {
         
         Floor floor1 = building1.AddFloor();
         floor1.AddRoom(STUDENTLAB);
-        Room subject = floor1.AddRoom(STUDENTLAB);
-        floor1.AddRoom(STUDENTLAB);
+        Room subject1 = floor1.AddRoom(STUDENTLAB);
+        Room subject2 = floor1.AddRoom(STUDENTLAB);
         floor1.AddRoom(SECUREROOM);
         floor1.AddRoom(RESEARCHLAB);
         
         Keycard card = new Keycard(STUDENT, "Dave", "0000001");
+        Keycard card2 = new Keycard(EMERGENCYRESPONDER, "Fireman", "0000002");
         
-        subject.AccessRequest(card);
+        subject1.AccessRequest(card);
+        subject1.AccessRequest(card2);     
+        subject2.AccessRequest(card);
+        subject2.AccessRequest(card2);
+        building1.SetRoomState(EMERGENCY);        
+        subject1.AccessRequest(card);
+        subject1.AccessRequest(card2);        
+        subject2.AccessRequest(card);
+        subject2.AccessRequest(card2);
+        subject1.SetRoomState(NOEMERGENCY);        
+        subject1.AccessRequest(card);
+        subject1.AccessRequest(card2);     
+        subject2.AccessRequest(card);
+        subject2.AccessRequest(card2);
     }    
 }

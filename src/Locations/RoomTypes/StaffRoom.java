@@ -15,6 +15,11 @@ import People.Role;
  */
 public class StaffRoom implements IRoomType {
 
+    /**
+     *
+     * @param keycard
+     * @return
+     */
     @Override
     public boolean AccessRequest(Keycard keycard) {
         Role role = keycard.GetRole();

@@ -13,5 +13,11 @@ import java.io.Serializable;
  * @author tsmith10
  */
 public interface IRoomType extends Serializable{
+
+    /**
+     *
+     * @param keycard
+     * @return
+     */
     public boolean AccessRequest(Keycard keycard);
 }

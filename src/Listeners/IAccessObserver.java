@@ -13,5 +13,12 @@ import People.Keycard;
  * @author Toby
  */
 public interface IAccessObserver{
+
+    /**
+     *
+     * @param keycard
+     * @param room
+     * @param wasSuccessful
+     */
     public void ObservedAccessUpdate(Keycard keycard, Room room, boolean wasSuccessful);
 }

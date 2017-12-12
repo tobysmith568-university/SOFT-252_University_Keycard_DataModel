@@ -14,6 +14,11 @@ import People.Role;
  */
 public class EmergencyState implements ILocationState {
 
+    /**
+     *
+     * @param keycard
+     * @return
+     */
     @Override
     public boolean AccessRequest(Keycard keycard) {
         Role role = keycard.GetRole();

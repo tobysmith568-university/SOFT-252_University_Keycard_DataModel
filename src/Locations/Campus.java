@@ -17,15 +17,28 @@ public class Campus extends Location{
     private String name;
     private HashMap<String, Building> buildings = new HashMap<>();
     
+    /**
+     *
+     * @param name
+     */
     public Campus(String name){
         super();
         this.name = this.fullName = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String GetName() {
         return name;
     }
     
+    /**
+     *
+     * @param name
+     * @return
+     */
     @Override
     public Building GetChild(String name){
         if (!buildings.containsKey(name))
@@ -34,6 +47,19 @@ public class Campus extends Location{
             return buildings.get(name);
     }
     
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Building[] GetAllChildren(){
+        return buildings.values().toArray(new Building[0]);
+    }
+    
+    /**
+     *
+     * @param newState
+     */
     @Override
     protected void ActualSetRoomState(LocationState newState){
         super.ActualSetRoomState(newState);
@@ -44,6 +70,12 @@ public class Campus extends Location{
         
     }
     
+    /**
+     *
+     * @param name
+     * @param shortCode
+     * @return
+     */
     public Building AddBuilding(String name, String shortCode){
         Building building = new Building(name, shortCode);
         building.SetFullName(this.name + " " + shortCode);

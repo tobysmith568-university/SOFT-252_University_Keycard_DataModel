@@ -13,7 +13,26 @@ import People.Keycard;
  * @author Toby
  */
 public interface IAccessSubject{
+
+    /**
+     *
+     * @param observer
+     * @return
+     */
     public boolean AddAccessObserver(IAccessObserver observer);
+
+    /**
+     *
+     * @param observer
+     * @return
+     */
     public boolean RemoveAccessObserver(IAccessObserver observer);
+
+    /**
+     *
+     * @param keycard
+     * @param room
+     * @param wasSuccessful
+     */
     public void UpdateAccessObservers(Keycard keycard, Room room, boolean wasSuccessful);
 }

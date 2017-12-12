@@ -19,6 +19,13 @@ public class RoomFactory {
     
     private static IAccessObserver log = Log.Logger();
     
+    /**
+     *
+     * @param number
+     * @param type
+     * @param floor
+     * @return
+     */
     public static Room Create(String number, RoomType type, Floor floor){
         Room room = new Room(number);
         

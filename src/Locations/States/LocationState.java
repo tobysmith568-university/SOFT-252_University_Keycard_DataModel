@@ -10,9 +10,21 @@ package Locations.States;
  * @author tsmith10
  */
 public enum LocationState {
+
+    /**
+     *
+     */
     NOEMERGENCY,
+
+    /**
+     *
+     */
     EMERGENCY;
     
+    /**
+     *
+     * @return
+     */
     public ILocationState GetLocationState(){
         switch (this){
             case EMERGENCY:
@@ -22,6 +34,10 @@ public enum LocationState {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public String GetName(){
         switch (this){
             case NOEMERGENCY:

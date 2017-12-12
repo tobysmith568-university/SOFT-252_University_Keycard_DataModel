@@ -13,7 +13,25 @@ import Locations.States.LocationState;
  * @author Toby
  */
 public interface IStateSubject {
+
+    /**
+     *
+     * @param observer
+     * @return
+     */
     public boolean AddStateObserver(IStateObserver observer);
+
+    /**
+     *
+     * @param observer
+     * @return
+     */
     public boolean RemoveStateObserver(IStateObserver observer);
+
+    /**
+     *
+     * @param location
+     * @param locationState
+     */
     public void UpdateStateObservers(Location location, LocationState locationState);
 }

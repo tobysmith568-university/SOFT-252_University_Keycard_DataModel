@@ -16,20 +16,38 @@ public class Keycard implements Serializable{
     private String name;
     private String cardID;
 
+    /**
+     *
+     * @param role
+     * @param name
+     * @param cardID
+     */
     public Keycard(Role role, String name, String cardID) {
         this.role = role;
         this.name = name;
         this.cardID = cardID;
     }
 
+    /**
+     *
+     * @return
+     */
     public Role GetRole() {
         return role;
     }
 
+    /**
+     *
+     * @return
+     */
     public String GetName() {
         return name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String GetCardID() {
         return cardID;
     }

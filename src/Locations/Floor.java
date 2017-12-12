@@ -19,18 +19,35 @@ public class Floor extends Location {
     private String floorNumber;
     private HashMap<String, Room> rooms = new HashMap<>();
     
+    /**
+     *
+     * @param floorNumber
+     */
     public Floor(String floorNumber){
         this.floorNumber = this.fullName = floorNumber;        
     }
 
+    /**
+     *
+     * @return
+     */
     public Building GetBuilding() {
         return this.building;
     }
 
+    /**
+     *
+     * @return
+     */
     public String GetFloorNumber() {
         return floorNumber;
     }  
     
+    /**
+     *
+     * @param name
+     * @return
+     */
     @Override
     public Room GetChild(String name){
         if (!rooms.containsKey(name))
@@ -38,7 +55,20 @@ public class Floor extends Location {
         else
             return rooms.get(name);
     }
+    
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Room[] GetAllChildren(){
+        return rooms.values().toArray(new Room[0]);
+    }
 
+    /**
+     *
+     * @param newState
+     */
     @Override
     protected void ActualSetRoomState(LocationState newState) {
         super.ActualSetRoomState(newState);
@@ -48,6 +78,11 @@ public class Floor extends Location {
         }
     }
     
+    /**
+     *
+     * @param type
+     * @return
+     */
     public Room AddRoom(RoomType type) {
         Room room = RoomFactory.Create(Integer.toString(rooms.size()), type, this);
         rooms.put(room.GetNumber(), room);

@@ -14,6 +14,11 @@ import People.Keycard;
  */
 public class LectureHall implements IRoomType {
 
+    /**
+     *
+     * @param keycard
+     * @return
+     */
     @Override
     public boolean AccessRequest(Keycard keycard) {
         return true;

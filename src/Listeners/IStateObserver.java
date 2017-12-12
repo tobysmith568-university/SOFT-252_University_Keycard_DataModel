@@ -13,5 +13,11 @@ import Locations.States.LocationState;
  * @author Toby
  */
 public interface IStateObserver{
-        public void ObservedStateUpdate(Location location, LocationState locationState);
+
+    /**
+     *
+     * @param location
+     * @param locationState
+     */
+    public void ObservedStateUpdate(Location location, LocationState locationState);
     }

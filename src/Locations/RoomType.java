@@ -12,12 +12,36 @@ import Locations.RoomTypes.*;
  * @author tsmith10
  */
 public enum RoomType {
+
+    /**
+     *
+     */
     LECTUREHALL,
+
+    /**
+     *
+     */
     STUDENTLAB,
+
+    /**
+     *
+     */
     RESEARCHLAB,
+
+    /**
+     *
+     */
     STAFFROOM,
+
+    /**
+     *
+     */
     SECUREROOM;    
     
+    /**
+     *
+     * @return
+     */
     public IRoomType GetRoomType(){
         switch (this){
             case LECTUREHALL:

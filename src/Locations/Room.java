@@ -16,13 +16,36 @@ import Locations.States.ILocationState;
  * @author tsmith10
  */
 public class Room extends Location implements ILocationState, IAccessSubject {
-    protected ArrayList<IAccessObserver> accessObservers = new ArrayList<>();
+
+    /**
+     *
+     */
+    protected transient ArrayList<IAccessObserver> accessObservers;
+
+    /**
+     *
+     */
     protected Floor floor;
+
+    /**
+     *
+     */
     protected String number;
     
+    /**
+     *
+     */
     protected RoomType type;
+
+    /**
+     *
+     */
     protected IRoomType iType;
     
+    /**
+     *
+     * @param number
+     */
     public Room(String number){
         if (number.length() == 1)
             this.number = this.fullName = "0" + number;
@@ -30,19 +53,36 @@ public class Room extends Location implements ILocationState, IAccessSubject {
             this.number = this.fullName = number;
     }
 
+    /**
+     *
+     * @return
+     */
     public String GetNumber() {
         return number;
     }
     
+    /**
+     *
+     * @param floor
+     */
     public void SetFloor(Floor floor){
         this.floor = floor;
     }
     
+    /**
+     *
+     * @param type
+     */
     public void SetRoomType(RoomType type) {
         this.type = type;
         this.iType = this.type.GetRoomType();
     }
 
+    /**
+     *
+     * @param keycard
+     * @return
+     */
     @Override
     public boolean AccessRequest(Keycard keycard) {
         boolean roomAccess = iType.AccessRequest(keycard);
@@ -53,8 +93,14 @@ public class Room extends Location implements ILocationState, IAccessSubject {
         return roomAccess && stateAccess && timeAccess;
     }
 
+    /**
+     *
+     * @param observer
+     * @return
+     */
     @Override
     public boolean AddAccessObserver(IAccessObserver observer) {
+        if (accessObservers == null) accessObservers = new ArrayList<>();
         if (accessObservers.contains(observer))
             return false;
         else{
@@ -63,21 +109,45 @@ public class Room extends Location implements ILocationState, IAccessSubject {
         }
     }
 
+    /**
+     *
+     * @param observer
+     * @return
+     */
     @Override
     public boolean RemoveAccessObserver(IAccessObserver observer) {
         return accessObservers.remove(observer);
     }
 
+    /**
+     *
+     * @param keycard
+     * @param room
+     * @param wasSuccessful
+     */
     @Override
     public void UpdateAccessObservers(Keycard keycard, Room room, boolean wasSuccessful) {
-        System.out.println(accessObservers.size());
         accessObservers.forEach((observer) -> {
             observer.ObservedAccessUpdate(keycard, room, wasSuccessful);
         });
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     @Override
     public Location GetChild(String name) {
         return null;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Building[] GetAllChildren(){
+        return new Building[0];
     }
 }

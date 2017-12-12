@@ -8,6 +8,7 @@ package Control;
 import Locations.Building;
 import Locations.Campus;
 import Locations.Floor;
+import Locations.Location;
 import Locations.Room;
 import static Locations.RoomType.*;
 import static Locations.States.LocationState.*;
@@ -29,39 +30,53 @@ import java.util.ArrayList;
  */
 public class UniversityKeycards {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+    private static ArrayList<Campus> AddChildren(){
+        ArrayList<Campus> campuses = new ArrayList<>();
         
-        ArrayList<Campus> campuses = LoadState();
-        
-        
-        
-        //ArrayList<Campus> campuses = new ArrayList<>();
-        
-        //campuses.add(new Campus("Main Campus"));
+        campuses.add(new Campus("Main Campus"));
         
         Campus campus1 = campuses.get(0);
-        //campus1.AddBuilding("Babbage", "BGB");
+        campus1.AddBuilding("Babbage", "BGB");
         
         Building building1 = campus1.GetChild("Babbage");
-        /*building1.AddFloor();
-        building1.AddFloor();*/
+        building1.AddFloor();
+        building1.AddFloor();
                 
         Floor floor0 = building1.GetChild("0");
-        /*floor0.AddRoom(STUDENTLAB);
+        floor0.AddRoom(STUDENTLAB);
         floor0.AddRoom(STUDENTLAB);
         floor0.AddRoom(STAFFROOM);
         floor0.AddRoom(SECUREROOM);
-        floor0.AddRoom(STUDENTLAB);*/
+        floor0.AddRoom(STUDENTLAB);
         
         Floor floor1 = building1.GetChild("1");
-        /*floor1.AddRoom(STUDENTLAB);
+        floor1.AddRoom(STUDENTLAB);
         floor1.AddRoom(STUDENTLAB);
         floor1.AddRoom(STUDENTLAB);
         floor1.AddRoom(SECUREROOM);
-        floor1.AddRoom(RESEARCHLAB);*/
+        floor1.AddRoom(RESEARCHLAB);
+        
+        return campuses;
+    }
+    private static ArrayList<Campus> LoadChildren(){
+        ArrayList<Campus> campuses = LoadState();
+        
+        
+        return campuses;
+    }
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {     
+        
+        //ArrayList<Campus> campuses = AddChildren();
+        ArrayList<Campus> campuses = LoadChildren();
+        
+        
+        Campus campus1 = campuses.get(0);        
+        Building building1 = campus1.GetChild("Babbage");                
+        Floor floor0 = building1.GetChild("0");        
+        Floor floor1 = building1.GetChild("1");
         
         Keycard card = new Keycard(STUDENT, "Dave", "0000001");
         Keycard card2 = new Keycard(EMERGENCYRESPONDER, "Fireman", "0000002");
@@ -87,6 +102,11 @@ public class UniversityKeycards {
         SaveState(campuses);
     }
 
+    /**
+     *
+     * @param campuses
+     * @return
+     */
     public static boolean SaveState(ArrayList<Campus> campuses){
         File objFile = new File("Current.state");
         
@@ -102,29 +122,52 @@ public class UniversityKeycards {
         return true;
     }
     
+    /**
+     *
+     * @return
+     */
     public static ArrayList<Campus> LoadState(){
         File objFile = new File("Current.state");
         if(!objFile.exists() || !objFile.canRead())
             Log.Log("ERROR: Problem accessing file");
             
-        //Try to read the file and create new data model
         try(ObjectInputStream objIn = new ObjectInputStream(
                 new BufferedInputStream(
                 new FileInputStream(objFile))))
         {
             Object data = objIn.readObject();
-            //We know that this should be a Warehouse object try to cast it to a Warehouse
             ArrayList<Campus> newCampuses = (ArrayList<Campus>)data;
-            //If we have a Warehouse object...
+            
             if(newCampuses == null){
                 Log.Log("Error: Problem reading file");
+            } else {
+                newCampuses.forEach((campus) -> {
+                    AssignObserver(campus);
+                });
             }
+            
+            Log.Log("All Locations read from file.");
             return newCampuses;
         }
         catch(ClassNotFoundException | IOException | ClassCastException ex)
         {
             Log.Log("ERROR: " + ex.getMessage());
             return null;
+        }
+    }
+    
+    private static void AssignObserver(Location location){
+        Log logger = Log.Logger();
+        
+        if (location != null){
+            location.AddStateObserver(logger);
+            
+            if (location instanceof Room)
+                ((Room) location).AddAccessObserver(logger);
+            
+            for (Location child : location.GetAllChildren()) {
+                    AssignObserver(child);
+            }            
         }
     }
 }

@@ -22,8 +22,9 @@ import Listeners.IStateObserver;
 import java.io.Serializable;
 
 /**
- *
- * @author Toby
+ * Logs messages to the console as well as to a file.
+ * A new file is used for each day and is named in the format "Log for dd-MM-yy".
+ * @author Student
  */
 public class Log implements IStateObserver, IAccessObserver, Serializable{
     
@@ -34,6 +35,10 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
     private Log(){
     }
     
+    /**
+     * Gets the Logger instance.
+     * @return The Logger instance
+     */
     public static Log Logger(){
         if (singleton == null)
             singleton = new Log();
@@ -62,6 +67,10 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
         System.out.println(output);        
     }
     
+    /**
+     * Prints a String to both the console and the current log file.
+     * @param message The string to be printed
+     */
     public static void Log(String message){
         String output = singleton.LogPrefix() + " " + message;
         
@@ -71,7 +80,7 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
     
     private boolean LogToFile(String message){
         try {
-            String fileName = "Log for " + LocalDateTime.now().format(fileFormat);
+            String fileName = "Log for " + LocalDateTime.now().format(fileFormat) + ".log";
             Path path = Paths.get(fileName);
                         
             Files.write(path, Arrays.asList(message), Files.exists(path) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
@@ -81,11 +90,24 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
         return true;
     }
 
+    /**
+     * Logs a change in a location's state. Prints the log to both the console
+     * and the current log file.
+     * @param location The location which has changed state
+     * @param locationState The new state of the location
+     */
     @Override
     public void ObservedStateUpdate(Location location, LocationState locationState) {
         LogEmergency(location, locationState);
     }
 
+    /**
+     * Logs an attempt to access a room. Prints the log to both the console
+     * and the current log file.
+     * @param keycard The keycard used to try and gain access
+     * @param room The room the keycard tried to access
+     * @param wasSuccessful If the attempt was successful or not in gaining access
+     */
     @Override
     public void ObservedAccessUpdate(Keycard keycard, Room room, boolean wasSuccessful) {
         LogAccess(keycard, room, wasSuccessful);

@@ -12,14 +12,46 @@ import java.time.LocalTime;
  * @author tsmith10
  */
 public enum Role {
+
+    /**
+     *
+     */
     VISITOR,
+
+    /**
+     *
+     */
     STAFFMEMBER,
+
+    /**
+     *
+     */
     STUDENT,
+
+    /**
+     *
+     */
     CLEANER,
+
+    /**
+     *
+     */
     MANAGER,
+
+    /**
+     *
+     */
     SECURITY,
+
+    /**
+     *
+     */
     EMERGENCYRESPONDER;
     
+    /**
+     *
+     * @return
+     */
     public boolean HasTimeAccess() {
         switch (this){
             case VISITOR:

@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public interface ILocationState extends Serializable{
 

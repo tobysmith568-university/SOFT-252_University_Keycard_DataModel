@@ -9,7 +9,7 @@ import java.time.LocalTime;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public enum Role {
 

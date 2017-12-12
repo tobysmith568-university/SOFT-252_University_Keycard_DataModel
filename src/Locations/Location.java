@@ -16,7 +16,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public abstract class Location implements IStateSubject, Serializable{
 

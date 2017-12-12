@@ -9,30 +9,33 @@ import Locations.Room;
 import People.Keycard;
 
 /**
- *
- * @author Toby
+ * The subject in an observer pattern which keeps track of the access requests
+ * of <code>Room</code> objects and reports the access requests to any observing
+ * objects.
+ * @author Student
  */
 public interface IAccessSubject{
 
     /**
-     *
-     * @param observer
-     * @return
+     * Adds a new <code>IAccessObserver</code> to the object.
+     * @param observer The observer to be added
+     * @return If the observer was successfully added
      */
     public boolean AddAccessObserver(IAccessObserver observer);
 
     /**
-     *
-     * @param observer
-     * @return
+     * Removes a given <code>IAccessObserver</code> from the object.
+     * @param observer The observer to be removed
+     * @return If the observer was successfully removed from the object
      */
     public boolean RemoveAccessObserver(IAccessObserver observer);
 
     /**
-     *
-     * @param keycard
-     * @param room
-     * @param wasSuccessful
+     * Alerts all of <code>IAccessObserver</code>s of this object that there has
+     * been an access request
+     * @param keycard The keycard making the access request
+     * @param room The room the keycard tried to access
+     * @param wasSuccessful If access was allowed to the room or not
      */
     public void UpdateAccessObservers(Keycard keycard, Room room, boolean wasSuccessful);
 }

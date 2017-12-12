@@ -13,7 +13,7 @@ import Locations.States.ILocationState;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class Room extends Location implements ILocationState, IAccessSubject {
 

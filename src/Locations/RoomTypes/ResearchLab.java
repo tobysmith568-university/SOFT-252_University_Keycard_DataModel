@@ -11,7 +11,7 @@ import People.Role;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class ResearchLab implements IRoomType {
 

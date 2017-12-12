@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class Keycard implements Serializable{
     private Role role;

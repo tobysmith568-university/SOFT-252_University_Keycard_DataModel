@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class Campus extends Location{
     private String name;
@@ -66,8 +66,7 @@ public class Campus extends Location{
         Iterator iterator = buildings.values().iterator();
         while (iterator.hasNext()){
             ((Building)iterator.next()).ActualSetRoomState(newState);
-        }
-        
+        }        
     }
     
     /**

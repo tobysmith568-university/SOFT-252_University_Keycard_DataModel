@@ -10,7 +10,7 @@ import People.Keycard;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class LectureHall implements IRoomType {
 

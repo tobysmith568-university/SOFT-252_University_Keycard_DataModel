@@ -9,7 +9,7 @@ import Locations.RoomTypes.*;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public enum RoomType {
 

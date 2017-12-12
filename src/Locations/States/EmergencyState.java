@@ -10,7 +10,7 @@ import People.Role;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class EmergencyState implements ILocationState {
 

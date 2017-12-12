@@ -12,7 +12,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class Floor extends Location {
     private Building building;

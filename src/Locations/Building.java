@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class Building extends Location{
     private Campus campus;

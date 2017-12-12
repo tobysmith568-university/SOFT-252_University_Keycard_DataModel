@@ -25,8 +25,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
- *
- * @author tsmith10
+ * Main method / entry point
+ * @author Student
  */
 public class UniversityKeycards {
 
@@ -103,9 +103,11 @@ public class UniversityKeycards {
     }
 
     /**
-     *
-     * @param campuses
-     * @return
+     * Takes an <code>ArrayList</code> of <code>Campus</code> objects and saves
+     * their states to a file called <code>Current.state</code>. The file's
+     * location is the same is a executables. 
+     * @param campuses The <code>Campus</code>s to be saved to the file
+     * @return If the states of the objects were successfully saved to the file
      */
     public static boolean SaveState(ArrayList<Campus> campuses){
         File objFile = new File("Current.state");
@@ -123,8 +125,14 @@ public class UniversityKeycards {
     }
     
     /**
-     *
-     * @return
+     * Loads a state of an ArrayList of Campus objects.
+     * 
+     * Looks for a file called <code>Current.state</code> in the same directory
+     * as the executable and tries to parse it's data to an <code>ArrayList</code>
+     * of <code>Campus</code> objects. If this is successful it assigns the
+     * <code>Logger</code> as an state observer to each <code>Location<code>
+     * and as an access observer to each <code>Room</code> contained within them.
+     * @return The <code>ArrayList</code> of <code>Campus</code> objects
      */
     public static ArrayList<Campus> LoadState(){
         File objFile = new File("Current.state");

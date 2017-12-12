@@ -12,19 +12,25 @@ import Locations.RoomType;
 import static Locations.States.LocationState.NOEMERGENCY;
 
 /**
- *
- * @author Toby
+ * Factory for creating <code>Room</code> objects and setting them up with the
+ * default properties and method calls.
+ * @author Student
  */
 public class RoomFactory {
     
     private static IAccessObserver log = Log.Logger();
     
     /**
-     *
-     * @param number
-     * @param type
-     * @param floor
-     * @return
+     * Creates a <code>Room</code> object.
+     * 
+     * Once the room is created the following methods are ran on it:<ul><li>Sets
+     * the floor</li><li>Sets the room type</li><li>Adds the access observer</li>
+     * <li>Sets the room state to <code>NOEMERGENCY</code></ul>
+     * @param number The room number to be assigned to the <code>Room</code>
+     * @param type The type of <code>Room</code> to be made
+     * @param floor The parent <code>Floor</code> object the <code>Room is
+     * assigned to
+     * @return The finished <code>Room</code> object
      */
     public static Room Create(String number, RoomType type, Floor floor){
         Room room = new Room(number);

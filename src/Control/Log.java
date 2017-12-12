@@ -64,12 +64,12 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
                 state.GetName();
                 
         LogToFile(output);
-        System.out.println(output);        
+        System.out.println(output);
     }
     
     /**
-     * Prints a String to both the console and the current log file.
-     * @param message The string to be printed
+     * Prints a <code>String</code> to both the console and the current log file.
+     * @param message The <code>String</code> to be printed
      */
     public static void Log(String message){
         String output = singleton.LogPrefix() + " " + message;
@@ -91,10 +91,10 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
     }
 
     /**
-     * Logs a change in a location's state. Prints the log to both the console
-     * and the current log file.
-     * @param location The location which has changed state
-     * @param locationState The new state of the location
+     * Logs a change in a <code>Location</code>'s state. Prints the log to both
+     * the console and the current log file.
+     * @param location The <code>Location</code> which has changed state
+     * @param locationState The new state of the <code>Location</code>
      */
     @Override
     public void ObservedStateUpdate(Location location, LocationState locationState) {
@@ -102,11 +102,13 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
     }
 
     /**
-     * Logs an attempt to access a room. Prints the log to both the console
-     * and the current log file.
-     * @param keycard The keycard used to try and gain access
-     * @param room The room the keycard tried to access
-     * @param wasSuccessful If the attempt was successful or not in gaining access
+     * Logs an attempt to access a <code>Room</code>. Prints the log to both
+     * the console and the current log file.
+     * @param keycard The <code>Keycard</code> used to try and gain access
+     * @param room The <code>room</code> the <code>Keycard</code> tried to
+     * access
+     * @param wasSuccessful If the attempt was successful or not in gaining
+     * access
      */
     @Override
     public void ObservedAccessUpdate(Keycard keycard, Room room, boolean wasSuccessful) {

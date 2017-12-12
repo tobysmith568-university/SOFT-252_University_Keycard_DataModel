@@ -7,7 +7,7 @@ package Locations.States;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public enum LocationState {
 

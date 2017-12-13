@@ -14,11 +14,11 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Student
+ * @author tsmith10
  */
-public class UniversityKeycardsTest {
+public class RoomFactoryTest {
     
-    public UniversityKeycardsTest() {
+    public RoomFactoryTest() {
     }
     
     @BeforeClass
@@ -38,18 +38,7 @@ public class UniversityKeycardsTest {
     }
 
     @Test
-    public void testMain() {
-        fail("Test not yet implemented"); 
-    }
-
-    @Test
-    public void testSaveState() {
-        fail("Test not yet implemented"); 
-    }
-
-    @Test
-    public void testLoadState() {
-        fail("Test not yet implemented"); 
+    public void testCreate() {
     }
     
 }

@@ -46,7 +46,7 @@ public enum RoomType {
     SECUREROOM;    
     
     /**
-     * This returns the functionality associated with the given enum value
+     * This returns the functionality associated with the given enum value.
      * @return The <code>Room</code> class
      */
     public IRoomType GetRoomType(){

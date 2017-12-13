@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control;
+package Locations.RoomTypes;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -14,11 +14,11 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Student
+ * @author tsmith10
  */
-public class UniversityKeycardsTest {
+public class ResearchLabTest {
     
-    public UniversityKeycardsTest() {
+    public ResearchLabTest() {
     }
     
     @BeforeClass
@@ -38,18 +38,7 @@ public class UniversityKeycardsTest {
     }
 
     @Test
-    public void testMain() {
-        fail("Test not yet implemented"); 
-    }
-
-    @Test
-    public void testSaveState() {
-        fail("Test not yet implemented"); 
-    }
-
-    @Test
-    public void testLoadState() {
-        fail("Test not yet implemented"); 
+    public void testAccessRequest() {
     }
     
 }

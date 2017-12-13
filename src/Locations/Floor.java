@@ -25,7 +25,7 @@ public class Floor extends Location {
      * Creates a new <code>Floor</code>. Also:<ul><li>Adds the <code>Logger</code> as
      * an observer of it's state</li><li>Sets it's <code>fullName</code> to the
      * exact same string as the <code>name</code></li></ul>
-     * @param floorNumber
+     * @param floorNumber The number to be given to the new <code>Floor</code>
      */
     public Floor(String floorNumber){
         this.floorNumber = this.fullName = floorNumber;        

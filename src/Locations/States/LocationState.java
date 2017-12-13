@@ -12,18 +12,22 @@ package Locations.States;
 public enum LocationState {
 
     /**
-     *
+     * The default state for a room. Designed to allow the normal use of a room
+     * and deny access to emergency responders.
      */
     NOEMERGENCY,
 
     /**
-     *
+     * A non-default state for a room. Designed to allow the emergency access
+     * use of a room only. This means denying access to a majority of people but
+     * allows access to emergency responders and other specific university
+     * <code>Roles</code>s.
      */
     EMERGENCY;
     
     /**
-     *
-     * @return
+     * This returns the functionality associated with the given enum value.
+     * @return The state class
      */
     public ILocationState GetLocationState(){
         switch (this){
@@ -35,8 +39,9 @@ public enum LocationState {
     }
     
     /**
-     *
-     * @return
+     * Returns a <code>Log</code> and user-friendly version of this state's
+     * name.
+     * @return The name of this state
      */
     public String GetName(){
         switch (this){

@@ -9,15 +9,18 @@ import Locations.IRoomType;
 import People.Keycard;
 
 /**
- *
+ * This room is used to deliver lectures to students.
  * @author Student
  */
 public class LectureHall implements IRoomType {
 
     /**
-     *
-     * @param keycard
-     * @return
+     * Tests a <code>Keycard</code> object to see if it qualifies for entry to
+     * the <code>Room</code>.
+     * @param keycard The <code>Keycard</code> trying to gain access to the
+     * <code>Room</code>
+     * @return If the <code>Keycard</code> is successfully given access to this
+     * object or not
      */
     @Override
     public boolean AccessRequest(Keycard keycard) {

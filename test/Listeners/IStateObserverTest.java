@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control;
+package Listeners;
 
+import Locations.Location;
+import Locations.States.LocationState;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,11 +16,11 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Student
+ * @author tsmith10
  */
-public class UniversityKeycardsTest {
+public class IStateObserverTest {
     
-    public UniversityKeycardsTest() {
+    public IStateObserverTest() {
     }
     
     @BeforeClass
@@ -38,18 +40,13 @@ public class UniversityKeycardsTest {
     }
 
     @Test
-    public void testMain() {
-        fail("Test not yet implemented"); 
+    public void testObservedStateUpdate() {
     }
 
-    @Test
-    public void testSaveState() {
-        fail("Test not yet implemented"); 
-    }
+    public class IStateObserverImpl implements IStateObserver {
 
-    @Test
-    public void testLoadState() {
-        fail("Test not yet implemented"); 
+        public void ObservedStateUpdate(Location location, LocationState locationState) {
+        }
     }
     
 }

@@ -15,9 +15,10 @@ import java.io.Serializable;
 public interface IRoomType extends Serializable{
 
     /**
-     * Tests a <code>Keycard</code object to see if it qualifies for entry to
+     * Tests a <code>Keycard</code> object to see if it qualifies for entry to
      * the <code>Room</code>.
-     * @param keycard The <code>Keycard</code> trying to gain access to the <code>Room</code>
+     * @param keycard The <code>Keycard</code> trying to gain access to the
+     * <code>Room</code>
      * @return If the <code>Keycard</code> is successfully given access to this
      * object or not
      */

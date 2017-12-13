@@ -9,15 +9,20 @@ import People.Keycard;
 import People.Role;
 
 /**
- *
+ * A non-default state for a room. Designed to allow the emergency access use of a
+ * room only. This means denying access to a majority of people but allows
+ * access to emergency responders and other specific university <code>Roles</code>s
  * @author Student
  */
 public class EmergencyState implements ILocationState {
 
     /**
-     *
-     * @param keycard
-     * @return
+     * Tests a <code>Keycard</code> object to see if it qualifies for entry to
+     * the <code>Room</code> under the <code>Room</code>s current state.
+     * @param keycard The <code>Keycard</code> trying to gain access to the
+     * <code>Room</code>
+     * @return If the <code>Keycard</code> is successfully given access to this
+     * object or not
      */
     @Override
     public boolean AccessRequest(Keycard keycard) {

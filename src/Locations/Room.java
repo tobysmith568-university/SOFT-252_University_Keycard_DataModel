@@ -31,7 +31,8 @@ public class Room extends Location implements ILocationState, IAccessSubject {
      * Creates a new <code>Room</code>. Also:<ul><li>Adds the <code>Logger</code> as
      * an observer of it's state</li><li>Sets it's <code>fullName</code> to the
      * exact same string as the <code>name</code></li></ul>
-     * @param number
+     * @param number The number to be given to the new <code>Room</code>. Note
+     * that <code>Room</code> numbers should re-start at zero for each <code>Floor</code>
      */
     public Room(String number){
         if (number.length() == 1)

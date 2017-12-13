@@ -8,7 +8,9 @@ package People;
 import java.io.Serializable;
 
 /**
- *
+ * This object stores all the needed information about a person within the
+ * university. This is the information used by <code>Room</code>s to determine
+ * if it will grant access or not.
  * @author Student
  */
 public class Keycard implements Serializable{
@@ -16,11 +18,17 @@ public class Keycard implements Serializable{
     private String name;
     private String cardID;
 
+    public Keycard() {
+        this.role = null;
+        this.name = "";
+        this.cardID = "";
+    }    
+
     /**
-     *
-     * @param role
-     * @param name
-     * @param cardID
+     * Creates a new <code>Keycard</code>.
+     * @param role The type of permissions the <code>Keycard</code> should have
+     * @param name The name of the owner of the <code>Keycard</code>
+     * @param cardID A unique ID for the card
      */
     public Keycard(Role role, String name, String cardID) {
         this.role = role;
@@ -29,24 +37,24 @@ public class Keycard implements Serializable{
     }
 
     /**
-     *
-     * @return
+     * Returns the <code>Role</code> of this <code>Keycard</code>.
+     * @return The <code>Role</code>
      */
     public Role GetRole() {
         return role;
     }
 
     /**
-     *
-     * @return
+     * Returns the name of this owner of this <code>Keycard</code>.
+     * @return The owner's name
      */
     public String GetName() {
         return name;
     }
 
     /**
-     *
-     * @return
+     * Returns the unique ID of this <code>Keycard</code>.
+     * @return The unique ID
      */
     public String GetCardID() {
         return cardID;

@@ -130,7 +130,7 @@ public class UniversityKeycards {
      * Looks for a file called <code>Current.state</code> in the same directory
      * as the executable and tries to parse it's data to an <code>ArrayList</code>
      * of <code>Campus</code> objects. If this is successful it assigns the
-     * <code>Logger</code> as an state observer to each <code>Location<code>
+     * <code>Logger</code> as an state observer to each <code>Location</code>
      * and as an access observer to each <code>Room</code> contained within them.
      * @return The <code>ArrayList</code> of <code>Campus</code> objects
      */

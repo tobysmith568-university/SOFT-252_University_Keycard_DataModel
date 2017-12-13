@@ -28,14 +28,14 @@ public class RoomFactory {
      * <li>Sets the room state to <code>NOEMERGENCY</code></ul>
      * @param number The room number to be assigned to the <code>Room</code>
      * @param type The type of <code>Room</code> to be made
-     * @param floor The parent <code>Floor</code> object the <code>Room is
+     * @param floor The parent <code>Floor</code> object the <code>Room</code> is
      * assigned to
      * @return The finished <code>Room</code> object
      */
     public static Room Create(String number, RoomType type, Floor floor){
         Room room = new Room(number);
         
-        room.SetFloor(floor);        
+        //room.SetFloor(floor);        
         room.SetRoomType(type);
         room.AddAccessObserver(log);
         room.SetRoomState(NOEMERGENCY);

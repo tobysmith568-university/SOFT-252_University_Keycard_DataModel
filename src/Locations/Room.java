@@ -12,38 +12,25 @@ import java.util.ArrayList;
 import Locations.States.ILocationState;
 
 /**
- *
+ * The datatype of a Room. This extends from <code>Location</code> and
+ * shares most of the same functionality as the other <code>Location</code>
+ * types. This specific child class also has additional functionality as it is
+ * the lowest place in the <code>Location</code> hierarchy including being part
+ * of a second observer pattern used to report access requests
  * @author Student
  */
 public class Room extends Location implements ILocationState, IAccessSubject {
 
-    /**
-     *
-     */
-    protected transient ArrayList<IAccessObserver> accessObservers;
-
-    /**
-     *
-     */
-    protected Floor floor;
-
-    /**
-     *
-     */
-    protected String number;
+    private transient ArrayList<IAccessObserver> accessObservers;
+    /*private Floor floor;*/
+    private final String number;
+    private RoomType type;
+    private IRoomType iType;
     
     /**
-     *
-     */
-    protected RoomType type;
-
-    /**
-     *
-     */
-    protected IRoomType iType;
-    
-    /**
-     *
+     * Creates a new <code>Room</code>. Also:<ul><li>Adds the <code>Logger</code> as
+     * an observer of it's state</li><li>Sets it's <code>fullName</code> to the
+     * exact same string as the <code>name</code></li></ul>
      * @param number
      */
     public Room(String number){
@@ -54,8 +41,8 @@ public class Room extends Location implements ILocationState, IAccessSubject {
     }
 
     /**
-     *
-     * @return
+     * Returns the room number (name) of the <code>Room</code>.
+     * @return The name
      */
     public String GetNumber() {
         return number;
@@ -65,13 +52,14 @@ public class Room extends Location implements ILocationState, IAccessSubject {
      *
      * @param floor
      */
-    public void SetFloor(Floor floor){
+    /*public void SetFloor(Floor floor){
         this.floor = floor;
-    }
+    }*/
     
     /**
-     *
-     * @param type
+     * Called by the room factory. This contains functionality for setting the
+     * <code>Rooms</code>s room type and assigning the correct state class.
+     * @param type The type of room to set this <code>Room</code> to
      */
     public void SetRoomType(RoomType type) {
         this.type = type;
@@ -79,9 +67,15 @@ public class Room extends Location implements ILocationState, IAccessSubject {
     }
 
     /**
-     *
-     * @param keycard
-     * @return
+     * Tests a <code>Keycard</code> to determine if it currently has access to
+     * this <code>Room</code>. Access is based off of 3 different properties:
+     * <ul><li>If the <code>Role</code> of the <code>Keycard</code> has
+     * permission to access this <code>Room</code> type</li><li>If this
+     * <code>Room</code> is in an emergency state or not</li><li>If the
+     * <code>Role</code> of the <code>Keycard</code> has access to <code>Room</code>s
+     * at the current time.</li></ul>
+     * @param keycard The <code>keycard</code> to test for access permissions
+     * @return If access was granted or not
      */
     @Override
     public boolean AccessRequest(Keycard keycard) {
@@ -94,9 +88,11 @@ public class Room extends Location implements ILocationState, IAccessSubject {
     }
 
     /**
-     *
-     * @param observer
-     * @return
+     * Adds a new <code>IAccessObserver</code> to the object. This observes
+     * access requests to the <code>Room</code> no matter if they are successful
+     * or fail.
+     * @param observer The observer to be added
+     * @return If the observer was successfully added
      */
     @Override
     public boolean AddAccessObserver(IAccessObserver observer) {
@@ -110,9 +106,9 @@ public class Room extends Location implements ILocationState, IAccessSubject {
     }
 
     /**
-     *
-     * @param observer
-     * @return
+     * Removes a given <code>IAccessObserver</code> from the object.
+     * @param observer The observer to be removed
+     * @return If the observer was successfully removed from the object
      */
     @Override
     public boolean RemoveAccessObserver(IAccessObserver observer) {
@@ -120,10 +116,12 @@ public class Room extends Location implements ILocationState, IAccessSubject {
     }
 
     /**
-     *
-     * @param keycard
-     * @param room
-     * @param wasSuccessful
+     * Alerts all of <code>IAccessObserver</code>s of this object that there has
+     * been an access request and passes on the details of it.
+     * @param keycard The <code>Keycard</code> which tried to gain access
+     * @param room The <code>Room</code> the <code>Keycard</code> tried to gain
+     * access to
+     * @param wasSuccessful If the access request was successful or not
      */
     @Override
     public void UpdateAccessObservers(Keycard keycard, Room room, boolean wasSuccessful) {
@@ -133,9 +131,13 @@ public class Room extends Location implements ILocationState, IAccessSubject {
     }
 
     /**
-     *
-     * @param name
-     * @return
+     * ALWAYS RETURNS NULL!
+     * <br>
+     * Finds and returns a specific child of this object.
+     * Because <code>Room</code>s are the lowest in the hierarchy of
+     * <code>Location</code>s they cannot have any children.
+     * @param name The name of the child object to find
+     * @return ALWAYS NULL
      */
     @Override
     public Location GetChild(String name) {
@@ -143,8 +145,12 @@ public class Room extends Location implements ILocationState, IAccessSubject {
     }
     
     /**
-     *
-     * @return
+     * ALWAYS RETURNS NULL!
+     * <br>
+     * Finds and returns all the child objects of this object. 
+     * Because <code>Room</code>s are the lowest in the hierarchy of
+     * <code>Location</code>s they cannot have any children.
+     * @return ALWAYS NULL
      */
     @Override
     public Building[] GetAllChildren(){

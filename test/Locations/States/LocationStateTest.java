@@ -5,6 +5,7 @@
  */
 package Locations.States;
 
+import static Locations.States.LocationState.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

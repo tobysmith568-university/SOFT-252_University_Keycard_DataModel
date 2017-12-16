@@ -5,6 +5,9 @@
  */
 package Locations.States;
 
+import People.Keycard;
+import static People.Role.EMERGENCYRESPONDER;
+import static People.Role.STUDENT;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,6 +20,9 @@ import static org.junit.Assert.*;
  * @author tsmith10
  */
 public class EmergencyStateTest {
+    
+    EmergencyState state;
+    Keycard card1, card2;
     
     public EmergencyStateTest() {
     }
@@ -31,6 +37,9 @@ public class EmergencyStateTest {
     
     @Before
     public void setUp() {
+        state = new EmergencyState();
+        card1 = new Keycard(STUDENT, "Dave", "0006");
+        card2 = new Keycard(EMERGENCYRESPONDER, "Fireman", "0007");
     }
     
     @After
@@ -39,6 +48,9 @@ public class EmergencyStateTest {
 
     @Test
     public void testAccessRequest() {
+        System.out.println("Testing AccessRequest()");
+        assertEquals(false, state.AccessRequest(card1));
+        assertEquals(true, state.AccessRequest(card2));
     }
     
 }

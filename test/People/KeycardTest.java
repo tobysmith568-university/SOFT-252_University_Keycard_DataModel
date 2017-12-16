@@ -50,17 +50,23 @@ public class KeycardTest {
         System.out.println("Testing GetRole()");
         assertEquals(CLEANER, keycard1.GetRole());  
         assertEquals(STUDENT, keycard2.GetRole());  
-        assertEquals(SECURITY, keycard3.GetRole());            
+        assertNull(keycard3.GetRole());            
     }
 
     @Test
     public void testGetName() {
-        fail("Test not yet implemented"); 
+        System.out.println("Testing GetName()");
+        assertEquals("Mike", keycard1.GetName());  
+        assertEquals("Dave", keycard2.GetName());  
+        assertEquals("", keycard3.GetName()); 
     }
 
     @Test
     public void testGetCardID() {
-        fail("Test not yet implemented"); 
+        System.out.println("Testing GetCardID()");
+        assertEquals("0004", keycard1.GetCardID());  
+        assertEquals("0005", keycard2.GetCardID());  
+        assertEquals("", keycard3.GetCardID());  
     }
     
 }

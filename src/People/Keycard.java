@@ -6,6 +6,7 @@
 package People;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * This object stores all the needed information about a person within the
@@ -33,7 +34,7 @@ public class Keycard implements Serializable{
     public Keycard(Role role, String name, String cardID) {
         this.role = role;
         this.name = name;
-        this.cardID = cardID;
+        this.cardID = CreateUniqueID();
     }
 
     /**
@@ -58,5 +59,18 @@ public class Keycard implements Serializable{
      */
     public String GetCardID() {
         return cardID;
+    }
+    
+    private String CreateUniqueID(){
+        /*
+          getTimeInMillis() returns the number of miliseconds since Epoch (1/1/1970).
+          The hardcoded number is the number of mileseconds between then and 1/1/2017.
+          I minus this off so that the unique IDs are slightly shorter
+        */
+        
+        return "" + (Calendar.getInstance().getTimeInMillis() - 1483176744000L);
+        //1483176744000
+        //1514396339701
+        //31219931913
     }
 }

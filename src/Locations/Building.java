@@ -15,7 +15,7 @@ import java.util.Iterator;
  * types.
  * @author Student
  */
-public class Building extends Location{
+public class Building extends ParentLocation{
     private Campus campus;
     private final String name;
     private final String shortCode;

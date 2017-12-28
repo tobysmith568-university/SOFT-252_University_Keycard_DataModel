@@ -15,8 +15,8 @@ import java.io.Serializable;
 
 
 /**
- * A place in hierarchy of locations. This contains all the basic functionality
- * shared by all locations including buildings, floors, and rooms. Functionality
+ * A place in the hierarchy of locations. This contains all the basic functionality
+ * shared by all locations: campuses, buildings, floors, and rooms. Functionality
  * includes getting their data and updating their states
  * @author Student
  */
@@ -95,20 +95,6 @@ public abstract class Location implements IStateSubject, Serializable{
     public LocationState GetState(){
         return state;
     }
-    
-    /**
-     * Finds and returns a specific child <code>Location</code> of this object.
-     * @param name The name of the child object to find
-     * @return The child object, if it is found
-     */
-    public abstract Location GetChild(String name);
-
-    /**
-     * Finds and returns all the child <code>Location</code> objects of this
-     * object.
-     * @return The child objects
-     */
-    public abstract Location[] GetAllChildren();
     
     /**
      * Sets the full name of this <code>Location</code>, this should include the

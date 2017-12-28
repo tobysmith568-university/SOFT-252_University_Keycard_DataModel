@@ -14,7 +14,7 @@ import java.util.Iterator;
  * most of the same functionality as the other <code>Location</code> types.
  * @author Student
  */
-public class Campus extends Location{
+public class Campus extends ParentLocation{
     private final String name;
     private final HashMap<String, Building> buildings = new HashMap<>();
     

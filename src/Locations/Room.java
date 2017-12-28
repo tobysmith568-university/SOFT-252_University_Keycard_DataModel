@@ -130,31 +130,4 @@ public class Room extends Location implements ILocationState, IAccessSubject {
             observer.ObservedAccessUpdate(keycard, room, wasSuccessful);
         });
     }
-
-    /**
-     * ALWAYS RETURNS NULL!
-     * <br>
-     * Finds and returns a specific child of this object.
-     * Because <code>Room</code>s are the lowest in the hierarchy of
-     * <code>Location</code>s they cannot have any children.
-     * @param name The name of the child object to find
-     * @return ALWAYS NULL
-     */
-    @Override
-    public Location GetChild(String name) {
-        return null;
-    }
-    
-    /**
-     * ALWAYS RETURNS NULL!
-     * <br>
-     * Finds and returns all the child objects of this object. 
-     * Because <code>Room</code>s are the lowest in the hierarchy of
-     * <code>Location</code>s they cannot have any children.
-     * @return ALWAYS NULL
-     */
-    @Override
-    public Building[] GetAllChildren(){
-        return new Building[0];
-    }
 }

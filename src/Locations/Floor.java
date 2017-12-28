@@ -16,7 +16,7 @@ import java.util.Iterator;
  * types.
  * @author Student
  */
-public class Floor extends Location {
+public class Floor extends ParentLocation {
     private Building building;
     private final String floorNumber;
     private final HashMap<String, Room> rooms = new HashMap<>();

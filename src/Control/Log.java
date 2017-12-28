@@ -83,7 +83,7 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
             try{
                 Files.createDirectories(emergencyDirectory);
                 Files.copy(dailyLogFile, emergencyDirectory.resolve(dailyLogFile.getFileName()));
-                Save.SaveState(emergencyDirectory.resolve("Current.state").toString(), UniversityKeycards.allCampuses, UniversityKeycards.allKeycards);
+                Data.SaveState(emergencyDirectory.resolve("Current.state").toString(), Data.allCampuses, Data.allKeycards);
             } catch (IOException e) {
                 anyFailures = true;
             }

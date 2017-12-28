@@ -5,8 +5,6 @@
  */
 package Control;
 
-import static Control.UniversityKeycards.allCampuses;
-import static Control.UniversityKeycards.allKeycards;
 import Locations.Campus;
 import Locations.Location;
 import Locations.ParentLocation;
@@ -30,12 +28,22 @@ import java.util.HashMap;
  * can be serialised and saved together in the same file.
  * @author Student
  */
-public class Save implements Serializable {
+public class Data implements Serializable {
+    
+    /**
+     *
+     */
+    public static HashMap<String, Keycard> allKeycards = new HashMap<String, Keycard>();
+
+    /**
+     *
+     */
+    public static ArrayList<Campus> allCampuses;
     
     public ArrayList<Campus> campuses;
     public HashMap<String, Keycard> keycards;
     
-    private Save(ArrayList<Campus> campuses, HashMap<String, Keycard> keycards){        
+    private Data(ArrayList<Campus> campuses, HashMap<String, Keycard> keycards){        
         this.campuses = campuses;
         this.keycards = keycards;
     }
@@ -55,7 +63,7 @@ public class Save implements Serializable {
         try (ObjectOutputStream objOut = new ObjectOutputStream(
                                             new BufferedOutputStream(
                                             new FileOutputStream(objFile)))){
-            objOut.writeObject(new Save(campuses, Keycards));
+            objOut.writeObject(new Data(campuses, Keycards));
             Log.Log("All Locations written to file.");
         } catch (IOException ex) {
             Log.Log("ERROR: " + ex.getMessage());
@@ -68,7 +76,7 @@ public class Save implements Serializable {
      * Loads a states of <code>Campus</code> and <code>Keycard</code> objects
      * 
      * Looks for a file at the location given and tries to parse it's data into
-     * a <code>Save</code> object containing an <code>ArrayList</code> of
+     * a <code>Data</code> object containing an <code>ArrayList</code> of
      * <code>Campus</code> objects and a <code>HasMap</code> of
      * <code>Keycard</code> objects. If this is successful it recurringly
      * assigns the <code>Logger</code> as an state observer to each
@@ -78,8 +86,8 @@ public class Save implements Serializable {
      * @param path The file location of the file to load
      * @return The object serialised from the file
      */
-    public static Save LoadState(String path){
-        Save newSave = null;
+    public static Data LoadState(String path){
+        Data newSave = null;
         File objFile = new File(path);
         if(!objFile.exists() || !objFile.canRead())
             Log.Log("ERROR: Problem accessing file");
@@ -89,7 +97,7 @@ public class Save implements Serializable {
                 new FileInputStream(objFile))))
         {
             Object data = objIn.readObject();
-            newSave = (Save)data;
+            newSave = (Data)data;
             
             if(newSave == null){
                 Log.Log("Error: Problem reading file");

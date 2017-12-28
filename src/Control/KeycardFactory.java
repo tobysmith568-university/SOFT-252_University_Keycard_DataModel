@@ -41,7 +41,7 @@ public class KeycardFactory implements Serializable{
         }
         
         Keycard newCard = new Keycard(role, name, newCardID);
-        UniversityKeycards.allKeycards.put(newCardID, newCard);
+        Data.allKeycards.put(newCardID, newCard);
         return newCard;
     }
     

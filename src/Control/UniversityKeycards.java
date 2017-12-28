@@ -8,23 +8,12 @@ package Control;
 import Locations.Building;
 import Locations.Campus;
 import Locations.Floor;
-import Locations.Location;
-import Locations.ParentLocation;
 import Locations.Room;
 import static Locations.RoomType.*;
 import static Locations.States.LocationState.*;
 import People.Keycard;
 import static People.Role.*;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Main method / entry point
@@ -33,34 +22,24 @@ import java.util.HashMap;
 public class UniversityKeycards {
     
     /**
-     *
-     */
-    public static HashMap<String, Keycard> allKeycards = new HashMap<String, Keycard>();
-
-    /**
-     *
-     */
-    public static ArrayList<Campus> allCampuses;
-    
-    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {     
         
-        Save save = Save.LoadState("Current.state");
+        Data save = Data.LoadState("Current.state");
         if (save != null){
-            allCampuses = save.campuses;
-            allKeycards = save.keycards;
+            Data.allCampuses = save.campuses;
+            Data.allKeycards = save.keycards;
         }
         else
             SetDefaultState();  
         
-        Campus campus1 = allCampuses.get(0);        
+        Campus campus1 = Data.allCampuses.get(0);        
         Building building1 = campus1.GetChild("Building 1");
         Floor floor1 = building1.GetChild("1");
         
-        Keycard card = (Keycard)allKeycards.values().toArray()[1];
-        Keycard card2 = (Keycard)allKeycards.values().toArray()[0];     
+        Keycard card = (Keycard)Data.allKeycards.values().toArray()[1];
+        Keycard card2 = (Keycard)Data.allKeycards.values().toArray()[0];     
         
         Room room1 = floor1.GetChild("01");
         Room room2 = floor1.GetChild("02");
@@ -80,15 +59,15 @@ public class UniversityKeycards {
         room2.AccessRequest(card);
         room2.AccessRequest(card2);
         
-        Save.SaveState("Current.state", allCampuses, allKeycards);
+        Data.SaveState("Current.state", Data.allCampuses, Data.allKeycards);
     }
 
     private static void SetDefaultState(){
-        allCampuses = new ArrayList<>();
+        Data.allCampuses = new ArrayList<>();
         
-        allCampuses.add(new Campus("Main Campus"));
+        Data.allCampuses.add(new Campus("Main Campus"));
         
-        Campus campus1 = allCampuses.get(0);
+        Campus campus1 = Data.allCampuses.get(0);
         campus1.AddBuilding("Building 1", "ONE");
         
         Building building1 = campus1.GetChild("Building 1");

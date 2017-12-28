@@ -9,6 +9,7 @@ import Locations.Building;
 import Locations.Campus;
 import Locations.Floor;
 import Locations.Location;
+import Locations.ParentLocation;
 import Locations.Room;
 import static Locations.RoomType.*;
 import static Locations.States.LocationState.*;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Main method / entry point
@@ -30,15 +32,15 @@ import java.util.ArrayList;
  */
 public class UniversityKeycards {
 
-    private static ArrayList<Campus> AddChildren(){
-        ArrayList<Campus> campuses = new ArrayList<>();
+    private static ArrayList<Campus> SetDefaultChildren(){
+        ArrayList<Campus> newCampuses = new ArrayList<>();
         
-        campuses.add(new Campus("Main Campus"));
+        newCampuses.add(new Campus("Main Campus"));
         
-        Campus campus1 = campuses.get(0);
-        campus1.AddBuilding("Babbage", "BGB");
+        Campus campus1 = newCampuses.get(0);
+        campus1.AddBuilding("Building 1", "ONE");
         
-        Building building1 = campus1.GetChild("Babbage");
+        Building building1 = campus1.GetChild("Building 1");
         building1.AddFloor();
         building1.AddFloor();
                 
@@ -56,30 +58,25 @@ public class UniversityKeycards {
         floor1.AddRoom(SECUREROOM);
         floor1.AddRoom(RESEARCHLAB);
         
-        return campuses;
+        return newCampuses;
     }
-    private static ArrayList<Campus> LoadChildren(){
-        ArrayList<Campus> campuses = LoadState();
-        
-        
-        return campuses;
-    }
+    
+    public static HashMap<String, Keycard> allKeycards = new HashMap<String, Keycard>();
+    public static ArrayList<Campus> campuses;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {     
         
-        //ArrayList<Campus> campuses = AddChildren();
-        ArrayList<Campus> campuses = LoadChildren();
-        
+        campuses = LoadState();
+        //campuses = SetDefaultChildren();// ---------------------------------------- DEBUG LINE FOR CLEARING ALL CURRENT LOCATIONS     
         
         Campus campus1 = campuses.get(0);        
-        Building building1 = campus1.GetChild("Babbage");                
-        Floor floor0 = building1.GetChild("0");        
+        Building building1 = campus1.GetChild("Building 1");
         Floor floor1 = building1.GetChild("1");
         
-        Keycard card = new Keycard(STUDENT, "Dave", "0000001");
-        Keycard card2 = new Keycard(EMERGENCYRESPONDER, "Fireman", "0000002");
+        Keycard card = KeycardFactory.Create(STUDENT, "Dave");
+        Keycard card2 = KeycardFactory.Create(EMERGENCYRESPONDER, "Fireman");       
         
         Room room1 = floor1.GetChild("01");
         Room room2 = floor1.GetChild("02");
@@ -168,14 +165,14 @@ public class UniversityKeycards {
         Log logger = Log.Logger();
         
         if (location != null){
-            location.AddStateObserver(logger);
+            location.AddStateObserver(logger);            
             
-            if (location instanceof Room)
+            if (location instanceof ParentLocation)
+                for (Location child : ((ParentLocation)location).GetAllChildren()) {
+                        AssignObserver(child);
+                }
+            else                
                 ((Room) location).AddAccessObserver(logger);
-            
-            for (Location child : location.GetAllChildren()) {
-                    AssignObserver(child);
-            }            
         }
     }
 }

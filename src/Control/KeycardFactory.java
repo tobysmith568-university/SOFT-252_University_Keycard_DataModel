@@ -28,7 +28,15 @@ public class KeycardFactory implements Serializable{
             ReadState();
         previousCardID++;
         WriteState();
-        return new Keycard(role, name, "" + previousCardID);
+        
+        String newCardID = "" + previousCardID;
+        if (newCardID.length() < 8){
+            newCardID = new String(new char[8 - newCardID.length()]).replace("\0", "0") + newCardID;
+        }
+        
+        Keycard newCard = new Keycard(role, name, newCardID);
+        UniversityKeycards.allKeycards.put(newCardID, newCard);
+        return newCard;
     }
     
     private static boolean WriteState(){

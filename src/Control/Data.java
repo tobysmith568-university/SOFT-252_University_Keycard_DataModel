@@ -5,11 +5,15 @@
  */
 package Control;
 
+import Locations.Building;
 import Locations.Campus;
+import Locations.Floor;
 import Locations.Location;
 import Locations.ParentLocation;
 import Locations.Room;
+import static Locations.RoomType.*;
 import People.Keycard;
+import static People.Role.*;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -113,6 +117,10 @@ public class Data implements Serializable {
         {
             Log.Log("ERROR: " + ex.getMessage());
         }
+        
+        if (newSave == null)
+            SetDefaultState();
+        
         return newSave;
     }
     
@@ -129,5 +137,35 @@ public class Data implements Serializable {
             else                
                 ((Room) location).AddAccessObserver(logger);
         }
+    }
+
+    private static void SetDefaultState(){
+        Data.allCampuses = new ArrayList<>();
+        
+        Data.allCampuses.add(new Campus("Main Campus"));
+        
+        Campus campus1 = Data.allCampuses.get(0);
+        campus1.AddBuilding("Building 1", "ONE");
+        
+        Building building1 = campus1.GetChild("Building 1");
+        building1.AddFloor();
+        building1.AddFloor();
+                
+        Floor floor0 = building1.GetChild("0");
+        floor0.AddRoom(STUDENTLAB);
+        floor0.AddRoom(STUDENTLAB);
+        floor0.AddRoom(STAFFROOM);
+        floor0.AddRoom(SECUREROOM);
+        floor0.AddRoom(STUDENTLAB);
+        
+        Floor floor1 = building1.GetChild("1");
+        floor1.AddRoom(STUDENTLAB);
+        floor1.AddRoom(STUDENTLAB);
+        floor1.AddRoom(STUDENTLAB);
+        floor1.AddRoom(SECUREROOM);
+        floor1.AddRoom(RESEARCHLAB);       
+        
+        KeycardFactory.Create(STUDENT, "Dave");
+        KeycardFactory.Create(EMERGENCYRESPONDER, "Fireman");
     }
 }

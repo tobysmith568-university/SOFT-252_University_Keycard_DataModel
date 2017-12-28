@@ -22,3 +22,7 @@
 hs_err_pid*
 /build/
 /dist/
+
+# Stuff I added
+/Daily Logs/
+/Emergency Logs/

@@ -32,12 +32,12 @@ import java.util.HashMap;
  */
 public class UniversityKeycards {
 
-    private static ArrayList<Campus> SetDefaultChildren(){
-        ArrayList<Campus> newCampuses = new ArrayList<>();
+    private static void SetDefaultState(){
+        allCampuses = new ArrayList<>();
         
-        newCampuses.add(new Campus("Main Campus"));
+        allCampuses.add(new Campus("Main Campus"));
         
-        Campus campus1 = newCampuses.get(0);
+        Campus campus1 = allCampuses.get(0);
         campus1.AddBuilding("Building 1", "ONE");
         
         Building building1 = campus1.GetChild("Building 1");
@@ -56,12 +56,20 @@ public class UniversityKeycards {
         floor1.AddRoom(STUDENTLAB);
         floor1.AddRoom(STUDENTLAB);
         floor1.AddRoom(SECUREROOM);
-        floor1.AddRoom(RESEARCHLAB);
+        floor1.AddRoom(RESEARCHLAB);       
         
-        return newCampuses;
+        KeycardFactory.Create(STUDENT, "Dave");
+        KeycardFactory.Create(EMERGENCYRESPONDER, "Fireman");
     }
     
+    /**
+     *
+     */
     public static HashMap<String, Keycard> allKeycards = new HashMap<String, Keycard>();
+
+    /**
+     *
+     */
     public static ArrayList<Campus> allCampuses;
     
     /**
@@ -69,15 +77,15 @@ public class UniversityKeycards {
      */
     public static void main(String[] args) {     
         
-        allCampuses = LoadState();
-        //campuses = SetDefaultChildren();// ---------------------------------------- DEBUG LINE FOR CLEARING ALL CURRENT LOCATIONS     
+        LoadState();
+        //SetDefaultState();// ---------------------------------------- DEBUG LINE FOR CLEARING ALL CURRENT LOCATIONS     
         
         Campus campus1 = allCampuses.get(0);        
         Building building1 = campus1.GetChild("Building 1");
         Floor floor1 = building1.GetChild("1");
         
-        Keycard card = KeycardFactory.Create(STUDENT, "Dave");
-        Keycard card2 = KeycardFactory.Create(EMERGENCYRESPONDER, "Fireman");       
+        Keycard card = (Keycard)allKeycards.values().toArray()[1];
+        Keycard card2 = (Keycard)allKeycards.values().toArray()[0];     
         
         Room room1 = floor1.GetChild("01");
         Room room2 = floor1.GetChild("02");
@@ -97,23 +105,22 @@ public class UniversityKeycards {
         room2.AccessRequest(card);
         room2.AccessRequest(card2);
         
-        SaveState(allCampuses);
+        SaveState();
     }
 
     /**
      * Takes an <code>ArrayList</code> of <code>Campus</code> objects and saves
      * their states to a file called <code>Current.state</code>. The file's
      * location is the same is a executables. 
-     * @param campuses The <code>Campus</code>s to be saved to the file
      * @return If the states of the objects were successfully saved to the file
      */
-    public static boolean SaveState(ArrayList<Campus> campuses){
+    public static boolean SaveState(){
         File objFile = new File("Current.state");
         
         try (ObjectOutputStream objOut = new ObjectOutputStream(
                                             new BufferedOutputStream(
                                             new FileOutputStream(objFile)))){
-            objOut.writeObject(campuses);
+            objOut.writeObject(new SaveObject(allCampuses, allKeycards));
             Log.Log("All Locations written to file.");
         } catch (IOException ex) {
             Log.Log("ERROR: " + ex.getMessage());
@@ -130,9 +137,8 @@ public class UniversityKeycards {
      * of <code>Campus</code> objects. If this is successful it assigns the
      * <code>Logger</code> as an state observer to each <code>Location</code>
      * and as an access observer to each <code>Room</code> contained within them.
-     * @return The <code>ArrayList</code> of <code>Campus</code> objects
      */
-    public static ArrayList<Campus> LoadState(){
+    public static void LoadState(){
         File objFile = new File("Current.state");
         if(!objFile.exists() || !objFile.canRead())
             Log.Log("ERROR: Problem accessing file");
@@ -142,9 +148,10 @@ public class UniversityKeycards {
                 new FileInputStream(objFile))))
         {
             Object data = objIn.readObject();
-            ArrayList<Campus> newCampuses = (ArrayList<Campus>)data;
+            ArrayList<Campus> newCampuses = ((SaveObject)data).campuses;
+            HashMap<String, Keycard> newKeycards = ((SaveObject)data).keycards;
             
-            if(newCampuses == null){
+            if(newCampuses == null || newKeycards == null){
                 Log.Log("Error: Problem reading file");
             } else {
                 newCampuses.forEach((campus) -> {
@@ -152,13 +159,14 @@ public class UniversityKeycards {
                 });
             }
             
+            allCampuses = newCampuses;
+            allKeycards = newKeycards;
+            
             Log.Log("All Locations read from file.");
-            return newCampuses;
         }
         catch(ClassNotFoundException | IOException | ClassCastException ex)
         {
             Log.Log("ERROR: " + ex.getMessage());
-            return null;
         }
     }
     

@@ -23,6 +23,12 @@ public class KeycardFactory implements Serializable{
     
     private static Long previousCardID;
     
+    /**
+     *
+     * @param role
+     * @param name
+     * @return
+     */
     public static Keycard Create(Role role, String name){
         if (previousCardID == null)
             ReadState();

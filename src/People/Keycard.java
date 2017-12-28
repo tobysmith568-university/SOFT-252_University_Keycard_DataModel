@@ -6,7 +6,6 @@
 package People;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 /**
  * This object stores all the needed information about a person within the
@@ -19,6 +18,9 @@ public class Keycard implements Serializable{
     private String name;
     private String cardID;
 
+    /**
+     *
+     */
     public Keycard() {
         this.role = null;
         this.name = "";

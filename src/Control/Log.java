@@ -20,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import Listeners.IStateObserver;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Logs messages to the console as well as to a file.
@@ -31,6 +32,8 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
     private static Log singleton;
     private DateTimeFormatter messageFormat = DateTimeFormatter.ofPattern("'['dd/MM/yy'] ['HH:mm:ss']'");
     private DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd-MM-yy");
+    
+    private ArrayList<String> unsavedMessages = new ArrayList<String>();
     
     private Log(){
     }
@@ -79,17 +82,27 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
     }
     
     private boolean LogToFile(String message){
+        boolean anyFailures = false;
         Path logDirectory = Paths.get("Daily Logs");
         Path logFile = Paths.get(logDirectory.toString(), "Log for " + LocalDateTime.now().format(fileFormat) + ".log");
-        try {
-            if (!Files.exists(logDirectory))
-                Files.createDirectories(logDirectory);           
-                        
-            Files.write(logFile, Arrays.asList(message), Files.exists(logFile) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
-        } catch (IOException e) {
-            return false;
+        
+        if (unsavedMessages.size() == 100)
+            unsavedMessages.remove(0);
+        
+        unsavedMessages.add(message);
+        
+        for (int i = unsavedMessages.size() - 1; i >= 0; i--) {
+            try {
+                if (!Files.exists(logDirectory))
+                    Files.createDirectories(logDirectory);           
+
+                Files.write(logFile, Arrays.asList(message), Files.exists(logFile) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
+                unsavedMessages.remove(i);
+            } catch (IOException e) {
+                anyFailures = true;
+            }
         }
-        return true;
+        return anyFailures;
     }
 
     /**

@@ -62,16 +62,17 @@ public class UniversityKeycards {
     }
     
     public static HashMap<String, Keycard> allKeycards = new HashMap<String, Keycard>();
-    public static ArrayList<Campus> campuses;
+    public static ArrayList<Campus> allCampuses;
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {     
         
-        campuses = LoadState();
+        allCampuses = LoadState();
         //campuses = SetDefaultChildren();// ---------------------------------------- DEBUG LINE FOR CLEARING ALL CURRENT LOCATIONS     
         
-        Campus campus1 = campuses.get(0);        
+        Campus campus1 = allCampuses.get(0);        
         Building building1 = campus1.GetChild("Building 1");
         Floor floor1 = building1.GetChild("1");
         
@@ -96,7 +97,7 @@ public class UniversityKeycards {
         room2.AccessRequest(card);
         room2.AccessRequest(card2);
         
-        SaveState(campuses);
+        SaveState(allCampuses);
     }
 
     /**

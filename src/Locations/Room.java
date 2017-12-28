@@ -5,6 +5,7 @@
  */
 package Locations;
 
+import Control.UniversityKeycards;
 import Listeners.IAccessObserver;
 import Listeners.IAccessSubject;
 import People.Keycard;

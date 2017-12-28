@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import Listeners.IStateObserver;
+import static Locations.States.LocationState.EMERGENCY;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -30,12 +31,19 @@ import java.util.ArrayList;
 public class Log implements IStateObserver, IAccessObserver, Serializable{
     
     private static Log singleton;
-    private DateTimeFormatter messageFormat = DateTimeFormatter.ofPattern("'['dd/MM/yy'] ['HH:mm:ss']'");
-    private DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd-MM-yy");
+    private final DateTimeFormatter logMessageFormat;
+    private final DateTimeFormatter DailyFileFormat;
+    private final DateTimeFormatter EmergencyFolderFormat;
     
-    private ArrayList<String> unsavedMessages = new ArrayList<String>();
+    private Path dailyLogFile;
+    
+    private final ArrayList<String> unsavedMessages;
     
     private Log(){
+        this.unsavedMessages = new ArrayList<>();
+        this.EmergencyFolderFormat = DateTimeFormatter.ofPattern("dd-MM-yy_HH-mm-ss");
+        this.logMessageFormat = DateTimeFormatter.ofPattern("'['dd/MM/yy'] ['HH:mm:ss']'");
+        this.DailyFileFormat = DateTimeFormatter.ofPattern("dd-MM-yy");
     }
     
     /**
@@ -50,7 +58,7 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
     }
     
     private String LogPrefix(){
-        return LocalDateTime.now().format(messageFormat);
+        return LocalDateTime.now().format(logMessageFormat);
     }
     
     private void LogAccess(Keycard keycard, Room room, boolean wasSuccessful) {
@@ -62,12 +70,25 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
         System.out.println(output);
     }
     
-    private void LogEmergency(Location location, LocationState state) {
+    private boolean LogEmergency(Location location, LocationState state) {
+        boolean anyFailures = true;
         String output = LogPrefix() + " " + location.GetFullName() + " is now in the state: " + 
                 state.GetName();
                 
         LogToFile(output);
-        System.out.println(output);
+        System.out.println(output);        
+        
+        if (state == EMERGENCY){
+            Path emergencyDirectory = Paths.get("Emergency Logs", "EM_" + LocalDateTime.now().format(EmergencyFolderFormat));
+            try{
+                Files.createDirectories(emergencyDirectory);
+                Files.copy(dailyLogFile, emergencyDirectory.resolve(dailyLogFile.getFileName()));
+                Save.SaveState(emergencyDirectory.resolve("Current.state").toString(), UniversityKeycards.allCampuses, UniversityKeycards.allKeycards);
+            } catch (IOException e) {
+                anyFailures = true;
+            }
+        }
+        return anyFailures;
     }
     
     /**
@@ -75,16 +96,16 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
      * @param message The <code>String</code> to be printed
      */
     public static void Log(String message){
-        String output = singleton.LogPrefix() + " " + message;
+        String output = Logger().LogPrefix() + " " + message;
         
-        singleton.LogToFile(output);
+        Logger().LogToFile(output);
         System.out.println(output);
     }
     
     private boolean LogToFile(String message){
         boolean anyFailures = false;
         Path logDirectory = Paths.get("Daily Logs");
-        Path logFile = Paths.get(logDirectory.toString(), "Log for " + LocalDateTime.now().format(fileFormat) + ".log");
+        dailyLogFile = Paths.get(logDirectory.toString(), "Log for " + LocalDateTime.now().format(DailyFileFormat) + ".log");
         
         if (unsavedMessages.size() == 100)
             unsavedMessages.remove(0);
@@ -96,7 +117,7 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
                 if (!Files.exists(logDirectory))
                     Files.createDirectories(logDirectory);           
 
-                Files.write(logFile, Arrays.asList(message), Files.exists(logFile) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
+                Files.write(dailyLogFile, Arrays.asList(message), Files.exists(dailyLogFile) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
                 unsavedMessages.remove(i);
             } catch (IOException e) {
                 anyFailures = true;

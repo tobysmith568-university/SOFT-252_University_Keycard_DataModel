@@ -79,11 +79,13 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
     }
     
     private boolean LogToFile(String message){
+        Path logDirectory = Paths.get("Daily Logs");
+        Path logFile = Paths.get(logDirectory.toString(), "Log for " + LocalDateTime.now().format(fileFormat) + ".log");
         try {
-            String fileName = "Log for " + LocalDateTime.now().format(fileFormat) + ".log";
-            Path path = Paths.get(fileName);
+            if (!Files.exists(logDirectory))
+                Files.createDirectories(logDirectory);           
                         
-            Files.write(path, Arrays.asList(message), Files.exists(path) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
+            Files.write(logFile, Arrays.asList(message), Files.exists(logFile) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
         } catch (IOException e) {
             return false;
         }

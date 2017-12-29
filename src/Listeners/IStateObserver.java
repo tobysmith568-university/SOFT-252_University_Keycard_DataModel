@@ -23,4 +23,4 @@ public interface IStateObserver{
      * @param locationState The new state of the <code>Location</code>
      */
     public void ObservedStateUpdate(Location location, LocationState locationState);
-    }
+}

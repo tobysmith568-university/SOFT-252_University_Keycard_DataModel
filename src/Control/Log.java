@@ -6,6 +6,8 @@
 package Control;
 
 import Listeners.IAccessObserver;
+import Listeners.ILogObserver;
+import Listeners.ILogSubject;
 import Locations.Location;
 import Locations.Room;
 import Locations.States.LocationState;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
  * A new file is used for each day and is named in the format "Log for dd-MM-yy".
  * @author Student
  */
-public class Log implements IStateObserver, IAccessObserver, Serializable{
+public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serializable{
     
     private static Log singleton;
     private final DateTimeFormatter logMessageFormat;
@@ -37,9 +39,11 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
     
     private Path dailyLogFile;
     
+    private final ArrayList<ILogObserver> logObservers;
     private final ArrayList<String> unsavedMessages;
     
     private Log(){
+        this.logObservers = new ArrayList<>();
         this.unsavedMessages = new ArrayList<>();
         this.EmergencyFolderFormat = DateTimeFormatter.ofPattern("dd-MM-yy_HH-mm-ss");
         this.logMessageFormat = DateTimeFormatter.ofPattern("'['dd/MM/yy'] ['HH:mm:ss']'");
@@ -66,8 +70,7 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
                 (wasSuccessful ? ") granted access to " : ") denied access to ") +
                 keycard.GetName() + " (" + keycard.GetCardID() + ")";
         
-        LogToFile(output);
-        System.out.println(output);
+        Logger().SendLog(output);
     }
     
     private boolean LogEmergency(Location location, LocationState state) {
@@ -75,8 +78,7 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
         String output = LogPrefix() + " " + location.GetFullName() + " is now in the state: " + 
                 state.GetName();
                 
-        LogToFile(output);
-        System.out.println(output);        
+        Logger().SendLog(output);     
         
         if (state == EMERGENCY){
             Path emergencyDirectory = Paths.get("Emergency Logs", "EM_" + LocalDateTime.now().format(EmergencyFolderFormat));
@@ -98,8 +100,14 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
     public static void Log(String message){
         String output = Logger().LogPrefix() + " " + message;
         
-        Logger().LogToFile(output);
-        System.out.println(output);
+        Logger().SendLog(output);
+    }
+    
+    private void SendLog(String message){
+        UpdateLogObservers(message);
+        Logger().LogToFile(message);
+        System.out.println(message);
+        
     }
     
     private boolean LogToFile(String message){
@@ -149,5 +157,27 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
     @Override
     public void ObservedAccessUpdate(Keycard keycard, Room room, boolean wasSuccessful) {
         LogAccess(keycard, room, wasSuccessful);
+    }
+
+    @Override
+    public boolean AddLogObserver(ILogObserver observer) {
+        if (logObservers.contains(observer))
+            return false;
+        else {
+            logObservers.add(observer);
+            return logObservers.contains(observer);
+        }
+    }
+
+    @Override
+    public boolean RemoveLogObserver(ILogObserver observer) {
+        return logObservers.remove(observer);
+    }
+
+    @Override
+    public void UpdateLogObservers(String message) {
+        logObservers.forEach((observer) -> {
+            observer.ObservedStateUpdate(message);
+        });
     }
 }

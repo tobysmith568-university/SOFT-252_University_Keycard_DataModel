@@ -12,7 +12,6 @@ import Locations.Location;
 import Locations.ParentLocation;
 import Locations.Room;
 import static Locations.RoomType.*;
-import static Locations.States.LocationState.*;
 import People.Keycard;
 import static People.Role.*;
 import java.io.BufferedInputStream;
@@ -68,7 +67,7 @@ public class Data implements Serializable {
                                             new BufferedOutputStream(
                                             new FileOutputStream(objFile)))){
             objOut.writeObject(new Data(campuses, keycards));
-            Log.Log("All Locations written to file.");
+            Log.Log("All data written to \"" + path + "\".");
         } catch (IOException ex) {
             Log.Log("ERROR: " + ex.getMessage());
             return false;
@@ -111,7 +110,7 @@ public class Data implements Serializable {
                 });
             }
             
-            Log.Log("All Locations read from file.");
+            Log.Log("All data read from file.");
         }
         catch(ClassNotFoundException | IOException | ClassCastException ex)
         {

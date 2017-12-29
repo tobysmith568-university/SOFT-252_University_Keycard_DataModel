@@ -110,7 +110,7 @@ public class Log implements IStateObserver, IAccessObserver, Serializable{
         if (unsavedMessages.size() == 100)
             unsavedMessages.remove(0);
         
-        unsavedMessages.add(message);
+        unsavedMessages.add(0, message);
         
         for (int i = unsavedMessages.size() - 1; i >= 0; i--) {
             try {

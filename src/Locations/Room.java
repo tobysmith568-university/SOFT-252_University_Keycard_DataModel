@@ -49,6 +49,10 @@ public class Room extends Location implements ILocationState, IAccessSubject {
         return number;
     }
     
+    public String GetRoomType() {
+        return this.type.GetName();
+    }
+    
     /**
      *
      * @param floor

@@ -42,12 +42,12 @@ public class Data implements Serializable {
     /**
      *
      */
-    public static ArrayList<Campus> allCampuses;
+    public static HashMap<String, Campus> allCampuses;
     
-    public ArrayList<Campus> campuses;
+    public HashMap<String, Campus> campuses;
     public HashMap<String, Keycard> keycards;
     
-    private Data(ArrayList<Campus> campuses, HashMap<String, Keycard> keycards){        
+    private Data(HashMap<String, Campus> campuses, HashMap<String, Keycard> keycards){        
         this.campuses = campuses;
         this.keycards = keycards;
     }
@@ -57,17 +57,17 @@ public class Data implements Serializable {
      * states to a given file path.
      * @param path The path of where to save the states
      * @param campuses The <code>Campus</code> objects to save
-     * @param Keycards The <code>Keycard</code> objects to save
+     * @param keycards The <code>Keycard</code> objects to save
      * @return <code>True</code> if the states of the objects were successfully
      * saved to the file
      */
-    public static boolean SaveState(String path, ArrayList<Campus> campuses, HashMap<String, Keycard> Keycards){
+    public static boolean SaveState(String path, HashMap<String, Campus> campuses, HashMap<String, Keycard> keycards){
         File objFile = new File(path);
         
         try (ObjectOutputStream objOut = new ObjectOutputStream(
                                             new BufferedOutputStream(
                                             new FileOutputStream(objFile)))){
-            objOut.writeObject(new Data(campuses, Keycards));
+            objOut.writeObject(new Data(campuses, keycards));
             Log.Log("All Locations written to file.");
         } catch (IOException ex) {
             Log.Log("ERROR: " + ex.getMessage());
@@ -106,7 +106,7 @@ public class Data implements Serializable {
             if(newSave == null){
                 Log.Log("Error: Problem reading file");
             } else {
-                newSave.campuses.forEach((campus) -> {
+                newSave.campuses.values().forEach((campus) -> {
                     AssignObserver(campus);
                 });
             }
@@ -120,6 +120,10 @@ public class Data implements Serializable {
         
         if (newSave == null)
             SetDefaultState();
+        else {
+            allCampuses = newSave.campuses;
+            allKeycards = newSave.keycards;
+        }
         
         return newSave;
     }
@@ -140,11 +144,11 @@ public class Data implements Serializable {
     }
 
     private static void SetDefaultState(){
-        Data.allCampuses = new ArrayList<>();
+        Data.allCampuses = new HashMap<>();
         
-        Data.allCampuses.add(new Campus("Main Campus"));
+        Data.allCampuses.put("Main Campus", new Campus("Main Campus"));
         
-        Campus campus1 = Data.allCampuses.get(0);
+        Campus campus1 = (Campus)Data.allCampuses.values().toArray()[0];
         campus1.AddBuilding("Building 1", "ONE");
         
         Building building1 = campus1.GetChild("Building 1");

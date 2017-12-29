@@ -63,4 +63,19 @@ public enum RoomType {
                 return new SecureRoom();
         }
     }
+    
+    public String GetName(){
+        switch (this){
+            case LECTUREHALL:
+                return "Lecture Hall";
+            case STUDENTLAB:
+                return "Student Lab";
+            case RESEARCHLAB:
+                return "Research Lab";
+            case STAFFROOM:
+                return "Staff Room";
+            default:
+                return "Secure Room";
+        }
+    }
 }

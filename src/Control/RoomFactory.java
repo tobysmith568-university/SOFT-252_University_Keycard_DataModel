@@ -18,7 +18,7 @@ import static Locations.States.LocationState.NOEMERGENCY;
  */
 public class RoomFactory {
     
-    private static IAccessObserver log = Log.Logger();
+    private static final IAccessObserver log = Log.Logger();
     
     /**
      * Creates a <code>Room</code> object.

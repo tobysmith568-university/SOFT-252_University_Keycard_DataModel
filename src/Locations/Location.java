@@ -11,6 +11,7 @@ import Locations.States.ILocationState;
 import Locations.States.LocationState;
 import java.util.ArrayList;
 import Listeners.IStateObserver;
+import static Locations.States.LocationState.NOEMERGENCY;
 import java.io.Serializable;
 
 
@@ -52,6 +53,8 @@ public abstract class Location implements IStateSubject, Serializable{
      */
     protected Location(){
         stateObservers = new ArrayList<>();
+        state = NOEMERGENCY;
+        iState = state.GetLocationState();
         AddStateObserver(log);
     }
     

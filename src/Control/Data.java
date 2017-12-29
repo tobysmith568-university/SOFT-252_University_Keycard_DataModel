@@ -12,6 +12,7 @@ import Locations.Location;
 import Locations.ParentLocation;
 import Locations.Room;
 import static Locations.RoomType.*;
+import static Locations.States.LocationState.*;
 import People.Keycard;
 import static People.Role.*;
 import java.io.BufferedInputStream;
@@ -23,7 +24,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -124,6 +124,10 @@ public class Data implements Serializable {
             allCampuses = newSave.campuses;
             allKeycards = newSave.keycards;
         }
+        
+        
+//SetDefaultState();//DEBUG
+//System.out.println("Did the nasty");//DEBUG
         
         return newSave;
     }

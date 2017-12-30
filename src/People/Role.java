@@ -96,6 +96,48 @@ public enum Role {
         }
     }
     
+    public String GetName(){
+        switch (this){
+            case VISITOR:
+                return "Visitor";
+            case STUDENT:
+                return "Student";
+            case STAFFMEMBER:
+                return "Staff Member";
+            case CLEANER:
+                return "Cleaner";
+            case MANAGER:
+                return "Manager";
+            case SECURITY:
+                return "Security";
+            case EMERGENCYRESPONDER:
+                return "Emergency Responder";
+            default:
+                return "Unnamed role!";
+        }
+    }
+    
+    public String GetPluralName(){
+        switch (this){
+            case VISITOR:
+                return "Visitors";
+            case STUDENT:
+                return "Students";
+            case STAFFMEMBER:
+                return "Staff Members";
+            case CLEANER:
+                return "Cleaners";
+            case MANAGER:
+                return "Managers";
+            case SECURITY:
+                return "Security";
+            case EMERGENCYRESPONDER:
+                return "Emergency Responders";
+            default:
+                return "Unnamed role!";
+        }
+    }
+    
     private boolean IsNowBetween(int startHours, int startMinutes, int startSeconds, int endHours, int endMinutes, int endSeconds){
         return LocalTime.now().compareTo(LocalTime.of(startHours, startMinutes, startSeconds)) >= 0 &&
                LocalTime.now().compareTo(LocalTime.of(endHours,   endMinutes,   endSeconds  )) < 0;

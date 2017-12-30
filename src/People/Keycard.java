@@ -25,7 +25,7 @@ public class Keycard implements Serializable{
         this.role = null;
         this.name = "";
         this.cardID = "";
-    }    
+    }
 
     /**
      * Creates a new <code>Keycard</code>.

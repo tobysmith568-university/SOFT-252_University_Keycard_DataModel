@@ -6,10 +6,8 @@
 package Control;
 
 import Listeners.IAccessObserver;
-import Locations.Floor;
 import Locations.Room;
 import Locations.RoomType;
-import static Locations.States.LocationState.NOEMERGENCY;
 
 /**
  * Factory for creating <code>Room</code> objects and setting them up with the

@@ -37,8 +37,6 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
     private final DateTimeFormatter DailyFileFormat;
     private final DateTimeFormatter EmergencyFolderFormat;
     
-    private Path dailyLogFile;
-    
     private final ArrayList<ILogObserver> logObservers;
     private final ArrayList<String> unsavedMessages;
     
@@ -84,7 +82,8 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
             Path emergencyDirectory = Paths.get("Emergency Logs", "EM_" + LocalDateTime.now().format(EmergencyFolderFormat));
             try{
                 Files.createDirectories(emergencyDirectory);
-                Files.copy(dailyLogFile, emergencyDirectory.resolve(dailyLogFile.getFileName()));
+                Path logFile = GetTodaysLogFile();
+                Files.copy(logFile, emergencyDirectory.resolve(logFile.getFileName()));
                 Data.SaveState(emergencyDirectory.resolve("Current.state").toString(), Data.allCampuses, Data.allKeycards);
             } catch (IOException e) {
                 anyFailures = true;
@@ -112,8 +111,7 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
     
     private boolean LogToFile(String message){
         boolean anyFailures = false;
-        Path logDirectory = Paths.get("Daily Logs");
-        dailyLogFile = Paths.get(logDirectory.toString(), "Log for " + LocalDateTime.now().format(DailyFileFormat) + ".log");
+        Path logFile = GetTodaysLogFile();
         
         if (unsavedMessages.size() == 100)
             unsavedMessages.remove(0);
@@ -122,10 +120,10 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
         
         for (int i = unsavedMessages.size() - 1; i >= 0; i--) {
             try {
-                if (!Files.exists(logDirectory))
-                    Files.createDirectories(logDirectory);           
+                if (!Files.exists(logFile.getParent()))
+                    Files.createDirectories(logFile.getParent());           
 
-                Files.write(dailyLogFile, Arrays.asList(message), Files.exists(dailyLogFile) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
+                Files.write(logFile, Arrays.asList(message), Files.exists(logFile) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
                 unsavedMessages.remove(i);
             } catch (IOException e) {
                 anyFailures = true;
@@ -179,5 +177,10 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
         logObservers.forEach((observer) -> {
             observer.ObservedStateUpdate(message);
         });
+    }
+    
+    public Path GetTodaysLogFile(){        
+        Path logDirectory = Paths.get("Daily Logs");
+        return Paths.get(logDirectory.toString(), "Log for " + LocalDateTime.now().format(DailyFileFormat) + ".log");
     }
 }

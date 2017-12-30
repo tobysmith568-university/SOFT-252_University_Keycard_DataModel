@@ -62,4 +62,12 @@ public class Keycard implements Serializable{
     public String GetCardID() {
         return cardID;
     }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 public class LectureHallTest {
     
     Floor testFloor = new Floor("1");
-    Room room = RoomFactory.Create("01", RoomType.LECTUREHALL, testFloor);
+    Room room = RoomFactory.Create("01", RoomType.LECTUREHALL);
     Keycard card1, card2, card3, card4, card5, card6, card7;
     
     public LectureHallTest() {

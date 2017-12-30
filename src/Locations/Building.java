@@ -7,6 +7,7 @@ package Locations;
 
 import Locations.States.LocationState;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 
 /**
@@ -74,6 +75,14 @@ public class Building extends ParentLocation{
     }
 
     /**
+     * Sets the parent <code>Campus</code> of this object.
+     * @param campus The parent <code>Campus</code>
+     */
+    protected void SetCampus(Campus campus) {
+        this.campus = campus;
+    }
+
+    /**
      * Called by the <code>SetRoomState()</code>. This contains the actual
      * functionality for Changing the <code>Building</code>s state.<p>The reason
      * this is separated out into a separate <code>protected</code> method
@@ -101,9 +110,21 @@ public class Building extends ParentLocation{
      * @return The new <code>Floor</code>
      */
     public Floor AddFloor(){
-        Floor floor = new Floor(Integer.toString(floors.size()));
+        Floor[] allFloors = floors.values().toArray(new Floor[0]);
+        String highestFloor = (allFloors.length > 0) ? allFloors[allFloors.length - 1].GetFloorNumber() : "-1";
+        
+        Floor floor = new Floor(Integer.toString(Integer.parseInt(highestFloor) + 1));
         floor.SetFullName(this.fullName + " " + floor.GetFloorNumber());
         floors.put(floor.GetFloorNumber(), floor);
+        floor.SetBuilding(this);
+        
         return floor;
+    }
+    
+    public Floor RemoveFloor(Floor floor){
+        if (!floors.containsValue(floor))
+            return null;
+        
+        return floors.remove(floor.GetFloorNumber());
     }
 }

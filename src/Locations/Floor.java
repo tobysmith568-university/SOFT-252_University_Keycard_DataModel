@@ -69,6 +69,10 @@ public class Floor extends ParentLocation {
     public Room[] GetAllChildren(){
         return rooms.values().toArray(new Room[0]);
     }
+    
+    protected void SetBuilding(Building building){
+        this.building = building;
+    }
 
     /**
      * Called by the <code>SetRoomState()</code>. This contains the actual
@@ -99,9 +103,20 @@ public class Floor extends ParentLocation {
      * @return The new <code>Floor</code>
      */
     public Room AddRoom(RoomType type) {
-        Room room = RoomFactory.Create(Integer.toString(rooms.size()), type, this);
+        Room[] allRooms = rooms.values().toArray(new Room[0]);
+        String highestRoom = (allRooms.length > 0) ? allRooms[allRooms.length - 1].GetNumber() : "-1";
+                
+        Room room = RoomFactory.Create(Integer.toString(Integer.parseInt(highestRoom) + 1), type);
         rooms.put(room.GetNumber(), room);
+        room.SetFloor(this);
         room.SetFullName(this.fullName + room.GetNumber());
         return room;
+    }
+    
+    public Room RemoveRoom(Room room){
+        if (!rooms.containsValue(room))
+            return null;
+        
+        return rooms.remove(room.GetNumber());
     }
 }

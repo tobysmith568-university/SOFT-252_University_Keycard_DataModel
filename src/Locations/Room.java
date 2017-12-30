@@ -22,7 +22,7 @@ import Locations.States.ILocationState;
 public class Room extends Location implements ILocationState, IAccessSubject {
 
     private transient ArrayList<IAccessObserver> accessObservers;
-    /*private Floor floor;*/
+    private Floor floor;
     private final String number;
     private RoomType type;
     private IRoomType iType;
@@ -53,13 +53,17 @@ public class Room extends Location implements ILocationState, IAccessSubject {
         return this.type.GetName();
     }
     
+    public Floor GetFloor(){
+        return this.floor;
+    }
+    
     /**
      *
      * @param floor
      */
-    /*public void SetFloor(Floor floor){
+    protected void SetFloor(Floor floor){
         this.floor = floor;
-    }*/
+    }
     
     /**
      * Called by the room factory. This contains functionality for setting the

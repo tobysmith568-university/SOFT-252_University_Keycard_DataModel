@@ -96,6 +96,14 @@ public class Campus extends ParentLocation{
         Building building = new Building(name, shortCode);
         building.SetFullName(this.name + " " + shortCode);
         buildings.put(building.GetName(), building);
+        building.SetCampus(this);
         return building;
+    }
+    
+    public Building RemoveBuilding(Building building){
+        if (!buildings.containsValue(building))
+            return null;
+        
+        return buildings.remove(building.GetName());
     }
 }

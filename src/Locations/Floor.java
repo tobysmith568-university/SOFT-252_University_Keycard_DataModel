@@ -72,6 +72,7 @@ public class Floor extends ParentLocation {
     
     protected void SetBuilding(Building building){
         this.building = building;
+        AddStateObserver(building);
     }
 
     /**
@@ -118,5 +119,14 @@ public class Floor extends ParentLocation {
             return null;
         
         return rooms.remove(room.GetNumber());
+    }
+
+    @Override
+    public void ObservedStateUpdate(Location location, LocationState locationState) {
+        GetState().SetIsMixedState(false);
+        for (Room room : rooms.values()) {
+            if (room.GetState() != locationState)
+                GetState().SetIsMixedState(true);
+        }
     }
 }

@@ -7,7 +7,6 @@ package Locations;
 
 import Locations.States.LocationState;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 
 /**
@@ -16,7 +15,7 @@ import java.util.Iterator;
  * types.
  * @author Student
  */
-public class Building extends ParentLocation{
+public class Building extends ParentLocation {
     private Campus campus;
     private final String name;
     private final String shortCode;
@@ -80,6 +79,7 @@ public class Building extends ParentLocation{
      */
     protected void SetCampus(Campus campus) {
         this.campus = campus;
+        AddStateObserver(campus);
     }
 
     /**
@@ -126,5 +126,14 @@ public class Building extends ParentLocation{
             return null;
         
         return floors.remove(floor.GetFloorNumber());
+    }
+
+    @Override
+    public void ObservedStateUpdate(Location location, LocationState locationState) {
+        GetState().SetIsMixedState(false);
+        for (Floor floor : floors.values()) {
+            if (floor.GetState() != locationState)
+                GetState().SetIsMixedState(true);
+        }
     }
 }

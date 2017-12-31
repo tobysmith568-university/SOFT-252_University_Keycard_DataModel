@@ -10,7 +10,7 @@ package Locations.States;
  * @author Student
  */
 public enum LocationState {
-
+    
     /**
      * The default state for a room. Designed to allow the normal use of a room
      * and deny access to emergency responders.
@@ -24,6 +24,8 @@ public enum LocationState {
      * <code>Roles</code>s.
      */
     EMERGENCY;
+    
+    private boolean isMixedState = false;
     
     /**
      * This returns the functionality associated with the given enum value.
@@ -52,5 +54,13 @@ public enum LocationState {
             default:
                 return this.toString();
         }
+    }
+
+    public boolean GetIsMixedState() {
+        return isMixedState;
+    }
+
+    public void SetIsMixedState(boolean isMixedState) {
+        this.isMixedState = isMixedState;
     }
 }

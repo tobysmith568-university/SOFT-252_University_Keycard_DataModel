@@ -63,6 +63,7 @@ public class Room extends Location implements ILocationState, IAccessSubject {
      */
     protected void SetFloor(Floor floor){
         this.floor = floor;
+        AddStateObserver(floor);
     }
     
     /**

@@ -106,4 +106,13 @@ public class Campus extends ParentLocation{
         
         return buildings.remove(building.GetName());
     }
+
+    @Override
+    public void ObservedStateUpdate(Location location, LocationState locationState) {
+        GetState().SetIsMixedState(false);
+        for (Building building : buildings.values()) {
+            if (building.GetState() != locationState)
+                GetState().SetIsMixedState(true);
+        }
+    }
 }

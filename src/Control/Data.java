@@ -131,7 +131,7 @@ public class Data implements Serializable {
         Log logger = Log.Logger();
         
         if (location != null){
-            location.AddStateObserver(logger);            
+            location.AddStateObserver(logger);
             
             if (location instanceof ParentLocation)
                 for (Location child : ((ParentLocation)location).GetAllChildren()) {
@@ -150,32 +150,75 @@ public class Data implements Serializable {
     }
 
     private static void SetDefaultState(){
+        Log.Log("Creating default data sets.");
+        
         Data.allCampuses = new HashMap<>();
         
         Data.allCampuses.put("Main Campus", new Campus("Main Campus"));
         
-        Campus campus1 = (Campus)Data.allCampuses.values().toArray()[0];
-        campus1.AddBuilding("Building 1", "ONE");
+        Campus campus = (Campus)Data.allCampuses.values().toArray()[0];
+        campus.AddBuilding("Babbage", "BGB");
+        campus.AddBuilding("Roland Levinsky", "RLB");
         
-        Building building1 = campus1.GetChild("Building 1");
-        building1.AddFloor();
-        building1.AddFloor();
+        Building building = campus.GetChild("Babbage");
+        building.AddFloor();
+        building.AddFloor();
                 
-        Floor floor0 = building1.GetChild("0");
-        floor0.AddRoom(STUDENTLAB);
-        floor0.AddRoom(STUDENTLAB);
-        floor0.AddRoom(STAFFROOM);
-        floor0.AddRoom(SECUREROOM);
-        floor0.AddRoom(STUDENTLAB);
+        Floor floor = building.GetChild("0");
+        floor.AddRoom(STUDENTLAB);
+        floor.AddRoom(STUDENTLAB);
+        floor.AddRoom(STAFFROOM);
+        floor.AddRoom(SECUREROOM);
+        floor.AddRoom(STUDENTLAB);
         
-        Floor floor1 = building1.GetChild("1");
-        floor1.AddRoom(STUDENTLAB);
-        floor1.AddRoom(STUDENTLAB);
-        floor1.AddRoom(STUDENTLAB);
-        floor1.AddRoom(SECUREROOM);
-        floor1.AddRoom(RESEARCHLAB);       
+        floor = building.GetChild("1");
+        floor.AddRoom(STUDENTLAB);
+        floor.AddRoom(STUDENTLAB);
+        floor.AddRoom(STUDENTLAB);
+        floor.AddRoom(SECUREROOM);
+        floor.AddRoom(RESEARCHLAB);   
         
+        building = campus.GetChild("Roland Levinsky");
+        building.AddFloor();
+        building.AddFloor();
+        building.AddFloor();
+                
+        floor = building.GetChild("0");
+        floor.AddRoom(LECTUREHALL);
+        floor.AddRoom(LECTUREHALL);
+        floor.AddRoom(STAFFROOM);
+        floor.AddRoom(SECUREROOM);
+        floor.AddRoom(LECTUREHALL);
+        
+        floor = building.GetChild("1");
+        floor.AddRoom(LECTUREHALL);
+        floor.AddRoom(LECTUREHALL);
+        floor.AddRoom(LECTUREHALL);
+        floor.AddRoom(LECTUREHALL);
+        floor.AddRoom(RESEARCHLAB);
+        
+        floor = building.GetChild("2");
+        floor.AddRoom(LECTUREHALL);
+        floor.AddRoom(LECTUREHALL);
+        floor.AddRoom(LECTUREHALL);
+        floor.AddRoom(SECUREROOM);
+        floor.AddRoom(RESEARCHLAB);
+        
+        KeycardFactory.Create(VISITOR, "Guest");
+        KeycardFactory.Create(VISITOR, "Guest");
+        KeycardFactory.Create(VISITOR, "Guest");
         KeycardFactory.Create(STUDENT, "Dave");
+        KeycardFactory.Create(STUDENT, "Adam");
+        KeycardFactory.Create(STUDENT, "John");
+        KeycardFactory.Create(STUDENT, "Toby");
+        KeycardFactory.Create(STUDENT, "Sam");
+        KeycardFactory.Create(STUDENT, "Zac");
+        KeycardFactory.Create(STUDENT, "Jake");
+        KeycardFactory.Create(STAFFMEMBER, "Serge");
+        KeycardFactory.Create(STAFFMEMBER, "Chris");
+        KeycardFactory.Create(SECURITY, "Mike");
+        KeycardFactory.Create(EMERGENCYRESPONDER, "Fireman");
+        KeycardFactory.Create(EMERGENCYRESPONDER, "Fireman");
         KeycardFactory.Create(EMERGENCYRESPONDER, "Fireman");
     }
 }

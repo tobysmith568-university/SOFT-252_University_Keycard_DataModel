@@ -13,8 +13,7 @@ import Listeners.IStateObserver;
  * for finding child objects in the <code>Location</code> hierarchy.
  * @author Student
  */
-public abstract class ParentLocation extends Location implements IStateObserver {   
-    
+public abstract class ParentLocation extends Location implements IStateObserver {
     
     
     /**

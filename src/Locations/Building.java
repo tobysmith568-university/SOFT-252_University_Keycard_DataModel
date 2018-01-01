@@ -77,9 +77,15 @@ public class Building extends ParentLocation {
      * Sets the parent <code>Campus</code> of this object.
      * @param campus The parent <code>Campus</code>
      */
-    protected void SetCampus(Campus campus) {
+    public void SetCampus(Campus campus) {
         this.campus = campus;
         AddStateObserver(campus);
+    }
+
+    @Override
+    public void SetIsMixedState(boolean isMixedState) {
+        super.SetIsMixedState(isMixedState);
+        campus.SetIsMixedState(isMixedState);
     }
 
     /**
@@ -94,10 +100,8 @@ public class Building extends ParentLocation {
     @Override
     protected void ActualSetRoomState(LocationState newState) {
         super.ActualSetRoomState(newState);
-        Iterator iterator = floors.values().iterator();
-        while (iterator.hasNext()){
-            ((Floor)iterator.next()).ActualSetRoomState(newState);
-        }
+        floors.values().forEach(floor ->
+            ((Floor)floor).ActualSetRoomState(newState)); 
     }
     
     /**
@@ -130,10 +134,10 @@ public class Building extends ParentLocation {
 
     @Override
     public void ObservedStateUpdate(Location location, LocationState locationState) {
-        GetState().SetIsMixedState(false);
+        SetIsMixedState(false);
         for (Floor floor : floors.values()) {
             if (floor.GetState() != locationState)
-                GetState().SetIsMixedState(true);
+                SetIsMixedState(true);
         }
     }
 }

@@ -25,8 +25,6 @@ public enum LocationState {
      */
     EMERGENCY;
     
-    private boolean isMixedState = false;
-    
     /**
      * This returns the functionality associated with the given enum value.
      * @return The state class
@@ -54,13 +52,5 @@ public enum LocationState {
             default:
                 return this.toString();
         }
-    }
-
-    public boolean GetIsMixedState() {
-        return isMixedState;
-    }
-
-    public void SetIsMixedState(boolean isMixedState) {
-        this.isMixedState = isMixedState;
     }
 }

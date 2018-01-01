@@ -124,10 +124,6 @@ public class Data implements Serializable {
             allKeycards = newSave.keycards;
         }
         
-        
-//SetDefaultState();//DEBUG
-//System.out.println("Did the nasty");//DEBUG
-        
         return newSave;
     }
     
@@ -143,6 +139,13 @@ public class Data implements Serializable {
                 }
             else                
                 ((Room) location).AddAccessObserver(logger);
+            
+            if (location instanceof Building)
+                ((Building)location).SetCampus(((Building)location).GetCampus());
+            else if (location instanceof Floor)
+                ((Floor)location).SetBuilding(((Floor)location).GetBuilding());
+            else if (location instanceof Room)
+                ((Room)location).SetFloor(((Room)location).GetFloor());
         }
     }
 

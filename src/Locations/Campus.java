@@ -7,7 +7,6 @@ package Locations;
 
 import Locations.States.LocationState;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * The datatype of a campus. This extends from <code>Location</code> and shares
@@ -72,10 +71,8 @@ public class Campus extends ParentLocation{
     @Override
     protected void ActualSetRoomState(LocationState newState){
         super.ActualSetRoomState(newState);
-        Iterator iterator = buildings.values().iterator();
-        while (iterator.hasNext()){
-            ((Building)iterator.next()).ActualSetRoomState(newState);
-        }        
+        buildings.values().forEach(building ->
+            ((Building)building).ActualSetRoomState(newState));
     }
     
     /**
@@ -109,10 +106,10 @@ public class Campus extends ParentLocation{
 
     @Override
     public void ObservedStateUpdate(Location location, LocationState locationState) {
-        GetState().SetIsMixedState(false);
+        SetIsMixedState(false);
         for (Building building : buildings.values()) {
             if (building.GetState() != locationState)
-                GetState().SetIsMixedState(true);
+                SetIsMixedState(true);
         }
     }
 }

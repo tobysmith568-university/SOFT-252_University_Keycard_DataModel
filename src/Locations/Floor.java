@@ -70,9 +70,15 @@ public class Floor extends ParentLocation {
         return rooms.values().toArray(new Room[0]);
     }
     
-    protected void SetBuilding(Building building){
+    public void SetBuilding(Building building){
         this.building = building;
         AddStateObserver(building);
+    }
+
+    @Override
+    public void SetIsMixedState(boolean isMixedState) {
+        super.SetIsMixedState(isMixedState);
+        building.SetIsMixedState(isMixedState);
     }
 
     /**
@@ -87,10 +93,8 @@ public class Floor extends ParentLocation {
     @Override
     protected void ActualSetRoomState(LocationState newState) {
         super.ActualSetRoomState(newState);
-        Iterator iterator = rooms.values().iterator();
-        while (iterator.hasNext()){
-            ((Room)iterator.next()).ActualSetRoomState(newState);
-        }
+        rooms.values().forEach(room ->
+            ((Room)room).ActualSetRoomState(newState));
     }
     
     /**
@@ -114,19 +118,16 @@ public class Floor extends ParentLocation {
         return room;
     }
     
-    public Room RemoveRoom(Room room){
-        if (!rooms.containsValue(room))
-            return null;
-        
+    public Room RemoveRoom(Room room){        
         return rooms.remove(room.GetNumber());
     }
 
     @Override
     public void ObservedStateUpdate(Location location, LocationState locationState) {
-        GetState().SetIsMixedState(false);
+        SetIsMixedState(false);
         for (Room room : rooms.values()) {
             if (room.GetState() != locationState)
-                GetState().SetIsMixedState(true);
+                SetIsMixedState(true);
         }
     }
 }

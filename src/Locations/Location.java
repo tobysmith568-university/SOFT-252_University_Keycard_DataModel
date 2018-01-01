@@ -26,7 +26,7 @@ public abstract class Location implements IStateSubject, Serializable{
     /**
      * The collection of objects which are observing the state of this object
      */
-    protected transient ArrayList<IStateObserver> stateObservers;    
+    protected transient ArrayList<IStateObserver> stateObservers;
 
     /**
      * The full name of this <code>Location</code>, this will include the names
@@ -43,7 +43,11 @@ public abstract class Location implements IStateSubject, Serializable{
      * The class of functionality retrieved from the <code>LocationState state</code>
      * in this object.
      */
-    protected ILocationState iState;
+    protected ILocationState iState;   
+    
+    
+    
+    protected boolean isMixedState;
     
     private static final IStateObserver log = Log.Logger();
     
@@ -56,6 +60,14 @@ public abstract class Location implements IStateSubject, Serializable{
         state = NOEMERGENCY;
         iState = state.GetLocationState();
         AddStateObserver(log);
+    }
+
+    public boolean GetIsMixedState() {
+        return isMixedState;
+    }
+
+    public void SetIsMixedState(boolean isMixedState) {
+        this.isMixedState = isMixedState;
     }
     
     /**
@@ -80,6 +92,7 @@ public abstract class Location implements IStateSubject, Serializable{
     protected void ActualSetRoomState(LocationState newState){
         state = newState;
         iState = state.GetLocationState();
+        isMixedState = false;
     }
     
     /**

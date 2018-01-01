@@ -7,7 +7,6 @@ package Locations;
 
 import Locations.States.LocationState;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * The datatype of a Building. This extends from <code>Location</code> and
@@ -82,6 +81,10 @@ public class Building extends ParentLocation {
         AddStateObserver(campus);
     }
 
+    /**
+     * Sets if this object is in a mixed state.
+     * @param isMixedState <code>True</code> if this should be in a mixed state
+     */
     @Override
     public void SetIsMixedState(boolean isMixedState) {
         super.SetIsMixedState(isMixedState);
@@ -125,10 +128,12 @@ public class Building extends ParentLocation {
         return floor;
     }
     
+    /**
+     * Removes a <code>Floor</code> object from this <code>Building</code>.
+     * @param floor The <code>Floor</code> to be removed
+     * @return The previous <code>Floor</code> value before it was removed
+     */
     public Floor RemoveFloor(Floor floor){
-        if (!floors.containsValue(floor))
-            return null;
-        
         return floors.remove(floor.GetFloorNumber());
     }
 

@@ -38,7 +38,6 @@ public class KeycardTest {
     public void setUp() {
         keycard1 = new Keycard(CLEANER, "Mike", "0004");
         keycard2 = new Keycard(STUDENT, "Dave", "0005");
-        keycard3 = new Keycard();
     }
     
     @After

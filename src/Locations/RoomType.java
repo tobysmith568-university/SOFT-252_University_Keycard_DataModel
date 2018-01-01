@@ -64,6 +64,11 @@ public enum RoomType {
         }
     }
     
+    /**
+     * Returns a <code>Log</code> and user-friendly version of this
+     * <code>Room</code>s type.
+     * @return The user-friendly name
+     */
     public String GetName(){
         switch (this){
             case LECTUREHALL:

@@ -157,6 +157,12 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
         LogAccess(keycard, room, wasSuccessful);
     }
 
+    /**
+     * Adds a new log observer to this object.
+     * @param observer The log observer to add
+     * @return If the observer was successfully added or not - this can also
+     * return <code>false</code> if the observer to add is already an observer
+     */
     @Override
     public boolean AddLogObserver(ILogObserver observer) {
         if (logObservers.contains(observer))
@@ -167,18 +173,31 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
         }
     }
 
+    /**
+     * Removes a log observer from this object.
+     * @param observer The log observer to remove
+     * @return If the observer was successfully removed
+     */
     @Override
     public boolean RemoveLogObserver(ILogObserver observer) {
         return logObservers.remove(observer);
     }
 
+    /**
+     * Updates all log observers with a new logged message.
+     * @param message The new message which has been logged
+     */
     @Override
     public void UpdateLogObservers(String message) {
         logObservers.forEach((observer) -> {
-            observer.ObservedStateUpdate(message);
+            observer.ObservedLogUpdate(message);
         });
     }
     
+    /**
+     * Returns the name of today's log file.
+     * @return The name of the file
+     */
     public Path GetTodaysLogFile(){        
         Path logDirectory = Paths.get("Daily Logs");
         return Paths.get(logDirectory.toString(), "Log for " + LocalDateTime.now().format(DailyFileFormat) + ".log");

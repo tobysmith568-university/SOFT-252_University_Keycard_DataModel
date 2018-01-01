@@ -12,7 +12,10 @@ import Locations.States.LocationState;
 import java.util.ArrayList;
 import Listeners.IStateObserver;
 import static Locations.States.LocationState.NOEMERGENCY;
+import People.Keycard;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 /**
@@ -45,8 +48,16 @@ public abstract class Location implements IStateSubject, Serializable{
      */
     protected ILocationState iState;   
     
-    
-    
+    /**
+     * If this object is in a 'mixed state'. This results from it's child
+     * <code>Location</code> objects have different states to each other. For
+     * example if one child is in an emergency state but another is in a normal
+     * state then this should have a mixed state.
+     * 
+     * A mixed state has no effect on functionality and this object still uses
+     * it's <code>state</code> and <code>istate</code> as before but this should
+     * effect how this <code>Location</code> should display graphically.
+     */
     protected boolean isMixedState;
     
     private static final IStateObserver log = Log.Logger();
@@ -62,10 +73,18 @@ public abstract class Location implements IStateSubject, Serializable{
         AddStateObserver(log);
     }
 
+    /**
+     * Returns if this object is in a mixed state or not.
+     * @return If this is in a mixed state
+     */
     public boolean GetIsMixedState() {
         return isMixedState;
     }
 
+    /**
+     * Sets if this object is in a mixed state.
+     * @param isMixedState <code>True</code> if this should be in a mixed state
+     */
     public void SetIsMixedState(boolean isMixedState) {
         this.isMixedState = isMixedState;
     }
@@ -133,7 +152,7 @@ public abstract class Location implements IStateSubject, Serializable{
         if (stateObservers.contains(observer))
             return false;
         else {
-            stateObservers.add(observer);
+            stateObservers.add(0, observer);
             return stateObservers.contains(observer);
         }
     }    
@@ -156,8 +175,9 @@ public abstract class Location implements IStateSubject, Serializable{
      */
     @Override
     public final void UpdateStateObservers(Location location, LocationState locationState) {
-        stateObservers.forEach((observer) -> {
-            observer.ObservedStateUpdate(location, locationState);
+        stateObservers
+                .forEach((observer) -> {
+                    observer.ObservedStateUpdate(location, locationState);
         });
     }
 }

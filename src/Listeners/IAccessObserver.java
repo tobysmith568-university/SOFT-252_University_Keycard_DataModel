@@ -17,11 +17,11 @@ import People.Keycard;
 public interface IAccessObserver{
 
     /**
-     * Called by the subject of the observer pattern when a keycard tries to
-     * gain access to it
-     * @param keycard The keycard making the access request
-     * @param room The room the keycard tried to access
-     * @param wasSuccessful If access was allowed to the room or not
+     * Called by the subject of the observer pattern when a <code>Keycard</code>
+     * tries to gain access to it
+     * @param keycard The <code>Keycard</code> making the access request
+     * @param room The room the <code>Keycard</code> tried to access
+     * @param wasSuccessful If access was allowed to the <code>Room</code> or not
      */
     public void ObservedAccessUpdate(Keycard keycard, Room room, boolean wasSuccessful);
 }

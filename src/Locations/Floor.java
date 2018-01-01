@@ -8,7 +8,6 @@ package Locations;
 import Control.RoomFactory;
 import Locations.States.LocationState;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * The datatype of a Floor. This extends from <code>Location</code> and
@@ -70,11 +69,19 @@ public class Floor extends ParentLocation {
         return rooms.values().toArray(new Room[0]);
     }
     
+    /**
+     * Sets the parent <code>Building</code> object of this <code>Floor</code>
+     * @param building The parent <code>Building</code>
+     */
     public void SetBuilding(Building building){
         this.building = building;
         AddStateObserver(building);
     }
 
+    /**
+     * Sets if this object is in a mixed state.
+     * @param isMixedState <code>True</code> if this should be in a mixed state
+     */
     @Override
     public void SetIsMixedState(boolean isMixedState) {
         super.SetIsMixedState(isMixedState);
@@ -118,6 +125,11 @@ public class Floor extends ParentLocation {
         return room;
     }
     
+    /**
+     * Removes a <code>Room</code> object from this <code>Floor</code>.
+     * @param room The <code>Room</code> to be removed
+     * @return The previous <code>Room</code> value before it was removed
+     */
     public Room RemoveRoom(Room room){        
         return rooms.remove(room.GetNumber());
     }

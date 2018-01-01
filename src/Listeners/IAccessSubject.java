@@ -33,9 +33,9 @@ public interface IAccessSubject{
     /**
      * Alerts all of <code>IAccessObserver</code>s of this object that there has
      * been an access request
-     * @param keycard The keycard making the access request
-     * @param room The room the keycard tried to access
-     * @param wasSuccessful If access was allowed to the room or not
+     * @param keycard The <code>Keycard</code> making the access request
+     * @param room The room the <code>Keycard</code> tried to access
+     * @param wasSuccessful If access was allowed to the <code>Room</code> or not
      */
     public void UpdateAccessObservers(Keycard keycard, Room room, boolean wasSuccessful);
 }

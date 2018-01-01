@@ -97,6 +97,11 @@ public class Campus extends ParentLocation{
         return building;
     }
     
+    /**
+     *
+     * @param building
+     * @return
+     */
     public Building RemoveBuilding(Building building){
         if (!buildings.containsValue(building))
             return null;

@@ -34,21 +34,29 @@ import java.util.HashMap;
 public class Data implements Serializable {
     
     /**
-     *
+     * All the <code>Keycard</code> objects stored in the system
      */
     public static HashMap<String, Keycard> allKeycards = new HashMap<String, Keycard>();
 
     /**
-     *
+     * All the <code>Campus</code> objects stored in the system
      */
     public static HashMap<String, Campus> allCampuses;
     
-    public HashMap<String, Campus> campuses;
-    public HashMap<String, Keycard> keycards;
+    private final HashMap<String, Campus> campuses;
+    private final HashMap<String, Keycard> keycards;
     
     private Data(HashMap<String, Campus> campuses, HashMap<String, Keycard> keycards){        
         this.campuses = campuses;
         this.keycards = keycards;
+    }
+
+    public HashMap<String, Campus> GetCampuses() {
+        return campuses;
+    }
+
+    public HashMap<String, Keycard> GetKeycards() {
+        return keycards;
     }
 
     /**
@@ -83,13 +91,15 @@ public class Data implements Serializable {
      * <code>Campus</code> objects and a <code>HasMap</code> of
      * <code>Keycard</code> objects. If this is successful it recurringly
      * assigns the <code>Logger</code> as an state observer to each
-     * <code>Location</code> in the <code>ArrayList\<Campus\></code>. It also
+     * <code>Location</code> in the <code>ArrayList&lt;Campus&gt;</code>. It also
      * add the <code>Logger</code> as an access observer to each
      * <code>Room</code> contained within the <code>Campus</code>s.
      * @param path The file location of the file to load
+     * @param overwriteAll <code>True</code> if all the data in the active program
+     * should be overwritten with what is being returned
      * @return The object serialised from the file
      */
-    public static Data LoadState(String path){
+    public static Data LoadState(String path, boolean overwriteAll){
         Data newSave = null;
         File objFile = new File(path);
         if(!objFile.exists() || !objFile.canRead())
@@ -117,11 +127,15 @@ public class Data implements Serializable {
             Log.Log("ERROR: " + ex.getMessage());
         }
         
-        if (newSave == null)
-            SetDefaultState();
-        else {
-            allCampuses = newSave.campuses;
-            allKeycards = newSave.keycards;
+        if (overwriteAll){            
+            if (newSave == null)
+                SetDefaultState();
+            else {
+                allCampuses = newSave.campuses;
+                allKeycards = newSave.keycards;
+            }
+        } else if (newSave == null){
+            Log.Log("ERROR: Unable to open that file!");
         }
         
         return newSave;
@@ -204,9 +218,9 @@ public class Data implements Serializable {
         floor.AddRoom(SECUREROOM);
         floor.AddRoom(RESEARCHLAB);
         
-        KeycardFactory.Create(VISITOR, "Guest");
-        KeycardFactory.Create(VISITOR, "Guest");
-        KeycardFactory.Create(VISITOR, "Guest");
+        KeycardFactory.Create(VISITOR, "Guest card #1");
+        KeycardFactory.Create(VISITOR, "Guest card #2");
+        KeycardFactory.Create(VISITOR, "Guest card #3");
         KeycardFactory.Create(STUDENT, "Dave");
         KeycardFactory.Create(STUDENT, "Adam");
         KeycardFactory.Create(STUDENT, "John");

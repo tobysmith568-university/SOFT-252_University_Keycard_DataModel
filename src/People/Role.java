@@ -96,6 +96,11 @@ public enum Role {
         }
     }
     
+    /**
+     * Returns a <code>Log</code> and user-friendly version of this
+     * <code>Keycard</code>s type.
+     * @return The user-friendly name
+     */
     public String GetName(){
         switch (this){
             case VISITOR:
@@ -117,6 +122,11 @@ public enum Role {
         }
     }
     
+    /**
+     * Returns a <code>Log</code> and user-friendly version of this
+     * <code>Keycard</code>s type in the plural form.
+     * @return The user-friendly plural name
+     */
     public String GetPluralName(){
         switch (this){
             case VISITOR:

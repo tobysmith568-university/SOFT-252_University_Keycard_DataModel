@@ -8,13 +8,12 @@ package Locations;
 import Listeners.IStateObserver;
 
 /**
- * A place in the hierarchy of locations <u>apart from the lowest</u>. This contains
- * the same functionality as <code>Location</code> but also contains methods
- * for finding child objects in the <code>Location</code> hierarchy.
+ * A place in the hierarchy of locations <u>apart from the lowest</u>. This
+ * contains the same functionality as <code>Location</code> but also contains
+ * methods for finding child objects in the <code>Location</code> hierarchy.
  * @author Student
  */
 public abstract class ParentLocation extends Location implements IStateObserver {
-    
     
     /**
      * Finds and returns a specific child <code>Location</code> of this object.

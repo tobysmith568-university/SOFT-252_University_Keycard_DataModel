@@ -16,7 +16,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 
 /**
- *
+ * Factory for creating <code>Keycard</code> objects and setting them up with the
+ * default properties and method calls.
  * @author Student
  */
 public class KeycardFactory implements Serializable{
@@ -24,10 +25,10 @@ public class KeycardFactory implements Serializable{
     private static Long previousCardID;
     
     /**
-     *
-     * @param role
-     * @param name
-     * @return
+     * Creates a new <code>keycard</code> object
+     * @param role The role of the new <code>Keycard</code>
+     * @param name The name of the owner of the <code>Keycard</code>
+     * @return The new <code>Keycard</code> object
      */
     public static Keycard Create(Role role, String name){
         if (previousCardID == null)

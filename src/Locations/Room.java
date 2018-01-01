@@ -16,7 +16,7 @@ import Locations.States.ILocationState;
  * shares most of the same functionality as the other <code>Location</code>
  * types. This specific child class also has additional functionality as it is
  * the lowest place in the <code>Location</code> hierarchy including being part
- * of a second observer pattern used to report access requests
+ * of a second observer pattern used to report access requests.
  * @author Student
  */
 public class Room extends Location implements ILocationState, IAccessSubject {
@@ -49,17 +49,25 @@ public class Room extends Location implements ILocationState, IAccessSubject {
         return number;
     }
     
+    /**
+     * Returns the type of room this is.
+     * @return The type
+     */
     public String GetRoomType() {
         return this.type.GetName();
     }
     
+    /**
+     * Returns the parent <code>Floor</code> object to this <code>Room</code>.
+     * @return The <code>Floor</code>
+     */
     public Floor GetFloor(){
         return this.floor;
     }
     
     /**
-     *
-     * @param floor
+     * Sets the parent <code>Floor</code> object of this <code>Room</code>
+     * @param floor The parent <code>Floor</code>
      */
     public void SetFloor(Floor floor){
         this.floor = floor;

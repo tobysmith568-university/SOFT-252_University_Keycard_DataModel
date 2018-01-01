@@ -16,16 +16,7 @@ import java.io.Serializable;
 public class Keycard implements Serializable{
     private Role role;
     private String name;
-    private String cardID;
-
-    /**
-     *
-     */
-    public Keycard() {
-        this.role = null;
-        this.name = "";
-        this.cardID = "";
-    }
+    private final String cardID;
 
     /**
      * Creates a new <code>Keycard</code>.
@@ -63,11 +54,19 @@ public class Keycard implements Serializable{
         return cardID;
     }
 
-    public void setRole(Role role) {
+    /**
+     * Sets the current <code>Role</code> of this <code>Keycard</code>.
+     * @param role The new <code>Role</code>
+     */
+    public void SetRoll(Role role) {
         this.role = role;
     }
 
-    public void setName(String name) {
+    /**
+     * Sets the current name of the owner of this <code>Keycard</code>.
+     * @param name The new name of the owner
+     */
+    public void SetName(String name) {
         this.name = name;
     }
 }

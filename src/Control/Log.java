@@ -106,7 +106,6 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
         UpdateLogObservers(message);
         Logger().LogToFile(message);
         System.out.println(message);
-        
     }
     
     private boolean LogToFile(String message){
@@ -121,7 +120,7 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
         for (int i = unsavedMessages.size() - 1; i >= 0; i--) {
             try {
                 if (!Files.exists(logFile.getParent()))
-                    Files.createDirectories(logFile.getParent());           
+                    Files.createDirectories(logFile.getParent());
 
                 Files.write(logFile, Arrays.asList(message), Files.exists(logFile) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
                 unsavedMessages.remove(i);

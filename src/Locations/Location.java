@@ -12,10 +12,7 @@ import Locations.States.LocationState;
 import java.util.ArrayList;
 import Listeners.IStateObserver;
 import static Locations.States.LocationState.NOEMERGENCY;
-import People.Keycard;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Comparator;
 
 
 /**

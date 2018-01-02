@@ -6,6 +6,8 @@
 package People;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This object stores all the needed information about a person within the
@@ -14,9 +16,22 @@ import java.io.Serializable;
  * @author Student
  */
 public class Keycard implements Serializable{
-    private Role role;
+    private final ArrayList<Role> roles;
     private String name;
     private final String cardID;
+
+    /**
+     * Creates a new <code>Keycard</code>.
+     * @param roles The types of permissions the <code>Keycard</code> should have
+     * @param name The name of the owner of the <code>Keycard</code>
+     * @param cardID A unique ID for the card
+     */
+    public Keycard(Role roles[], String name, String cardID) {
+        this.roles = new ArrayList<>();
+        this.roles.addAll(Arrays.asList(roles));
+        this.name = name;
+        this.cardID = cardID;
+    }
 
     /**
      * Creates a new <code>Keycard</code>.
@@ -25,7 +40,8 @@ public class Keycard implements Serializable{
      * @param cardID A unique ID for the card
      */
     public Keycard(Role role, String name, String cardID) {
-        this.role = role;
+        this.roles = new ArrayList<>();
+        this.roles.add(role);
         this.name = name;
         this.cardID = cardID;
     }
@@ -34,8 +50,8 @@ public class Keycard implements Serializable{
      * Returns the <code>Role</code> of this <code>Keycard</code>.
      * @return The <code>Role</code>
      */
-    public Role GetRole() {
-        return role;
+    public Role[] GetRoles() {
+        return roles.toArray(new Role[0]);
     }
 
     /**
@@ -55,11 +71,25 @@ public class Keycard implements Serializable{
     }
 
     /**
-     * Sets the current <code>Role</code> of this <code>Keycard</code>.
+     * Adds a new <code>Role</code> to this <code>Keycard</code>.
      * @param role The new <code>Role</code>
      */
-    public void SetRoll(Role role) {
-        this.role = role;
+    public void AddRole(Role role) {
+        if (!this.roles.contains(role))
+            this.roles.add(role);
+    }
+
+    /**
+     * Removes a <code>Role</code> from this <code>Keycard</code>.
+     * @param role The <code>Role</code> to remove
+     * @return <code>True</code> if the <code>Keycode</code> does not have the
+     * given <code>Role</code>. This could be due to it being removed or it may
+     * never have had it.
+     */
+    public boolean RemoveRole(Role role) {
+        if (!this.roles.contains(role))
+            return true;
+        return this.roles.remove(role);
     }
 
     /**

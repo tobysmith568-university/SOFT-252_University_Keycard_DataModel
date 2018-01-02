@@ -10,6 +10,10 @@ import Listeners.IAccessSubject;
 import People.Keycard;
 import java.util.ArrayList;
 import Locations.States.ILocationState;
+import People.Role;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * The datatype of a Room. This extends from <code>Location</code> and
@@ -99,7 +103,9 @@ public class Room extends Location implements ILocationState, IAccessSubject {
     public boolean AccessRequest(Keycard keycard) {
         boolean roomAccess = iType.AccessRequest(keycard);
         boolean stateAccess = iState.AccessRequest(keycard);
-        boolean timeAccess = keycard.GetRole().HasTimeAccess();
+        boolean timeAccess = Arrays.stream(keycard.GetRoles())
+                .filter(role -> role.HasTimeAccess())
+                .count() > 0;
         
         UpdateAccessObservers(keycard, this, roomAccess && stateAccess && timeAccess);
         return roomAccess && stateAccess && timeAccess;

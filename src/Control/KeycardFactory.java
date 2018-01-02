@@ -26,6 +26,28 @@ public class KeycardFactory implements Serializable{
     
     /**
      * Creates a new <code>keycard</code> object
+     * @param roles The roles of the new <code>Keycard</code>
+     * @param name The name of the owner of the <code>Keycard</code>
+     * @return The new <code>Keycard</code> object
+     */
+    public static Keycard Create(Role[] roles, String name){
+        if (previousCardID == null)
+            ReadState();
+        previousCardID++;
+        WriteState();
+        
+        String newCardID = "" + previousCardID;
+        if (newCardID.length() < 8){
+            newCardID = new String(new char[8 - newCardID.length()]).replace("\0", "0") + newCardID;
+        }
+        
+        Keycard newCard = new Keycard(roles, name, newCardID);
+        Data.allKeycards.put(newCardID, newCard);
+        return newCard;
+    }
+    
+    /**
+     * Creates a new <code>keycard</code> object
      * @param role The role of the new <code>Keycard</code>
      * @param name The name of the owner of the <code>Keycard</code>
      * @return The new <code>Keycard</code> object

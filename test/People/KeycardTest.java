@@ -47,9 +47,9 @@ public class KeycardTest {
     @Test
     public void testGetRole() {
         System.out.println("Testing GetRole()");
-        assertEquals(CLEANER, keycard1.GetRole());  
-        assertEquals(STUDENT, keycard2.GetRole());  
-        assertNull(keycard3.GetRole());            
+        assertEquals(CLEANER, keycard1.GetRoles()[0]);  
+        assertEquals(STUDENT, keycard2.GetRoles()[0]);  
+        assertNull(keycard3.GetRoles());
     }
 
     @Test

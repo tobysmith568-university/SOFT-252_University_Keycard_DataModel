@@ -25,19 +25,20 @@ public class StudentLab implements IRoomType {
      */
     @Override
     public boolean AccessRequest(Keycard keycard) {
-        Role role = keycard.GetRole();
+        Role[] roles = keycard.GetRoles();
         
-        switch (role){
-            case STAFFMEMBER:
-            case STUDENT:
-            case CLEANER:
-            case MANAGER:
-            case SECURITY:
-            case EMERGENCYRESPONDER:
-                    return true;
-            default:
-                return false;
+        for (Role role : roles) {switch (role){
+                case STAFFMEMBER:
+                case STUDENT:
+                case CLEANER:
+                case MANAGER:
+                case SECURITY:
+                case EMERGENCYRESPONDER:
+                        return true;
+                default:
+                    break;
+            }
         }
+        return false;
     }
-    
 }

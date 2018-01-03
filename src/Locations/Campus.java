@@ -5,6 +5,7 @@
  */
 package Locations;
 
+import Control.Log;
 import Locations.States.LocationState;
 import java.util.HashMap;
 
@@ -69,10 +70,10 @@ public class Campus extends ParentLocation{
      * @param newState The new state the <code>Location</code> is set to
      */
     @Override
-    protected void ActualSetRoomState(LocationState newState){
-        super.ActualSetRoomState(newState);
+    protected void ActualSetRoomState(LocationState newState, String reason){
+        super.ActualSetRoomState(newState, reason);
         buildings.values().forEach(building ->
-            ((Building)building).ActualSetRoomState(newState));
+            ((Building)building).ActualSetRoomState(newState, reason));
     }
     
     /**
@@ -94,6 +95,9 @@ public class Campus extends ParentLocation{
         building.SetFullName(this.name + " " + shortCode);
         buildings.put(building.GetName(), building);
         building.SetCampus(this);
+        
+        Log.Log("Added new building \"" + name + "\" (" + shortCode + ") to " + this.fullName);
+        
         return building;
     }
     
@@ -110,7 +114,7 @@ public class Campus extends ParentLocation{
     }
 
     @Override
-    public void ObservedStateUpdate(Location location, LocationState locationState) {
+    public void ObservedStateUpdate(Location location, LocationState locationState, String reason) {
         SetIsMixedState(false);
         for (Building building : buildings.values()) {
             if (building.GetState() != locationState)

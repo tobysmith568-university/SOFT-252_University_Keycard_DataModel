@@ -43,7 +43,9 @@ public abstract class Location implements IStateSubject, Serializable{
      * The class of functionality retrieved from the <code>LocationState state</code>
      * in this object.
      */
-    protected ILocationState iState;   
+    protected ILocationState iState;
+    
+    private String stateChangeReason;
     
     /**
      * If this object is in a 'mixed state'. This results from it's child
@@ -67,6 +69,7 @@ public abstract class Location implements IStateSubject, Serializable{
         stateObservers = new ArrayList<>();
         state = NOEMERGENCY;
         iState = state.GetLocationState();
+        stateChangeReason = "";
         AddStateObserver(log);
     }
 
@@ -76,6 +79,10 @@ public abstract class Location implements IStateSubject, Serializable{
      */
     public boolean GetIsMixedState() {
         return isMixedState;
+    }
+    
+    public String GetStateChangeReason() {
+        return stateChangeReason;
     }
 
     /**
@@ -90,10 +97,11 @@ public abstract class Location implements IStateSubject, Serializable{
      * Changes the current state of the <code>Location</code> and sends the
      * change to this objects observers.
      * @param newState The new state the <code>Location</code> is set to
+     * @param reason The reason for the state being changed
      */
-    public void SetRoomState(LocationState newState){
-        ActualSetRoomState(newState);
-        UpdateStateObservers(this, state);
+    public void SetRoomState(LocationState newState, String reason){
+        ActualSetRoomState(newState, reason);
+        UpdateStateObservers(this, state, reason);
     }
     
     /**
@@ -104,11 +112,13 @@ public abstract class Location implements IStateSubject, Serializable{
      * child <code>Location</code>s can call the protected one without it going
      * to the <code>Logger</code>.
      * @param newState The new state the <code>Location</code> is set to
+     * @param reason The reason for the state being changed
      */
-    protected void ActualSetRoomState(LocationState newState){
+    protected void ActualSetRoomState(LocationState newState, String reason){
         state = newState;
         iState = state.GetLocationState();
         isMixedState = false;
+        stateChangeReason = reason;
     }
     
     /**
@@ -171,10 +181,10 @@ public abstract class Location implements IStateSubject, Serializable{
      * @param locationState The new state of the <code>Location</code>
      */
     @Override
-    public final void UpdateStateObservers(Location location, LocationState locationState) {
+    public final void UpdateStateObservers(Location location, LocationState locationState, String reason) {
         stateObservers
                 .forEach((observer) -> {
-                    observer.ObservedStateUpdate(location, locationState);
+                    observer.ObservedStateUpdate(location, locationState, reason);
         });
     }
 }

@@ -26,9 +26,7 @@ public class EmergencyState implements ILocationState {
      */
     @Override
     public boolean AccessRequest(Keycard keycard) {
-        Role[] roles = keycard.GetRoles();
-        
-        for (Role role : roles) {
+        for (Role role : keycard.GetRoles()) {
             switch (role){
                 case SECURITY:
                 case EMERGENCYRESPONDER:

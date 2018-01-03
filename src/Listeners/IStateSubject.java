@@ -35,6 +35,7 @@ public interface IStateSubject {
      * been a state change.
      * @param location The <code>Location</code> which has changed
      * @param locationState The new state of the <code>Location</code>
+     * @param reason The reason for the state being changed
      */
-    public void UpdateStateObservers(Location location, LocationState locationState);
+    public void UpdateStateObservers(Location location, LocationState locationState, String reason);
 }

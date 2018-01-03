@@ -71,10 +71,10 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
         Logger().SendLog(output);
     }
     
-    private boolean LogEmergency(Location location, LocationState state) {
+    private boolean LogEmergency(Location location, LocationState state, String reason) {
         boolean anyFailures = true;
-        String output = LogPrefix() + " " + location.GetFullName() + " is now in the state: " + 
-                state.GetName();
+        String output = LogPrefix() + " " + location.GetFullName() + " is now in the state " + 
+                state.GetName() + " for the reason: " + reason;
                 
         Logger().SendLog(output);     
         
@@ -136,10 +136,11 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
      * the console and the current log file.
      * @param location The <code>Location</code> which has changed state
      * @param locationState The new state of the <code>Location</code>
+     * @param reason The reason for the state being changed
      */
     @Override
-    public void ObservedStateUpdate(Location location, LocationState locationState) {
-        LogEmergency(location, locationState);
+    public void ObservedStateUpdate(Location location, LocationState locationState, String reason) {
+        LogEmergency(location, locationState, reason);
     }
 
     /**

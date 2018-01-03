@@ -5,6 +5,7 @@
  */
 package Locations;
 
+import Control.Log;
 import Control.RoomFactory;
 import Locations.States.LocationState;
 import java.util.HashMap;
@@ -98,10 +99,10 @@ public class Floor extends ParentLocation {
      * @param newState The new state the <code>Location</code> is set to
      */
     @Override
-    protected void ActualSetRoomState(LocationState newState) {
-        super.ActualSetRoomState(newState);
+    protected void ActualSetRoomState(LocationState newState, String reason) {
+        super.ActualSetRoomState(newState, reason);
         rooms.values().forEach(room ->
-            ((Room)room).ActualSetRoomState(newState));
+            ((Room)room).ActualSetRoomState(newState, reason));
     }
     
     /**
@@ -117,11 +118,15 @@ public class Floor extends ParentLocation {
     public Room AddRoom(RoomType type) {
         Room[] allRooms = rooms.values().toArray(new Room[0]);
         String highestRoom = (allRooms.length > 0) ? allRooms[allRooms.length - 1].GetNumber() : "-1";
+        String newRoom = Integer.toString(Integer.parseInt(highestRoom) + 1);
                 
-        Room room = RoomFactory.Create(Integer.toString(Integer.parseInt(highestRoom) + 1), type);
+        Room room = RoomFactory.Create(newRoom, type);
         rooms.put(room.GetNumber(), room);
         room.SetFloor(this);
         room.SetFullName(this.fullName + room.GetNumber());
+        
+        Log.Log("Added new room \"" + newRoom + "\" (" + type.GetName() + ") to " + this.fullName);
+        
         return room;
     }
     
@@ -135,7 +140,7 @@ public class Floor extends ParentLocation {
     }
 
     @Override
-    public void ObservedStateUpdate(Location location, LocationState locationState) {
+    public void ObservedStateUpdate(Location location, LocationState locationState, String reason) {
         SetIsMixedState(false);
         for (Room room : rooms.values()) {
             if (room.GetState() != locationState)

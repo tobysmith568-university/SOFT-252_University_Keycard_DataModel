@@ -10,10 +10,7 @@ import Listeners.IAccessSubject;
 import People.Keycard;
 import java.util.ArrayList;
 import Locations.States.ILocationState;
-import People.Role;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * The datatype of a Room. This extends from <code>Location</code> and
@@ -23,7 +20,7 @@ import java.util.Collections;
  * of a second observer pattern used to report access requests.
  * @author Student
  */
-public class Room extends Location implements ILocationState, IAccessSubject {
+public class Room extends Location implements IAccessSubject {
 
     private transient ArrayList<IAccessObserver> accessObservers;
     private Floor floor;
@@ -99,7 +96,6 @@ public class Room extends Location implements ILocationState, IAccessSubject {
      * @param keycard The <code>keycard</code> to test for access permissions
      * @return If access was granted or not
      */
-    @Override
     public boolean AccessRequest(Keycard keycard) {
         boolean roomAccess = iType.AccessRequest(keycard);
         boolean stateAccess = iState.AccessRequest(keycard);

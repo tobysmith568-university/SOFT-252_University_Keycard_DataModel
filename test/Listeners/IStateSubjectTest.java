@@ -61,7 +61,7 @@ public class IStateSubjectTest {
             return false;
         }
 
-        public void UpdateStateObservers(Location location, LocationState locationState) {
+        public void UpdateStateObservers(Location location, LocationState locationState, String reason) {
         }
     }
     

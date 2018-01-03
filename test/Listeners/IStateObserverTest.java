@@ -45,7 +45,7 @@ public class IStateObserverTest {
 
     public class IStateObserverImpl implements IStateObserver {
 
-        public void ObservedStateUpdate(Location location, LocationState locationState) {
+        public void ObservedStateUpdate(Location location, LocationState locationState, String reason) {
         }
     }
     

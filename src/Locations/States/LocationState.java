@@ -26,7 +26,8 @@ public enum LocationState {
     EMERGENCY;
     
     /**
-     * This returns the functionality associated with the given enum value.
+     * This returns the specific state and the functionality associated with 
+     * the given enum value.
      * @return The state class
      */
     public ILocationState GetLocationState(){

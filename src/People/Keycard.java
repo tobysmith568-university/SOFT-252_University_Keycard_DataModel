@@ -53,6 +53,18 @@ public class Keycard implements Serializable{
     public Role[] GetRoles() {
         return roles.toArray(new Role[0]);
     }
+    
+    /**
+     * Returns a <code>String</code> of all this <code>Keycard</code>s
+     * <code>Role</code>s names separated by a given delimiting <code>String</code>.
+     * @param delimiter What will separate the roles
+     * @return The combined <code>String</code>
+     */
+    public String GetRolesString(String delimiter) {
+        String output = "";
+        output = roles.stream().map(role -> delimiter + role.GetName()).reduce(output, String::concat);
+        return output.substring(delimiter.length());
+    }
 
     /**
      * Returns the name of this owner of this <code>Keycard</code>.

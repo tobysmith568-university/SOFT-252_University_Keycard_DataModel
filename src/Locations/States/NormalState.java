@@ -14,7 +14,7 @@ import People.Role;
  * @author Student
  */
 public class NormalState implements ILocationState {
-
+    
     /**
      * Tests a <code>Keycard</code> object to see if it qualifies for entry to
      * the <code>Room</code> under the <code>Room</code>s current state.
@@ -25,9 +25,7 @@ public class NormalState implements ILocationState {
      */
     @Override
     public boolean AccessRequest(Keycard keycard) {
-        Role[] roles = keycard.GetRoles();
-        
-        for (Role role : roles) {
+        for (Role role : keycard.GetRoles()) {
             switch (role){
                 case VISITOR:
                 case STAFFMEMBER:
@@ -41,5 +39,5 @@ public class NormalState implements ILocationState {
             }
         }
         return false;
-    }    
+    }
 }

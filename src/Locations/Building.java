@@ -5,6 +5,7 @@
  */
 package Locations;
 
+import Control.Log;
 import Locations.States.LocationState;
 import java.util.HashMap;
 
@@ -101,10 +102,10 @@ public class Building extends ParentLocation {
      * @param newState The new state the <code>Location</code> is set to
      */
     @Override
-    protected void ActualSetRoomState(LocationState newState) {
-        super.ActualSetRoomState(newState);
+    protected void ActualSetRoomState(LocationState newState, String reason) {
+        super.ActualSetRoomState(newState, reason);
         floors.values().forEach(floor ->
-            ((Floor)floor).ActualSetRoomState(newState)); 
+            ((Floor)floor).ActualSetRoomState(newState, reason)); 
     }
     
     /**
@@ -119,12 +120,15 @@ public class Building extends ParentLocation {
     public Floor AddFloor(){
         Floor[] allFloors = floors.values().toArray(new Floor[0]);
         String highestFloor = (allFloors.length > 0) ? allFloors[allFloors.length - 1].GetFloorNumber() : "-1";
+        String newFloor = "" + (Integer.parseInt(highestFloor) + 1);
         
-        Floor floor = new Floor(Integer.toString(Integer.parseInt(highestFloor) + 1));
+        Floor floor = new Floor(newFloor);
         floor.SetFullName(this.fullName + " " + floor.GetFloorNumber());
         floors.put(floor.GetFloorNumber(), floor);
         floor.SetBuilding(this);
         
+        Log.Log("Added new floor \"" + newFloor + "\" to " + this.fullName);   
+
         return floor;
     }
     
@@ -138,7 +142,7 @@ public class Building extends ParentLocation {
     }
 
     @Override
-    public void ObservedStateUpdate(Location location, LocationState locationState) {
+    public void ObservedStateUpdate(Location location, LocationState locationState, String reason) {
         SetIsMixedState(false);
         for (Floor floor : floors.values()) {
             if (floor.GetState() != locationState)

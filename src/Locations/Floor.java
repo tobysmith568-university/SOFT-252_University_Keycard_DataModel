@@ -19,7 +19,7 @@ import java.util.HashMap;
 public class Floor extends ParentLocation {
     private Building building;
     private final String floorNumber;
-    private final HashMap<String, Room> rooms = new HashMap<>();
+    private final HashMap<String, Room> rooms;
     
     /**
      * Creates a new <code>Floor</code>. Also:<ul><li>Adds the <code>Logger</code> as
@@ -27,7 +27,8 @@ public class Floor extends ParentLocation {
      * exact same string as the <code>name</code></li></ul>
      * @param floorNumber The number to be given to the new <code>Floor</code>
      */
-    public Floor(String floorNumber){
+    public Floor(String floorNumber) {
+        this.rooms = new HashMap<>();
         this.floorNumber = this.fullName = floorNumber;        
     }
 
@@ -53,11 +54,8 @@ public class Floor extends ParentLocation {
      * @return The child object, if it is found
      */
     @Override
-    public Room GetChild(String name){
-        if (!rooms.containsKey(name))
-            return null;
-        else
-            return rooms.get(name);
+    public Room GetChild(String name) {
+        return rooms.get(name);
     }
     
     /**
@@ -66,7 +64,7 @@ public class Floor extends ParentLocation {
      * @return The child objects
      */
     @Override
-    public Room[] GetAllChildren(){
+    public Room[] GetAllChildren() {
         return rooms.values().toArray(new Room[0]);
     }
     
@@ -74,7 +72,7 @@ public class Floor extends ParentLocation {
      * Sets the parent <code>Building</code> object of this <code>Floor</code>
      * @param building The parent <code>Building</code>
      */
-    public void SetBuilding(Building building){
+    public void SetBuilding(Building building) {
         this.building = building;
         AddStateObserver(building);
     }
@@ -116,15 +114,20 @@ public class Floor extends ParentLocation {
      * @return The new <code>Floor</code>
      */
     public Room AddRoom(RoomType type) {
+        //Find all the current rooms
         Room[] allRooms = rooms.values().toArray(new Room[0]);
+        
+        //Find the next room number after the highest already created
         String highestRoom = (allRooms.length > 0) ? allRooms[allRooms.length - 1].GetNumber() : "-1";
         String newRoom = Integer.toString(Integer.parseInt(highestRoom) + 1);
-                
+        
+        //Create the new Room
         Room room = RoomFactory.Create(newRoom, type);
         rooms.put(room.GetNumber(), room);
         room.SetFloor(this);
         room.SetFullName(this.fullName + room.GetNumber());
         
+        //Tell the logger
         Log.Log("Added new room \"" + newRoom + "\" (" + type.GetName() + ") to " + this.fullName);
         
         return room;
@@ -135,8 +138,14 @@ public class Floor extends ParentLocation {
      * @param room The <code>Room</code> to be removed
      * @return The previous <code>Room</code> value before it was removed
      */
-    public Room RemoveRoom(Room room){        
-        return rooms.remove(room.GetNumber());
+    public Room RemoveRoom(Room room) {        
+        Room removed = rooms.remove(room.GetNumber());
+        
+        //If removal was successful, tell the logger
+        if (removed != null)
+            Log.Log("Removed room \"" + removed.GetNumber() + "\" (" + removed.GetRoomType() + ") from " + this.fullName);
+        
+        return removed;
     }
 
     @Override

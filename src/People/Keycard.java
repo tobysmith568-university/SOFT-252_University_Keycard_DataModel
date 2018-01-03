@@ -15,7 +15,7 @@ import java.util.Arrays;
  * if it will grant access or not.
  * @author Student
  */
-public class Keycard implements Serializable{
+public class Keycard implements Serializable {
     private final ArrayList<Role> roles;
     private String name;
     private final String cardID;

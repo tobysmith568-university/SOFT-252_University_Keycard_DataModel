@@ -5,24 +5,11 @@
  */
 package Control;
 
-import Locations.Building;
-import Locations.Campus;
-import Locations.Floor;
-import Locations.Location;
-import Locations.ParentLocation;
-import Locations.Room;
+import Locations.*;
 import static Locations.RoomType.*;
 import People.Keycard;
 import static People.Role.*;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.HashMap;
 
 /**
@@ -46,7 +33,7 @@ public class Data implements Serializable {
     private final HashMap<String, Campus> campuses;
     private final HashMap<String, Keycard> keycards;
     
-    private Data(HashMap<String, Campus> campuses, HashMap<String, Keycard> keycards){        
+    private Data(HashMap<String, Campus> campuses, HashMap<String, Keycard> keycards) {        
         this.campuses = campuses;
         this.keycards = keycards;
     }
@@ -68,12 +55,12 @@ public class Data implements Serializable {
      * @return <code>True</code> if the states of the objects were successfully
      * saved to the file
      */
-    public static boolean SaveState(String path, HashMap<String, Campus> campuses, HashMap<String, Keycard> keycards){
+    public static boolean SaveState(String path, HashMap<String, Campus> campuses, HashMap<String, Keycard> keycards) {
         File objFile = new File(path);
         
         try (ObjectOutputStream objOut = new ObjectOutputStream(
                                             new BufferedOutputStream(
-                                            new FileOutputStream(objFile)))){
+                                            new FileOutputStream(objFile)))) {
             objOut.writeObject(new Data(campuses, keycards));
             Log.Log("All data written to \"" + path + "\".");
         } catch (IOException ex) {
@@ -99,7 +86,7 @@ public class Data implements Serializable {
      * should be overwritten with what is being returned
      * @return The object serialised from the file
      */
-    public static Data LoadState(String path, boolean overwriteAll){
+    public static Data LoadState(String path, boolean overwriteAll) {
         Data newSave = null;
         File objFile = new File(path);
         if(!objFile.exists() || !objFile.canRead())
@@ -112,7 +99,7 @@ public class Data implements Serializable {
             Object data = objIn.readObject();
             newSave = (Data)data;
             
-            if(newSave == null){
+            if(newSave == null) {
                 Log.Log("Error: Problem reading file");
             } else {
                 newSave.campuses.values().forEach((campus) -> {
@@ -127,24 +114,24 @@ public class Data implements Serializable {
             Log.Log("ERROR: " + ex.getMessage());
         }
         
-        if (overwriteAll){            
+        if (overwriteAll) {            
             if (newSave == null)
                 SetDefaultState();
             else {
                 allCampuses = newSave.campuses;
                 allKeycards = newSave.keycards;
             }
-        } else if (newSave == null){
+        } else if (newSave == null) {
             Log.Log("ERROR: Unable to open that file!");
         }
         
         return newSave;
     }
     
-    private static void AssignObserver(Location location){
+    private static void AssignObserver(Location location) {
         Log logger = Log.Logger();
         
-        if (location != null){
+        if (location != null) {
             location.AddStateObserver(logger);
             
             if (location instanceof ParentLocation)
@@ -163,7 +150,7 @@ public class Data implements Serializable {
         }
     }
 
-    private static void SetDefaultState(){
+    private static void SetDefaultState() {
         Log.Log("Creating default data sets.");
         
         Data.allCampuses = new HashMap<>();

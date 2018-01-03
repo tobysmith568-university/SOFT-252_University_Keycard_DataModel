@@ -9,7 +9,6 @@ import Listeners.IAccessObserver;
 import Listeners.IAccessSubject;
 import People.Keycard;
 import java.util.ArrayList;
-import Locations.States.ILocationState;
 import java.util.Arrays;
 
 /**
@@ -22,7 +21,7 @@ import java.util.Arrays;
  */
 public class Room extends Location implements IAccessSubject {
 
-    private transient ArrayList<IAccessObserver> accessObservers;
+    private final transient ArrayList<IAccessObserver> accessObservers;
     private Floor floor;
     private final String number;
     private RoomType type;
@@ -35,7 +34,10 @@ public class Room extends Location implements IAccessSubject {
      * @param number The number to be given to the new <code>Room</code>. Note
      * that <code>Room</code> numbers should re-start at zero for each <code>Floor</code>
      */
-    public Room(String number){
+    public Room(String number) {
+        accessObservers = new ArrayList<>();
+        
+        //Ensure the room number is always at least 2 digits long
         if (number.length() == 1)
             this.number = this.fullName = "0" + number;
         else
@@ -62,7 +64,7 @@ public class Room extends Location implements IAccessSubject {
      * Returns the parent <code>Floor</code> object to this <code>Room</code>.
      * @return The <code>Floor</code>
      */
-    public Floor GetFloor(){
+    public Floor GetFloor() {
         return this.floor;
     }
     
@@ -70,7 +72,7 @@ public class Room extends Location implements IAccessSubject {
      * Sets the parent <code>Floor</code> object of this <code>Room</code>
      * @param floor The parent <code>Floor</code>
      */
-    public void SetFloor(Floor floor){
+    public void SetFloor(Floor floor) {
         this.floor = floor;
         AddStateObserver(floor);
     }
@@ -97,13 +99,18 @@ public class Room extends Location implements IAccessSubject {
      * @return If access was granted or not
      */
     public boolean AccessRequest(Keycard keycard) {
+        //A room's access request is based off of three variables:
+        //  If the keycard has access to that type of room
+        //  If the keycard has access in this type of state
+        //  If the keycard has access at this sort of time
         boolean roomAccess = iType.AccessRequest(keycard);
         boolean stateAccess = iState.AccessRequest(keycard);
         boolean timeAccess = Arrays.stream(keycard.GetRoles())
                 .filter(role -> role.HasTimeAccess())
-                .count() > 0;
+                .count() > 0;//timeAccess is True if at least one of the keycards roles currently has time access
         
         UpdateAccessObservers(keycard, this, roomAccess && stateAccess && timeAccess);
+        //Return all 3 combined together
         return roomAccess && stateAccess && timeAccess;
     }
 
@@ -112,11 +119,11 @@ public class Room extends Location implements IAccessSubject {
      * access requests to the <code>Room</code> no matter if they are successful
      * or fail.
      * @param observer The observer to be added
-     * @return If the observer was successfully added
+     * @return If the observer was successfully added. This will be false if the
+     * observer was already added
      */
     @Override
     public boolean AddAccessObserver(IAccessObserver observer) {
-        if (accessObservers == null) accessObservers = new ArrayList<>();
         if (accessObservers.contains(observer))
             return false;
         else{
@@ -128,7 +135,8 @@ public class Room extends Location implements IAccessSubject {
     /**
      * Removes a given <code>IAccessObserver</code> from the object.
      * @param observer The observer to be removed
-     * @return If the observer was successfully removed from the object
+     * @return If the observer was successfully removed from the object. This
+     * will be false if the observer wasn't originally added
      */
     @Override
     public boolean RemoveAccessObserver(IAccessObserver observer) {

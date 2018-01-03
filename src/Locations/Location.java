@@ -21,30 +21,22 @@ import java.io.Serializable;
  * includes getting their data and updating their states
  * @author Student
  */
-public abstract class Location implements IStateSubject, Serializable{
-
-    /**
-     * The collection of objects which are observing the state of this object
-     */
-    protected transient ArrayList<IStateObserver> stateObservers;
+public abstract class Location implements IStateSubject, Serializable 
+{
+    private final transient ArrayList<IStateObserver> stateObservers;
 
     /**
      * The full name of this <code>Location</code>, this will include the names
      * of it's parent <code>Location</code> objects too.
      */
-    protected String fullName;    
-
-    /**
-     * The current state of this <code>Location</code>
-     */
-    protected LocationState state;
-
+    protected String fullName;
+    
+    private LocationState state;
     /**
      * The class of functionality retrieved from the <code>LocationState state</code>
      * in this object.
      */
-    protected ILocationState iState;
-    
+    protected ILocationState iState;    
     private String stateChangeReason;
     
     /**
@@ -65,7 +57,7 @@ public abstract class Location implements IStateSubject, Serializable{
      * Creates a new <code>Location</code> and adds the <code>Logger</code> as
      * an observer of it's state.
      */
-    protected Location(){
+    protected Location() {
         stateObservers = new ArrayList<>();
         state = NOEMERGENCY;
         iState = state.GetLocationState();
@@ -99,7 +91,11 @@ public abstract class Location implements IStateSubject, Serializable{
      * @param newState The new state the <code>Location</code> is set to
      * @param reason The reason for the state being changed
      */
-    public void SetRoomState(LocationState newState, String reason){
+    public void SetRoomState(LocationState newState, String reason) {
+        //All the functionality of this method is in the protected 'ActualSetRoomState()' below
+        //This allows parent/child Locations to access the functionality directly there.
+        //But the GUI and other places need to access it via this public method which also
+        //Updates all observers of the change
         ActualSetRoomState(newState, reason);
         UpdateStateObservers(this, state, reason);
     }
@@ -114,7 +110,7 @@ public abstract class Location implements IStateSubject, Serializable{
      * @param newState The new state the <code>Location</code> is set to
      * @param reason The reason for the state being changed
      */
-    protected void ActualSetRoomState(LocationState newState, String reason){
+    protected void ActualSetRoomState(LocationState newState, String reason) {
         state = newState;
         iState = state.GetLocationState();
         isMixedState = false;
@@ -126,7 +122,7 @@ public abstract class Location implements IStateSubject, Serializable{
      * names of it's parent <code>Location</code> objects too.
      * @return The full name of this <code>Location</code>
      */
-    public String GetFullName(){
+    public String GetFullName() {
         return fullName;
     }
     
@@ -134,7 +130,7 @@ public abstract class Location implements IStateSubject, Serializable{
      * Get the current state of this <code>Location</code>.
      * @return The current state of this <code>Location</code>
      */
-    public LocationState GetState(){
+    public LocationState GetState() {
         return state;
     }
     
@@ -143,7 +139,7 @@ public abstract class Location implements IStateSubject, Serializable{
      * names of it's parent <code>Location</code> objects too.
      * @param name What the full name will be set to
      */
-    public void SetFullName(String name){
+    public void SetFullName(String name) {
         this.fullName = name;
     }
 
@@ -155,7 +151,6 @@ public abstract class Location implements IStateSubject, Serializable{
      */
     @Override
     public final boolean AddStateObserver(IStateObserver observer) {
-        if (stateObservers == null) stateObservers = new ArrayList<>();
         if (stateObservers.contains(observer))
             return false;
         else {
@@ -182,9 +177,8 @@ public abstract class Location implements IStateSubject, Serializable{
      */
     @Override
     public final void UpdateStateObservers(Location location, LocationState locationState, String reason) {
-        stateObservers
-                .forEach((observer) -> {
-                    observer.ObservedStateUpdate(location, locationState, reason);
+        stateObservers.forEach(observer -> {
+            observer.ObservedStateUpdate(location, locationState, reason);
         });
     }
 }

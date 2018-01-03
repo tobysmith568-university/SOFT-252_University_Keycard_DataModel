@@ -19,7 +19,7 @@ public class Building extends ParentLocation {
     private Campus campus;
     private final String name;
     private final String shortCode;
-    private final HashMap<String, Floor> floors = new HashMap<>();
+    private final HashMap<String, Floor> floors;
     
     /**
      * Creates a new <code>Building</code>. Also:<ul><li>Adds the <code>Logger</code> as
@@ -28,7 +28,8 @@ public class Building extends ParentLocation {
      * @param name The name of the new <code>Building</code>
      * @param shortCode The shortcode to be assigned to the new <code>Building</code>
      */
-    public Building(String name, String shortCode){
+    public Building(String name, String shortCode) {
+        this.floors = new HashMap<>();
         this.name = this.fullName = name;
         this.shortCode = shortCode;
     }
@@ -40,6 +41,14 @@ public class Building extends ParentLocation {
     public String GetName() {
         return name;
     }
+
+    /**
+     * Returns the shortcode of the <code>Building</code>.
+     * @return The shortcode
+     */
+    public String GetShortcode() {
+        return shortCode;
+    }
     
     /**
      * Finds and returns a specific child <code>Floor</code> of this object.
@@ -47,12 +56,8 @@ public class Building extends ParentLocation {
      * @return The child object, if it is found
      */
     @Override
-    public Floor GetChild(String name){
-        if (!floors.containsKey(name))
-            return null;
-        else{
-            return floors.get(name);
-        }
+    public Floor GetChild(String name) {
+        return floors.get(name);
     }
     
     /**
@@ -61,7 +66,7 @@ public class Building extends ParentLocation {
      * @return The child objects
      */
     @Override
-    public Floor[] GetAllChildren(){
+    public Floor[] GetAllChildren() {
         return floors.values().toArray(new Floor[0]);
     }
 
@@ -117,16 +122,21 @@ public class Building extends ParentLocation {
      * following the previously made <code>Floor</code>.
      * @return The new <code>Floor</code>
      */
-    public Floor AddFloor(){
+    public Floor AddFloor() {
+        //Find all the current floors
         Floor[] allFloors = floors.values().toArray(new Floor[0]);
+        
+        //Find the next floor number after the highest alreay created
         String highestFloor = (allFloors.length > 0) ? allFloors[allFloors.length - 1].GetFloorNumber() : "-1";
         String newFloor = "" + (Integer.parseInt(highestFloor) + 1);
         
+        //Create the new floor
         Floor floor = new Floor(newFloor);
         floor.SetFullName(this.fullName + " " + floor.GetFloorNumber());
         floors.put(floor.GetFloorNumber(), floor);
         floor.SetBuilding(this);
         
+        //Tell the logger
         Log.Log("Added new floor \"" + newFloor + "\" to " + this.fullName);   
 
         return floor;
@@ -137,7 +147,7 @@ public class Building extends ParentLocation {
      * @param floor The <code>Floor</code> to be removed
      * @return The previous <code>Floor</code> value before it was removed
      */
-    public Floor RemoveFloor(Floor floor){
+    public Floor RemoveFloor(Floor floor) {
         return floors.remove(floor.GetFloorNumber());
     }
 

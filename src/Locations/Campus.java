@@ -16,7 +16,7 @@ import java.util.HashMap;
  */
 public class Campus extends ParentLocation{
     private final String name;
-    private final HashMap<String, Building> buildings = new HashMap<>();
+    private final HashMap<String, Building> buildings;
     
     /**
      * Creates a new <code>Campus</code>. Also:<ul><li>Adds the <code>Logger</code> as
@@ -24,8 +24,9 @@ public class Campus extends ParentLocation{
      * exact same string as the <code>name</code></li></ul>
      * @param name The name of the new <code>Campus</code>
      */
-    public Campus(String name){
+    public Campus(String name) {
         super();
+        this.buildings = new HashMap<>();
         this.name = this.fullName = name;
     }
 
@@ -43,11 +44,8 @@ public class Campus extends ParentLocation{
      * @return The child object, if it is found
      */
     @Override
-    public Building GetChild(String name){
-        if (!buildings.containsKey(name))
-            return null;
-        else
-            return buildings.get(name);
+    public Building GetChild(String name) {
+        return buildings.get(name);
     }
     
     /**
@@ -56,7 +54,7 @@ public class Campus extends ParentLocation{
      * @return The child objects
      */
     @Override
-    public Building[] GetAllChildren(){
+    public Building[] GetAllChildren() {
         return buildings.values().toArray(new Building[0]);
     }
     
@@ -70,7 +68,7 @@ public class Campus extends ParentLocation{
      * @param newState The new state the <code>Location</code> is set to
      */
     @Override
-    protected void ActualSetRoomState(LocationState newState, String reason){
+    protected void ActualSetRoomState(LocationState newState, String reason) {
         super.ActualSetRoomState(newState, reason);
         buildings.values().forEach(building ->
             ((Building)building).ActualSetRoomState(newState, reason));
@@ -85,32 +83,39 @@ public class Campus extends ParentLocation{
      * same name.
      * @param name The name of the <code>Building</code> to add
      * @param shortCode A short code of the <code>Building</code> to add
-     * @return The new <code>Building</code>
+     * @return The new <code>Building</code> or <code>null</code> if it already
+     * existed
      */
-    public Building AddBuilding(String name, String shortCode){
+    public Building AddBuilding(String name, String shortCode) {
+        //If the building already exists, return null
         if (buildings.containsKey(name))
             return null;
         
+        //Create the building
         Building building = new Building(name, shortCode);
         building.SetFullName(this.name + " " + shortCode);
         buildings.put(building.GetName(), building);
         building.SetCampus(this);
         
+        //Tell the logger
         Log.Log("Added new building \"" + name + "\" (" + shortCode + ") to " + this.fullName);
         
         return building;
     }
     
     /**
-     *
-     * @param building
-     * @return
+     * Removes a <code>Building</code> object from this <code>Campus</code>.
+     * @param building The <code>Building</code> to remove
+     * @return The removed <code>Building</code> or null if it does not exist
      */
-    public Building RemoveBuilding(Building building){
-        if (!buildings.containsValue(building))
-            return null;
+    public Building RemoveBuilding(Building building) {
+        Building removed = buildings.remove(building.GetName());
         
-        return buildings.remove(building.GetName());
+        //If removal was successful, tell the logger
+        if (removed != null)
+            Log.Log("Removed building \"" + removed.GetName() + "\" (" + removed.GetShortcode() + ") from " + this.fullName);
+        
+        return removed;
     }
 
     @Override

@@ -49,8 +49,8 @@ public enum RoomType {
      * This returns the functionality associated with the given enum value.
      * @return The <code>Room</code> class
      */
-    public IRoomType GetRoomType(){
-        switch (this){
+    public IRoomType GetRoomType() {
+        switch (this) {
             case LECTUREHALL:
                 return new LectureHall();
             case STUDENTLAB:
@@ -59,8 +59,10 @@ public enum RoomType {
                 return new ResearchLab();
             case STAFFROOM:
                 return new StaffRoom();
-            default:
+            case SECUREROOM:
                 return new SecureRoom();
+            default:
+                return null;
         }
     }
     
@@ -69,8 +71,8 @@ public enum RoomType {
      * <code>Room</code>s type.
      * @return The user-friendly name
      */
-    public String GetName(){
-        switch (this){
+    public String GetName() {
+        switch (this) {
             case LECTUREHALL:
                 return "Lecture Hall";
             case STUDENTLAB:
@@ -79,8 +81,10 @@ public enum RoomType {
                 return "Research Lab";
             case STAFFROOM:
                 return "Staff Room";
-            default:
+            case SECUREROOM:
                 return "Secure Room";
+            default:
+                return "UNNAMED ROOM TYPE!";
         }
     }
 }

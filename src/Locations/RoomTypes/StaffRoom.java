@@ -28,7 +28,7 @@ public class StaffRoom implements IRoomType {
         Role[] roles = keycard.GetRoles();
         
         for (Role role : roles) {
-            switch (role){
+            switch (role) {
                 case STAFFMEMBER:
                 case CLEANER:
                 case MANAGER:

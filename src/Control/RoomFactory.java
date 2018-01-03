@@ -28,7 +28,7 @@ public class RoomFactory {
      * @param type The type of <code>Room</code> to be made
      * @return The finished <code>Room</code> object
      */
-    public static Room Create(String number, RoomType type){
+    public static Room Create(String number, RoomType type) {
         Room room = new Room(number);
               
         room.SetRoomType(type);

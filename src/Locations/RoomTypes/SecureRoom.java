@@ -28,7 +28,7 @@ public class SecureRoom implements IRoomType {
         Role[] roles = keycard.GetRoles();
         
         for (Role role : roles) {
-            switch (role){
+            switch (role) {
                 case MANAGER:
                 case SECURITY:
                 case EMERGENCYRESPONDER:

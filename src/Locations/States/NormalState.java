@@ -26,7 +26,7 @@ public class NormalState implements ILocationState {
     @Override
     public boolean AccessRequest(Keycard keycard) {
         for (Role role : keycard.GetRoles()) {
-            switch (role){
+            switch (role) {
                 case VISITOR:
                 case STAFFMEMBER:
                 case STUDENT:

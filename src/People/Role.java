@@ -78,7 +78,7 @@ public enum Role {
      * allowed <code>Room</code>s
      */
     public boolean HasTimeAccess() {
-        switch (this){
+        switch (this) {
             case VISITOR:
             case STUDENT:
                 return IsNowBetween(8, 30, 00, 22, 00, 00);
@@ -101,8 +101,8 @@ public enum Role {
      * <code>Keycard</code>s type.
      * @return The user-friendly name
      */
-    public String GetName(){
-        switch (this){
+    public String GetName() {
+        switch (this) {
             case VISITOR:
                 return "Visitor";
             case STUDENT:
@@ -118,7 +118,7 @@ public enum Role {
             case EMERGENCYRESPONDER:
                 return "Emergency Responder";
             default:
-                return "Unnamed role!";
+                return "UNNAMED ROLE!";
         }
     }
     
@@ -127,8 +127,8 @@ public enum Role {
      * <code>Keycard</code>s type in the plural form.
      * @return The user-friendly plural name
      */
-    public String GetPluralName(){
-        switch (this){
+    public String GetPluralName() {
+        switch (this) {
             case VISITOR:
                 return "Visitors";
             case STUDENT:
@@ -144,12 +144,13 @@ public enum Role {
             case EMERGENCYRESPONDER:
                 return "Emergency Responders";
             default:
-                return "Unnamed role!";
+                return "UNNAMED ROLE!";
         }
     }
     
-    private boolean IsNowBetween(int startHours, int startMinutes, int startSeconds, int endHours, int endMinutes, int endSeconds){
-        return LocalTime.now().compareTo(LocalTime.of(startHours, startMinutes, startSeconds)) >= 0 &&
+    private boolean IsNowBetween(int startHours, int startMinutes, int startSeconds, int endHours, int endMinutes, int endSeconds) {
+        return LocalTime.now().compareTo(LocalTime.of(startHours, startMinutes, startSeconds)) >= 0
+                &&
                LocalTime.now().compareTo(LocalTime.of(endHours,   endMinutes,   endSeconds  )) < 0;
     }
 }

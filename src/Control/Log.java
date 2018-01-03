@@ -40,7 +40,7 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
     private final ArrayList<ILogObserver> logObservers;
     private final ArrayList<String> unsavedMessages;
     
-    private Log(){
+    private Log() {
         this.logObservers = new ArrayList<>();
         this.unsavedMessages = new ArrayList<>();
         this.EmergencyFolderFormat = DateTimeFormatter.ofPattern("dd-MM-yy_HH-mm-ss");
@@ -52,14 +52,14 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
      * Gets the Logger instance.
      * @return The Logger instance
      */
-    public static Log Logger(){
+    public static Log Logger() {
         if (singleton == null)
             singleton = new Log();
         
         return singleton;
     }
     
-    private String LogPrefix(){
+    private String LogPrefix() {
         return LocalDateTime.now().format(logMessageFormat);
     }
     
@@ -72,20 +72,28 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
     }
     
     private boolean LogEmergency(Location location, LocationState state, String reason) {
-        boolean anyFailures = true;
+        boolean anyFailures = false;
         String output = LogPrefix() + " " + location.GetFullName() + " is now in the state " + 
                 state.GetName() + " for the reason: " + reason;
                 
         Logger().SendLog(output);     
         
-        if (state == EMERGENCY){
+        //Special logic for if the new state is EMERGENCY
+        //Needs to save the current state and log file to an emergency folder
+        if (state == EMERGENCY) {
             Path emergencyDirectory = Paths.get("Emergency Logs", "EM_" + LocalDateTime.now().format(EmergencyFolderFormat));
             try{
+                //Ensure the emergency folder exists
                 Files.createDirectories(emergencyDirectory);
+                
+                //Copy over the current log file
                 Path logFile = GetTodaysLogFile();
                 Files.copy(logFile, emergencyDirectory.resolve(logFile.getFileName()));
+                
+                //Save the current locations and keycards
                 Data.SaveState(emergencyDirectory.resolve("Current.state").toString(), Data.allCampuses, Data.allKeycards);
             } catch (IOException e) {
+                Log.Log("ERROR: " + e.getMessage());
                 anyFailures = true;
             }
         }
@@ -96,36 +104,45 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
      * Prints a <code>String</code> to both the console and the current log file.
      * @param message The <code>String</code> to be printed
      */
-    public static void Log(String message){
+    public static void Log(String message) {
         String output = Logger().LogPrefix() + " " + message;
         
         Logger().SendLog(output);
     }
     
-    private void SendLog(String message){
+    private void SendLog(String message) {
+        //Each log goes to three places, Log observers, .log file, and the console
         UpdateLogObservers(message);
         Logger().LogToFile(message);
         System.out.println(message);
     }
     
-    private boolean LogToFile(String message){
+    private boolean LogToFile(String message) {
         boolean anyFailures = false;
         Path logFile = GetTodaysLogFile();
         
+        //If there's already 100 pending messages to log in the file, delete the oldest
         if (unsavedMessages.size() == 100)
             unsavedMessages.remove(0);
         
+        //Add the current message to log to the list of pending messages
         unsavedMessages.add(0, message);
         
+        //For each pending message, try to write them to the .log file
         for (int i = unsavedMessages.size() - 1; i >= 0; i--) {
             try {
+                //Ensure the daily .log file directory exists
                 if (!Files.exists(logFile.getParent()))
                     Files.createDirectories(logFile.getParent());
-
+                
+                //Write the daily .log file exists, if APPEND, else use CREATE when writing the message
                 Files.write(logFile, Arrays.asList(message), Files.exists(logFile) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
                 unsavedMessages.remove(i);
             } catch (IOException e) {
+                Log.Log("ERROR: " + e.getMessage());
                 anyFailures = true;
+                //Break from the for loop to preserve the order of logged messages
+                break;
             }
         }
         return anyFailures;
@@ -198,8 +215,7 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
      * Returns the name of today's log file.
      * @return The name of the file
      */
-    public Path GetTodaysLogFile(){        
-        Path logDirectory = Paths.get("Daily Logs");
-        return Paths.get(logDirectory.toString(), "Log for " + LocalDateTime.now().format(DailyFileFormat) + ".log");
+    public Path GetTodaysLogFile() {
+        return Paths.get("Daily Logs", "Log for " + LocalDateTime.now().format(DailyFileFormat) + ".log");
     }
 }

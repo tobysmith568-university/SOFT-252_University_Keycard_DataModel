@@ -23,6 +23,7 @@ import java.util.Arrays;
 public class KeycardFactory implements Serializable{
     
     private static Long previousCardID;
+    private static final String FILELOCATION = "PreviousID.state";
     
     /**
      * Creates a new <code>keycard</code> object
@@ -30,17 +31,20 @@ public class KeycardFactory implements Serializable{
      * @param name The name of the owner of the <code>Keycard</code>
      * @return The new <code>Keycard</code> object
      */
-    public static Keycard Create(Role[] roles, String name){
+    public static Keycard Create(Role[] roles, String name) {
+        //Find the previously used ID
         if (previousCardID == null)
-            ReadState();
+            ReadPrevious();
         previousCardID++;
-        WriteState();
+        WritePrevious();
         
+        //Add preceeding zeros to ensure the number is at least 8 digits long
         String newCardID = "" + previousCardID;
-        if (newCardID.length() < 8){
+        if (newCardID.length() < 8) {
             newCardID = new String(new char[8 - newCardID.length()]).replace("\0", "0") + newCardID;
         }
         
+        //Create the new keycard
         Keycard newCard = new Keycard(roles, name, newCardID);
         Data.allKeycards.put(newCardID, newCard);
         return newCard;
@@ -52,43 +56,49 @@ public class KeycardFactory implements Serializable{
      * @param name The name of the owner of the <code>Keycard</code>
      * @return The new <code>Keycard</code> object
      */
-    public static Keycard Create(Role role, String name){
+    public static Keycard Create(Role role, String name) {
+        //Find the previously used ID
         if (previousCardID == null)
-            ReadState();
+            ReadPrevious();
         previousCardID++;
-        WriteState();
+        WritePrevious();
         
+        //Add preceeding zeros to ensure the number is at least 8 digits long
         String newCardID = "" + previousCardID;
-        if (newCardID.length() < 8){
+        if (newCardID.length() < 8) {
             newCardID = new String(new char[8 - newCardID.length()]).replace("\0", "0") + newCardID;
         }
         
+        //Create the new keycard
         Keycard newCard = new Keycard(role, name, newCardID);
         Data.allKeycards.put(newCardID, newCard);
         return newCard;
     }
     
-    private static boolean WriteState(){
-        String fileName = "PreviousID.state";
-        Path path = Paths.get(fileName);
-        try {                  
+    private static boolean WritePrevious() {
+        Path path = Paths.get(FILELOCATION);
+        
+        try {
+            //Write the previous keycard ID used by either erasing or creating the file depending on of it already exists or not
             Files.write(path, Arrays.asList("" + previousCardID), Files.exists(path) ? StandardOpenOption.TRUNCATE_EXISTING : StandardOpenOption.CREATE);
         } catch (IOException e) {
+            Log.Log("ERROR: " + e.getMessage());
             return false;
         }
         return true;
     }
     
-    private static boolean ReadState(){
-        String fileName = "PreviousID.state";
-        Path path = Paths.get(fileName);
+    private static boolean ReadPrevious() {
+        Path path = Paths.get(FILELOCATION);
         
         if (!Files.exists(path))
             previousCardID = 0L;
         else
-            try {            
+            try {
+                //Read the previous keycard ID
                 previousCardID = Long.parseLong(Files.readAllLines(path).get(0));
             } catch (IOException e) {
+                Log.Log("ERROR: " + e.getMessage());
                 return false;
             }
         return true;

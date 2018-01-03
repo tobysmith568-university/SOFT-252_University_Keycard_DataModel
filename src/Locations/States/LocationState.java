@@ -30,8 +30,8 @@ public enum LocationState {
      * the given enum value.
      * @return The state class
      */
-    public ILocationState GetLocationState(){
-        switch (this){
+    public ILocationState GetLocationState() {
+        switch (this) {
             case EMERGENCY:
                 return new EmergencyState();
             default:
@@ -44,14 +44,14 @@ public enum LocationState {
      * name.
      * @return The name of this state
      */
-    public String GetName(){
-        switch (this){
+    public String GetName() {
+        switch (this) {
             case NOEMERGENCY:
                 return "No Emergency";
             case EMERGENCY:
                 return "Emergency";
             default:
-                return this.toString();
+                return "UNNAMED STATE";
         }
     }
 }

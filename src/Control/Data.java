@@ -58,10 +58,15 @@ public class Data implements Serializable {
     public static boolean SaveState(String path, HashMap<String, Campus> campuses, HashMap<String, Keycard> keycards) {
         File objFile = new File(path);
         
+        //Create a new ObjectOutputStream
         try (ObjectOutputStream objOut = new ObjectOutputStream(
                                             new BufferedOutputStream(
                                             new FileOutputStream(objFile)))) {
+            
+            //Write the campus and keycard objects
             objOut.writeObject(new Data(campuses, keycards));
+            
+            //Tell the logger
             Log.Log("All data written to \"" + path + "\".");
         } catch (IOException ex) {
             Log.Log("ERROR: " + ex.getMessage());
@@ -72,6 +77,9 @@ public class Data implements Serializable {
     
     /**
      * Loads a states of <code>Campus</code> and <code>Keycard</code> objects
+     * into the main data of the program.
+     * 
+     * <h2>Do not confuse with <code>ReadState()</code></h2>
      * 
      * Looks for a file at the location given and tries to parse it's data into
      * a <code>Data</code> object containing an <code>ArrayList</code> of
@@ -81,70 +89,115 @@ public class Data implements Serializable {
      * <code>Location</code> in the <code>ArrayList&lt;Campus&gt;</code>. It also
      * add the <code>Logger</code> as an access observer to each
      * <code>Room</code> contained within the <code>Campus</code>s.
-     * @param path The file location of the file to load
-     * @param overwriteAll <code>True</code> if all the data in the active program
-     * should be overwritten with what is being returned
-     * @return The object serialised from the file
+     * 
+     * <h2>This data is then used to overwrite the primary data in the program!</h2>
+     * @param path The location of the <code>.state</code> file
+     * @return The newly read campus and keycard Data
      */
-    public static Data LoadState(String path, boolean overwriteAll) {
+    public static Data LoadState(String path) {
+        //Read the data in the given path
+        Data newData = ReadState(path);
+        
+        //If it's not successful load in default data
+        if (newData == null)
+            SetDefaultState();
+        
+        //If it is successful load in the read data
+        else {
+            allCampuses = newData.campuses;
+            allKeycards = newData.keycards;
+        }
+        
+        return newData;
+    }
+    
+    /**
+     * Reads <code>Campus</code> and <code>Keycard</code> objects from a given
+     * file location.
+     * 
+     * <h2>Do not confuse with <code>SaveState()</code></h2>
+     * 
+     * Looks for a file at the location given and tries to parse it's data into
+     * a <code>Data</code> object containing an <code>ArrayList</code> of
+     * <code>Campus</code> objects and a <code>HasMap</code> of
+     * <code>Keycard</code> objects. If this is successful it recurringly
+     * assigns the <code>Logger</code> as an state observer to each
+     * <code>Location</code> in the <code>ArrayList&lt;Campus&gt;</code>. It also
+     * add the <code>Logger</code> as an access observer to each
+     * <code>Room</code> contained within the <code>Campus</code>s.
+     * @param path The location of the <code>.state</code> file
+     * @return The newly read campus and keycard Data
+     */
+    public static Data ReadState(String path) {
         Data newSave = null;
         File objFile = new File(path);
+        
+        //Ensure the wanted file exists and is readable
         if(!objFile.exists() || !objFile.canRead())
             Log.Log("ERROR: Problem accessing file");
         
+        //Create a new ObjectInputStream
         try(ObjectInputStream objIn = new ObjectInputStream(
                 new BufferedInputStream(
-                new FileInputStream(objFile))))
-        {
+                new FileInputStream(objFile)))) {
+            
+            //Read the data in the file and cast it to a Data object
             Object data = objIn.readObject();
             newSave = (Data)data;
             
+            //If it's null tell the logger
             if(newSave == null) {
                 Log.Log("Error: Problem reading file");
+                
+            //If it's not null recursively add the logger as an observer to
+            //all locations and child locations
             } else {
                 newSave.campuses.values().forEach((campus) -> {
                     AssignObserver(campus);
                 });
             }
             
+            //Tell the logger
             Log.Log("All data read from file.");
-        }
-        catch(ClassNotFoundException | IOException | ClassCastException ex)
-        {
+        } catch(ClassNotFoundException | IOException | ClassCastException ex) {
             Log.Log("ERROR: " + ex.getMessage());
-        }
-        
-        if (overwriteAll) {            
-            if (newSave == null)
-                SetDefaultState();
-            else {
-                allCampuses = newSave.campuses;
-                allKeycards = newSave.keycards;
-            }
-        } else if (newSave == null) {
-            Log.Log("ERROR: Unable to open that file!");
         }
         
         return newSave;
     }
     
     private static void AssignObserver(Location location) {
+        //Find the logger
         Log logger = Log.Logger();
         
         if (location != null) {
+            //Add the logger as a state observer of the location
             location.AddStateObserver(logger);
             
+            //If the location is a parent to other location, call this method on it's children
             if (location instanceof ParentLocation)
                 for (Location child : ((ParentLocation)location).GetAllChildren()) {
                         AssignObserver(child);
                 }
-            else                
-                ((Room) location).AddAccessObserver(logger);
             
+            //Else if the location isn't a parent - ie, it's a room,
+            //Add the logger as an access observer too
+            else
+                ((Room)location).AddAccessObserver(logger);
+            
+            //Set all parent objects of locations to their exact same vaules.
+            //this will also re-add them as state observers of their children.
+            //This is used to calculate mixed states
+            
+            //If the location is a building, set it's campus to it's current campus
             if (location instanceof Building)
                 ((Building)location).SetCampus(((Building)location).GetCampus());
+            
+            //If the location is a floor, set it's building to it's current building
             else if (location instanceof Floor)
                 ((Floor)location).SetBuilding(((Floor)location).GetBuilding());
+            
+            //If the location is a room, set it's floor to it's current floor
             else if (location instanceof Room)
                 ((Room)location).SetFloor(((Room)location).GetFloor());
         }
@@ -157,7 +210,7 @@ public class Data implements Serializable {
         
         Data.allCampuses.put("Main Campus", new Campus("Main Campus"));
         
-        Campus campus = (Campus)Data.allCampuses.values().toArray()[0];
+        Campus campus = Data.allCampuses.values().toArray(new Campus[0])[0];
         campus.AddBuilding("Babbage", "BGB");
         campus.AddBuilding("Roland Levinsky", "RLB");
         
@@ -221,5 +274,7 @@ public class Data implements Serializable {
         KeycardFactory.Create(EMERGENCYRESPONDER, "Fireman");
         KeycardFactory.Create(EMERGENCYRESPONDER, "Fireman");
         KeycardFactory.Create(EMERGENCYRESPONDER, "Fireman");
+        
+        Log.Log("Finished creating default data sets.");
     }
 }

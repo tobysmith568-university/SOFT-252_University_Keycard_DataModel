@@ -26,7 +26,7 @@ public class Keycard implements Serializable {
      * @param name The name of the owner of the <code>Keycard</code>
      * @param cardID A unique ID for the card
      */
-    public Keycard(Role roles[], String name, String cardID) {
+    public Keycard(Role[] roles, String name, String cardID) {
         this.roles = new ArrayList<>();
         this.roles.addAll(Arrays.asList(roles));
         this.name = name;

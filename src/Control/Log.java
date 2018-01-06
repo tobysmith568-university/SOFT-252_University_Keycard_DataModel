@@ -34,8 +34,8 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
     
     private static Log singleton;
     private final DateTimeFormatter logMessageFormat;
-    private final DateTimeFormatter DailyFileFormat;
-    private final DateTimeFormatter EmergencyFolderFormat;
+    private final DateTimeFormatter dailyFileFormat;
+    private final DateTimeFormatter emergencyFolderFormat;
     
     private final ArrayList<ILogObserver> logObservers;
     private final ArrayList<String> unsavedMessages;
@@ -43,9 +43,9 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
     private Log() {
         this.logObservers = new ArrayList<>();
         this.unsavedMessages = new ArrayList<>();
-        this.EmergencyFolderFormat = DateTimeFormatter.ofPattern("dd-MM-yy_HH-mm-ss");
+        this.emergencyFolderFormat = DateTimeFormatter.ofPattern("dd-MM-yy_HH-mm-ss");
         this.logMessageFormat = DateTimeFormatter.ofPattern("'['dd/MM/yy'] ['HH:mm:ss']'");
-        this.DailyFileFormat = DateTimeFormatter.ofPattern("dd-MM-yy");
+        this.dailyFileFormat = DateTimeFormatter.ofPattern("dd-MM-yy");
     }
     
     /**
@@ -81,7 +81,7 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
         //Special logic for if the new state is EMERGENCY
         //Needs to save the current state and log file to an emergency folder
         if (state == EMERGENCY) {
-            Path emergencyDirectory = Paths.get("Emergency Logs", "EM_" + LocalDateTime.now().format(EmergencyFolderFormat));
+            Path emergencyDirectory = Paths.get("Emergency Logs", "EM_" + LocalDateTime.now().format(emergencyFolderFormat));
             try{
                 //Ensure the emergency folder exists
                 Files.createDirectories(emergencyDirectory);
@@ -216,6 +216,6 @@ public class Log implements IStateObserver, IAccessObserver, ILogSubject, Serial
      * @return The name of the file
      */
     public Path GetTodaysLogFile() {
-        return Paths.get("Daily Logs", "Log for " + LocalDateTime.now().format(DailyFileFormat) + ".log");
+        return Paths.get("Daily Logs", "Log for " + LocalDateTime.now().format(dailyFileFormat) + ".log");
     }
 }

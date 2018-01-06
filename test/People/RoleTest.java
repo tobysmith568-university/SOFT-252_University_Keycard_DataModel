@@ -54,5 +54,13 @@ public class RoleTest {
         assertEquals(true, STAFFMEMBER.HasTimeAccess());
         assertEquals(true, SECURITY.HasTimeAccess());
     }
+
+    @Test
+    public void testGetName() {
+    }
+
+    @Test
+    public void testGetPluralName() {
+    }
     
 }

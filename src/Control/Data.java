@@ -98,12 +98,10 @@ public class Data implements Serializable {
         //Read the data in the given path
         Data newData = ReadState(path);
         
-        //If it's not successful load in default data
-        if (newData == null)
-            SetDefaultState();
-        
         //If it is successful load in the read data
-        else {
+        if (newData == null) {
+            allCampuses = new HashMap<>();
+        } else {
             allCampuses = newData.campuses;
             allKeycards = newData.keycards;
         }
@@ -203,14 +201,21 @@ public class Data implements Serializable {
         }
     }
 
-    private static void SetDefaultState() {
+    /**
+     * Overwrites ALL <code>Location</code>s and creates new <code>Keycards</code>.
+     * 
+     * This is used to generate a default set of <code>Campus</code>s with sub-locations
+     * within them. New <code>Keycard</code>s are also generated but pre-existing ones
+     * are NOT removed or deleted.
+     */
+    public static void SetDefaultState() {
         Log.Log("Creating default data sets.");
         
-        Data.allCampuses = new HashMap<>();
+        allCampuses = new HashMap<>();
         
-        Data.allCampuses.put("Main Campus", new Campus("Main Campus"));
+        allCampuses.put("Main Campus", new Campus("Main Campus"));
         
-        Campus campus = Data.allCampuses.values().toArray(new Campus[0])[0];
+        Campus campus = allCampuses.values().toArray(new Campus[0])[0];
         campus.AddBuilding("Babbage", "BGB");
         campus.AddBuilding("Roland Levinsky", "RLB");
         

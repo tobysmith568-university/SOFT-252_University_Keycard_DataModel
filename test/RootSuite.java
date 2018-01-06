@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 
+import Control.ControlSuite;
+import Listeners.ListenersSuite;
+import Locations.LocationsSuite;
+import People.PeopleSuite;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,7 +20,7 @@ import org.junit.runners.Suite;
  * @author tsmith10
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({Listeners.ListenersSuite.class, People.PeopleSuite.class, Control.ControlSuite.class, Locations.LocationsSuite.class})
+@Suite.SuiteClasses({ControlSuite.class, ListenersSuite.class, PeopleSuite.class, LocationsSuite.class})
 public class RootSuite {
 
     @BeforeClass

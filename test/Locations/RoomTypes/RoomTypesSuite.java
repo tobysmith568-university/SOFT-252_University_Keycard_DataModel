@@ -17,7 +17,7 @@ import org.junit.runners.Suite;
  * @author tsmith10
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({Locations.RoomTypes.StudentLabTest.class, Locations.RoomTypes.SecureRoomTest.class, Locations.RoomTypes.ResearchLabTest.class, Locations.RoomTypes.StaffRoomTest.class, Locations.RoomTypes.LectureHallTest.class})
+@Suite.SuiteClasses({StaffRoomTest.class, StudentLabTest.class, ResearchLabTest.class, SecureRoomTest.class, LectureHallTest.class})
 public class RoomTypesSuite {
 
     @BeforeClass

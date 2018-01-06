@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author tsmith10
  */
-public class RoomTypeTest {
+public class ParentLocationTest {
     
-    public RoomTypeTest() {
+    public ParentLocationTest() {
     }
     
     @BeforeClass
@@ -38,19 +38,10 @@ public class RoomTypeTest {
     }
 
     @Test
-    public void testValues() {
+    public void testGetChild() {
     }
 
     @Test
-    public void testValueOf() {
-    }
-
-    @Test
-    public void testGetRoomType() {
-    }
-
-    @Test
-    public void testGetName() {
-    }
-    
+    public void testGetAllChildren() {
+    }    
 }

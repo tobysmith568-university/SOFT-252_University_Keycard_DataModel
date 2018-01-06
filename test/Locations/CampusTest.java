@@ -56,5 +56,13 @@ public class CampusTest {
     @Test
     public void testAddBuilding() {
     }
+
+    @Test
+    public void testRemoveBuilding() {
+    }
+
+    @Test
+    public void testObservedStateUpdate() {
+    }
     
 }

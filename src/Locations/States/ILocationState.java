@@ -13,7 +13,7 @@ import java.io.Serializable;
  * interacts with <code>Keycard</code>s.
  * @author Student
  */
-public interface ILocationState extends Serializable{
+public interface ILocationState extends Serializable {
 
     /**
      * Tests a <code>Keycard</code> object to see if it qualifies for entry to

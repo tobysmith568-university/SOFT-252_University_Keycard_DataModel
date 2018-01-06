@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Locations;
+package Listeners;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author tsmith10
  */
-public class RoomTypeTest {
+public class ILogObserverTest {
     
-    public RoomTypeTest() {
+    public ILogObserverTest() {
     }
     
     @BeforeClass
@@ -38,19 +38,13 @@ public class RoomTypeTest {
     }
 
     @Test
-    public void testValues() {
+    public void testObservedLogUpdate() {
     }
 
-    @Test
-    public void testValueOf() {
-    }
+    public class ILogObserverImpl implements ILogObserver {
 
-    @Test
-    public void testGetRoomType() {
-    }
-
-    @Test
-    public void testGetName() {
+        public void ObservedLogUpdate(String message) {
+        }
     }
     
 }

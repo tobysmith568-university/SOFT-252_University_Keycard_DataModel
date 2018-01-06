@@ -21,7 +21,7 @@ import java.util.Arrays;
  */
 public class Room extends Location implements IAccessSubject {
 
-    private final transient ArrayList<IAccessObserver> accessObservers;
+    private transient ArrayList<IAccessObserver> accessObservers;
     private Floor floor;
     private final String number;
     private RoomType type;
@@ -124,6 +124,9 @@ public class Room extends Location implements IAccessSubject {
      */
     @Override
     public boolean AddAccessObserver(IAccessObserver observer) {
+        if (accessObservers == null)
+            accessObservers = new ArrayList<>();
+        
         if (accessObservers.contains(observer))
             return false;
         else{

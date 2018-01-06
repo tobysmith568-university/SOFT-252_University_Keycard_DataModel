@@ -34,19 +34,6 @@ public class Keycard implements Serializable {
     }
 
     /**
-     * Creates a new <code>Keycard</code>.
-     * @param role The type of permissions the <code>Keycard</code> should have
-     * @param name The name of the owner of the <code>Keycard</code>
-     * @param cardID A unique ID for the card
-     */
-    public Keycard(Role role, String name, String cardID) {
-        this.roles = new ArrayList<>();
-        this.roles.add(role);
-        this.name = name;
-        this.cardID = cardID;
-    }
-
-    /**
      * Returns the <code>Role</code> of this <code>Keycard</code>.
      * @return The <code>Role</code>
      */

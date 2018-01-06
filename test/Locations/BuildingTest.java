@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class BuildingTest {
     
@@ -39,26 +39,57 @@ public class BuildingTest {
 
     @Test
     public void testGetName() {
+        fail("Test not yet implemented");
     }
 
     @Test
     public void testGetChild() {
+        fail("Test not yet implemented");
     }
 
     @Test
     public void testGetAllChildren() {
+        fail("Test not yet implemented");
     }
 
     @Test
     public void testGetCampus() {
+        fail("Test not yet implemented");
     }
 
     @Test
     public void testActualSetRoomState() {
+        fail("Test not yet implemented");
     }
 
     @Test
     public void testAddFloor() {
+        fail("Test not yet implemented");
+    }
+
+    @Test
+    public void testGetShortcode() {
+        fail("Test not yet implemented");
+    }
+
+    @Test
+    public void testSetCampus() {
+        fail("Test not yet implemented");
+    }
+
+    @Test
+    public void testSetIsMixedState() {
+        fail("Test not yet implemented");
+    }
+
+    @Test
+    public void testRemoveFloor() {
+        fail("Test not yet implemented");
+    }
+
+    @Test
+    public void testObservedStateUpdate() {
+        fail("Test not yet implemented");
     }
     
 }

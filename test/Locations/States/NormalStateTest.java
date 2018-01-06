@@ -6,6 +6,7 @@
 package Locations.States;
 
 import People.Keycard;
+import People.Role;
 import static People.Role.*;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -37,8 +38,8 @@ public class NormalStateTest {
     @Before
     public void setUp() {
         state = new NormalState();
-        card1 = new Keycard(STUDENT, "Dave", "0006");
-        card2 = new Keycard(EMERGENCYRESPONDER, "Fireman", "0007");
+        card1 = new Keycard(new Role[] { STUDENT }, "Dave", "0006");
+        card2 = new Keycard(new Role[] { EMERGENCYRESPONDER }, "Fireman", "0007");
     }
     
     @After

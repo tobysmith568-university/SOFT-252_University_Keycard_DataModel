@@ -60,5 +60,21 @@ public class FloorTest {
     @Test
     public void testAddRoom() {
     }
+
+    @Test
+    public void testSetBuilding() {
+    }
+
+    @Test
+    public void testSetIsMixedState() {
+    }
+
+    @Test
+    public void testRemoveRoom() {
+    }
+
+    @Test
+    public void testObservedStateUpdate() {
+    }
     
 }

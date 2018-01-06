@@ -17,7 +17,7 @@ import org.junit.runners.Suite;
  * @author tsmith10
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({Control.RoomFactoryTest.class, Control.LogTest.class, Control.UniversityKeycardsTest.class})
+@Suite.SuiteClasses({KeycardFactoryTest.class, DataTest.class, LogTest.class, RoomFactoryTest.class})
 public class ControlSuite {
 
     @BeforeClass

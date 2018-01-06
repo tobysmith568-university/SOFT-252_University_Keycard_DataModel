@@ -68,5 +68,17 @@ public class RoomTest {
     @Test
     public void testGetAllChildren() {
     }
+
+    @Test
+    public void testGetRoomType() {
+    }
+
+    @Test
+    public void testGetFloor() {
+    }
+
+    @Test
+    public void testSetFloor() {
+    }
     
 }

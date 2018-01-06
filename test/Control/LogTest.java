@@ -52,5 +52,21 @@ public class LogTest {
     @Test
     public void testObservedAccessUpdate() {
     }
+
+    @Test
+    public void testAddLogObserver() {
+    }
+
+    @Test
+    public void testRemoveLogObserver() {
+    }
+
+    @Test
+    public void testUpdateLogObservers() {
+    }
+
+    @Test
+    public void testGetTodaysLogFile() {
+    }
     
 }

@@ -5,6 +5,8 @@
  */
 package Locations;
 
+import Locations.RoomTypes.RoomTypesSuite;
+import Locations.States.StatesSuite;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,7 +19,7 @@ import org.junit.runners.Suite;
  * @author tsmith10
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({Locations.RoomTest.class, Locations.RoomTypeTest.class, Locations.IRoomTypeTest.class, Locations.CampusTest.class, Locations.LocationTest.class, Locations.RoomTypes.RoomTypesSuite.class, Locations.FloorTest.class, Locations.BuildingTest.class, Locations.States.StatesSuite.class})
+@Suite.SuiteClasses({FloorTest.class, IRoomTypeTest.class, BuildingTest.class, LocationTest.class, ParentLocationTest.class, RoomTypesSuite.class, RoomTypeTest.class, CampusTest.class, StatesSuite.class, RoomTest.class})
 public class LocationsSuite {
 
     @BeforeClass

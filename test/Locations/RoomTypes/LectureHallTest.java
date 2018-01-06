@@ -10,6 +10,7 @@ import Locations.Floor;
 import Locations.Room;
 import Locations.RoomType;
 import People.Keycard;
+import People.Role;
 import static People.Role.*;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -41,13 +42,13 @@ public class LectureHallTest {
     
     @Before
     public void setUp() {
-        card1 = new Keycard(VISITOR, "A visitor", "01");
-        card2 = new Keycard(STAFFMEMBER, "A staff member", "02");
-        card3 = new Keycard(STUDENT, "A student", "03");
-        card4 = new Keycard(CLEANER, "A cleaner", "04");
-        card5 = new Keycard(MANAGER, "A manager", "05");
-        card6 = new Keycard(SECURITY, "A security", "06");
-        card7 = new Keycard(EMERGENCYRESPONDER, "A responder", "07");        
+        card1 = new Keycard(new Role[] { VISITOR }, "A visitor", "01");
+        card2 = new Keycard(new Role[] { STAFFMEMBER }, "A staff member", "02");
+        card3 = new Keycard(new Role[] { STUDENT }, "A student", "03");
+        card4 = new Keycard(new Role[] { CLEANER }, "A cleaner", "04");
+        card5 = new Keycard(new Role[] { MANAGER }, "A manager", "05");
+        card6 = new Keycard(new Role[] { SECURITY }, "A security", "06");
+        card7 = new Keycard(new Role[] { EMERGENCYRESPONDER }, "A responder", "07");        
     }
     
     @After

@@ -57,22 +57,8 @@ public class KeycardFactory implements Serializable{
      * @return The new <code>Keycard</code> object
      */
     public static Keycard Create(Role role, String name) {
-        //Find the previously used ID
-        if (previousCardID == null)
-            ReadPrevious();
-        previousCardID++;
-        WritePrevious();
-        
-        //Add preceeding zeros to ensure the number is at least 8 digits long
-        String newCardID = "" + previousCardID;
-        if (newCardID.length() < 8) {
-            newCardID = new String(new char[8 - newCardID.length()]).replace("\0", "0") + newCardID;
-        }
-        
-        //Create the new keycard
-        Keycard newCard = new Keycard(role, name, newCardID);
-        Data.allKeycards.put(newCardID, newCard);
-        return newCard;
+        Role[] roles = { role };
+        return Create(roles, name);
     }
     
     private static boolean WritePrevious() {

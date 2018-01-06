@@ -48,5 +48,4 @@ public class ILocationStateTest {
             return false;
         }
     }
-    
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Locations;
+package Control;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author tsmith10
  */
-public class RoomTypeTest {
+public class DataTest {
     
-    public RoomTypeTest() {
+    public DataTest() {
     }
     
     @BeforeClass
@@ -38,19 +38,27 @@ public class RoomTypeTest {
     }
 
     @Test
-    public void testValues() {
+    public void testGetCampuses() {
     }
 
     @Test
-    public void testValueOf() {
+    public void testGetKeycards() {
     }
 
     @Test
-    public void testGetRoomType() {
+    public void testSaveState() {
     }
 
     @Test
-    public void testGetName() {
+    public void testLoadState() {
+    }
+
+    @Test
+    public void testReadState() {
+    }
+
+    @Test
+    public void testSetDefaultState() {
     }
     
 }

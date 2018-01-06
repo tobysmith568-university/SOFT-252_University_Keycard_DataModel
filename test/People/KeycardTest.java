@@ -36,8 +36,8 @@ public class KeycardTest {
     
     @Before
     public void setUp() {
-        keycard1 = new Keycard(CLEANER, "Mike", "0004");
-        keycard2 = new Keycard(STUDENT, "Dave", "0005");
+        keycard1 = new Keycard(new Role[] { CLEANER }, "Mike", "0004");
+        keycard2 = new Keycard(new Role[] { STUDENT }, "Dave", "0005");
     }
     
     @After
@@ -66,6 +66,26 @@ public class KeycardTest {
         assertEquals("0004", keycard1.GetCardID());  
         assertEquals("0005", keycard2.GetCardID());  
         assertEquals("", keycard3.GetCardID());  
+    }
+
+    @Test
+    public void testGetRoles() {
+    }
+
+    @Test
+    public void testGetRolesString() {
+    }
+
+    @Test
+    public void testAddRole() {
+    }
+
+    @Test
+    public void testRemoveRole() {
+    }
+
+    @Test
+    public void testSetName() {
     }
     
 }

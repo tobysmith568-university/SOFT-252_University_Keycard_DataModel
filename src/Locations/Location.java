@@ -23,7 +23,7 @@ import java.io.Serializable;
  */
 public abstract class Location implements IStateSubject, Serializable 
 {
-    private final transient ArrayList<IStateObserver> stateObservers;
+    private transient ArrayList<IStateObserver> stateObservers;
 
     /**
      * The full name of this <code>Location</code>, this will include the names
@@ -57,7 +57,7 @@ public abstract class Location implements IStateSubject, Serializable
      * Creates a new <code>Location</code> and adds the <code>Logger</code> as
      * an observer of it's state.
      */
-    protected Location() {
+    public Location() {
         stateObservers = new ArrayList<>();
         state = NOEMERGENCY;
         iState = state.GetLocationState();
@@ -151,13 +151,16 @@ public abstract class Location implements IStateSubject, Serializable
      */
     @Override
     public final boolean AddStateObserver(IStateObserver observer) {
+        if (stateObservers == null)
+            stateObservers = new ArrayList<>();
+        
         if (stateObservers.contains(observer))
             return false;
         else {
             stateObservers.add(0, observer);
             return stateObservers.contains(observer);
         }
-    }    
+    }
 
     /**
      * Removes a given <code>IStateObserver</code> from the object.

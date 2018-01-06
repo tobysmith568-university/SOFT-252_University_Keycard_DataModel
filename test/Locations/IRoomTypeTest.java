@@ -47,6 +47,5 @@ public class IRoomTypeTest {
         public boolean AccessRequest(Keycard keycard) {
             return false;
         }
-    }
-    
+    }    
 }

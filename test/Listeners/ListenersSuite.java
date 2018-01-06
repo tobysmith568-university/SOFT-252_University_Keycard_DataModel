@@ -17,7 +17,7 @@ import org.junit.runners.Suite;
  * @author tsmith10
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({Listeners.IStateObserverTest.class, Listeners.IStateSubjectTest.class, Listeners.IAccessSubjectTest.class, Listeners.IAccessObserverTest.class})
+@Suite.SuiteClasses({ILogObserverTest.class, ILogSubjectTest.class, IAccessSubjectTest.class, IAccessObserverTest.class, IStateObserverTest.class, IStateSubjectTest.class})
 public class ListenersSuite {
 
     @BeforeClass

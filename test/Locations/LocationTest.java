@@ -87,5 +87,17 @@ public class LocationTest {
             return null;
         }
     }
+
+    @Test
+    public void testGetIsMixedState() {
+    }
+
+    @Test
+    public void testGetStateChangeReason() {
+    }
+
+    @Test
+    public void testSetIsMixedState() {
+    }
     
 }

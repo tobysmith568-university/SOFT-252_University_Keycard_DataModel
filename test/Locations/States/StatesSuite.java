@@ -17,7 +17,7 @@ import org.junit.runners.Suite;
  * @author tsmith10
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({Locations.States.LocationStateTest.class, Locations.States.EmergencyStateTest.class, Locations.States.ILocationStateTest.class, Locations.States.NormalStateTest.class})
+@Suite.SuiteClasses({NormalStateTest.class, LocationStateTest.class, EmergencyStateTest.class, ILocationStateTest.class})
 public class StatesSuite {
 
     @BeforeClass

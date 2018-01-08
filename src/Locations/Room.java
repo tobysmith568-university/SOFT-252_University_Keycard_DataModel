@@ -100,9 +100,9 @@ public class Room extends Location implements IAccessSubject {
      */
     public boolean AccessRequest(Keycard keycard) {
         //A room's access request is based off of three variables:
-        //  If the keycard has access to that type of room
-        //  If the keycard has access in this type of state
-        //  If the keycard has access at this sort of time
+        //    If the keycard has access to that type of room
+        //    If the keycard has access in this type of state
+        //    If the keycard has access at this sort of time
         boolean roomAccess = iType.AccessRequest(keycard);
         boolean stateAccess = iState.AccessRequest(keycard);
         boolean timeAccess = Arrays.stream(keycard.GetRoles())

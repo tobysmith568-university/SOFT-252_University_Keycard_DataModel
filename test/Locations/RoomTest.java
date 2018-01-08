@@ -5,20 +5,25 @@
  */
 package Locations;
 
+import Control.RoomFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class RoomTest {
     
+    Room one;
+    Room two;
+    
     public RoomTest() {
+        this.one = RoomFactory.Create("01", RoomType.LECTUREHALL);
+        this.two = RoomFactory.Create("01", RoomType.LECTUREHALL);
     }
     
     @BeforeClass
@@ -59,14 +64,6 @@ public class RoomTest {
 
     @Test
     public void testUpdateAccessObservers() {
-    }
-
-    @Test
-    public void testGetChild() {
-    }
-
-    @Test
-    public void testGetAllChildren() {
     }
 
     @Test

@@ -21,8 +21,8 @@ import static org.junit.Assert.*;
  */
 public class NormalStateTest {
     
-    NormalState state;
-    Keycard card1, card2;
+    NormalState s1;
+    Keycard c1, c2;
     
     public NormalStateTest() {
     }
@@ -37,9 +37,9 @@ public class NormalStateTest {
     
     @Before
     public void setUp() {
-        state = new NormalState();
-        card1 = new Keycard(new Role[] { STUDENT }, "Dave", "0006");
-        card2 = new Keycard(new Role[] { EMERGENCYRESPONDER }, "Fireman", "0007");
+        s1 = new NormalState();
+        c1 = new Keycard(new Role[] { STUDENT }, "Dave", "0006");
+        c2 = new Keycard(new Role[] { EMERGENCYRESPONDER }, "Fireman", "0007");
     }
     
     @After
@@ -49,8 +49,8 @@ public class NormalStateTest {
     @Test
     public void testAccessRequest() {
         System.out.println("Testing AccessRequest()");
-        assertEquals(true, state.AccessRequest(card1));
-        assertEquals(false, state.AccessRequest(card2));
+        assertEquals(true, s1.AccessRequest(c1));
+        assertEquals(false, s1.AccessRequest(c2));
     }
     
 }

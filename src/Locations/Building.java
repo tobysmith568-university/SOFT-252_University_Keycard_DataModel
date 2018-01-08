@@ -94,7 +94,8 @@ public class Building extends ParentLocation {
     @Override
     public void SetIsMixedState(boolean isMixedState) {
         super.SetIsMixedState(isMixedState);
-        campus.SetIsMixedState(isMixedState);
+        if (campus != null)
+            campus.SetIsMixedState(isMixedState);
     }
 
     /**

@@ -84,7 +84,8 @@ public class Floor extends ParentLocation {
     @Override
     public void SetIsMixedState(boolean isMixedState) {
         super.SetIsMixedState(isMixedState);
-        building.SetIsMixedState(isMixedState);
+        if (building != null)
+         building.SetIsMixedState(isMixedState);
     }
 
     /**

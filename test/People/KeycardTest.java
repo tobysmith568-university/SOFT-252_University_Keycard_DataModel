@@ -15,13 +15,12 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class KeycardTest {
     
-    private Keycard keycard1;
-    private Keycard keycard2;
-    private Keycard keycard3;
+    private Keycard k1;
+    private Keycard k2;
     
     public KeycardTest() {
     }
@@ -36,8 +35,8 @@ public class KeycardTest {
     
     @Before
     public void setUp() {
-        keycard1 = new Keycard(new Role[] { CLEANER }, "Mike", "0004");
-        keycard2 = new Keycard(new Role[] { STUDENT }, "Dave", "0005");
+        k1 = new Keycard(new Role[] { CLEANER }, "Mike", "0004");
+        k2 = new Keycard(new Role[] { STUDENT }, "Dave", "0005");
     }
     
     @After
@@ -47,25 +46,31 @@ public class KeycardTest {
     @Test
     public void testGetRole() {
         System.out.println("Testing GetRole()");
-        assertEquals(CLEANER, keycard1.GetRoles()[0]);  
-        assertEquals(STUDENT, keycard2.GetRoles()[0]);  
-        assertNull(keycard3.GetRoles());
+        k1 = new Keycard(new Role[] { CLEANER }, "Mike", "0004");
+        k2 = new Keycard(new Role[] { STUDENT }, "Dave", "0005");
+        
+        assertEquals(CLEANER, k1.GetRoles()[0]);  
+        assertEquals(STUDENT, k2.GetRoles()[0]); 
     }
 
     @Test
     public void testGetName() {
         System.out.println("Testing GetName()");
-        assertEquals("Mike", keycard1.GetName());  
-        assertEquals("Dave", keycard2.GetName());  
-        assertEquals("", keycard3.GetName()); 
+        k1 = new Keycard(new Role[] { CLEANER }, "Mike", "0004");
+        k2 = new Keycard(new Role[] { STUDENT }, "Dave", "0005");
+        
+        assertEquals("Mike", k1.GetName());  
+        assertEquals("Dave", k2.GetName());
     }
 
     @Test
     public void testGetCardID() {
         System.out.println("Testing GetCardID()");
-        assertEquals("0004", keycard1.GetCardID());  
-        assertEquals("0005", keycard2.GetCardID());  
-        assertEquals("", keycard3.GetCardID());  
+        k1 = new Keycard(new Role[] { CLEANER }, "Mike", "0004");
+        k2 = new Keycard(new Role[] { STUDENT }, "Dave", "0005");
+        
+        assertEquals("0004", k1.GetCardID());  
+        assertEquals("0005", k2.GetCardID());
     }
 
     @Test

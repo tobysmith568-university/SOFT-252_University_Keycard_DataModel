@@ -45,6 +45,12 @@ public class BuildingTest {
 
     @Test
     public void testGetName() {
+        System.out.println("Testing GetName()");
+        this.one = new Building("Test building 1", "TB1");
+        this.two = new Building("Test building 2", "TB2");
+        
+        assertEquals("Test building 1", one.GetName());
+        assertEquals("Test building 2", two.GetName());
     }
 
     @Test
@@ -75,6 +81,12 @@ public class BuildingTest {
 
     @Test
     public void testGetCampus() {
+        System.out.println("Testing GetCampus()");
+        
+        Campus c = new Campus("test campus");
+        Building b = c.AddBuilding("test building", "TB");
+        
+        assertEquals(c, b.GetCampus());
     }
 
     @Test
@@ -100,15 +112,28 @@ public class BuildingTest {
         one.AddFloor();
         
         assertEquals(1, one.GetAllChildren().length);        
-        assertEquals(0, two.GetAllChildren().length);        
+        assertEquals(0, two.GetAllChildren().length);
     }
 
     @Test
     public void testGetShortcode() {
+        System.out.println("Testing ActualSetRoomState()");
+        this.one = new Building("Test building 1", "TB1");
+        this.two = new Building("Test building 2", "TB2");
+        
+        assertEquals("TB1", one.GetShortcode());        
+        assertEquals("TB2", two.GetShortcode());
     }
 
     @Test
-    public void testSetCampus() {     
+    public void testSetCampus() {
+        System.out.println("Testing SetCampus()");
+        
+        Campus c = new Campus("test campus");
+        Building b = new Building("test building", "TB");
+        b.SetCampus(c);
+        
+        assertEquals(c, b.GetCampus());
     }
 
     @Test

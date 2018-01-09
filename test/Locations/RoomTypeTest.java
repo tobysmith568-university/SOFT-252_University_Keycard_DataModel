@@ -5,6 +5,8 @@
  */
 package Locations;
 
+import static Locations.RoomType.*;
+import Locations.RoomTypes.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,7 +16,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class RoomTypeTest {
     
@@ -47,10 +49,22 @@ public class RoomTypeTest {
 
     @Test
     public void testGetRoomType() {
+        System.out.println("Testing GetRoomType()");
+        
+        assertEquals(true, LECTUREHALL.GetRoomType() instanceof LectureHall);
+        assertEquals(true, STUDENTLAB.GetRoomType() instanceof StudentLab);
+        assertEquals(true, RESEARCHLAB.GetRoomType() instanceof ResearchLab);
+        assertEquals(true, STAFFROOM.GetRoomType() instanceof StaffRoom);
+        assertEquals(true, SECUREROOM.GetRoomType() instanceof SecureRoom);
     }
 
     @Test
     public void testGetName() {
+        System.out.println("Testing GetName()");
+        
+        assertEquals("Student Lab", STUDENTLAB.GetName());
+        assertEquals("Secure Room", SECUREROOM.GetName());
+        assertEquals("Staff Room", STAFFROOM.GetName());
     }
     
 }

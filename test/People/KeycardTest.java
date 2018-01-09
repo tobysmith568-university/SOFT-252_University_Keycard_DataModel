@@ -8,6 +8,7 @@ package People;
 import static People.Role.*;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -75,22 +76,67 @@ public class KeycardTest {
 
     @Test
     public void testGetRoles() {
+        System.out.println("Testing GetRoles()");
+        k1 = new Keycard(new Role[] { CLEANER }, "Mike", "0004");
+        k2 = new Keycard(new Role[] { STUDENT, SECURITY }, "Dave", "0005");
+        
+        Assert.assertArrayEquals(new Role[] { CLEANER }, k1.GetRoles());  
+        Assert.assertArrayEquals(new Role[] { STUDENT, SECURITY }, k2.GetRoles());
     }
 
     @Test
     public void testGetRolesString() {
+        System.out.println("Testing GetRolesString()");
+        k1 = new Keycard(new Role[] { CLEANER }, "Mike", "0004");
+        k2 = new Keycard(new Role[] { STUDENT, SECURITY }, "Dave", "0005");
+        
+        assertEquals("Cleaner", k1.GetRolesString(" / "));
+        assertEquals("Student / Security", k2.GetRolesString(" / "));
+        assertEquals("Student test Security", k2.GetRolesString(" test "));
     }
 
     @Test
     public void testAddRole() {
+        System.out.println("Testing GetAddRole()");
+        k1 = new Keycard(new Role[] { CLEANER }, "Mike", "0004");
+        k2 = new Keycard(new Role[] { STUDENT }, "Dave", "0005");
+        
+        k1.AddRole(SECURITY);
+        k2.AddRole(VISITOR);
+        k2.AddRole(SECURITY);
+        k2.AddRole(SECURITY);
+        
+        assertEquals(2, k1.GetRoles().length);
+        assertEquals(3, k2.GetRoles().length);
     }
 
     @Test
     public void testRemoveRole() {
+        System.out.println("Testing GetRemoveRole()");
+        k1 = new Keycard(new Role[] { CLEANER }, "Mike", "0004");
+        k2 = new Keycard(new Role[] { STUDENT }, "Dave", "0005");
+        
+        k1.AddRole(SECURITY);
+        k2.AddRole(VISITOR);
+        
+        k1.RemoveRole(SECURITY);
+        k2.RemoveRole(STUDENT);
+        k2.RemoveRole(VISITOR);
+        
+        assertEquals(1, k1.GetRoles().length);
+        assertEquals(0, k2.GetRoles().length);
     }
 
     @Test
     public void testSetName() {
+        System.out.println("Testing GetSetName()");
+        k1 = new Keycard(new Role[] { CLEANER }, "Mike", "0004");
+        k2 = new Keycard(new Role[] { STUDENT }, "Dave", "0005");
+        
+        k1.SetName("Test name");
+        k2.SetName(null);
+        
+        assertEquals("Test name", k1.GetName());
+        assertNull(k2.GetName());
     }
-    
 }

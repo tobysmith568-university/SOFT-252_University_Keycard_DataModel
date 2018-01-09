@@ -9,6 +9,7 @@ import Control.RoomFactory;
 import Locations.Floor;
 import Locations.Room;
 import Locations.RoomType;
+import Locations.States.LocationState;
 import People.Keycard;
 import People.Role;
 import static People.Role.*;
@@ -21,15 +22,22 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class LectureHallTest {
     
     Floor testFloor = new Floor("1");
     Room room = RoomFactory.Create("01", RoomType.LECTUREHALL);
-    Keycard card1, card2, card3, card4, card5, card6, card7;
+    Keycard c1, c2, c3, c4, c5, c6, c7;
     
     public LectureHallTest() {
+        c1 = new Keycard(new Role[] { VISITOR }, "A visitor", "01");
+        c2 = new Keycard(new Role[] { STAFFMEMBER }, "A staff member", "02");
+        c3 = new Keycard(new Role[] { STUDENT }, "A student", "03");
+        c4 = new Keycard(new Role[] { CLEANER }, "A cleaner", "04");
+        c5 = new Keycard(new Role[] { MANAGER }, "A manager", "05");
+        c6 = new Keycard(new Role[] { SECURITY }, "A security", "06");
+        c7 = new Keycard(new Role[] { EMERGENCYRESPONDER }, "A responder", "07"); 
     }
     
     @BeforeClass
@@ -41,14 +49,7 @@ public class LectureHallTest {
     }
     
     @Before
-    public void setUp() {
-        card1 = new Keycard(new Role[] { VISITOR }, "A visitor", "01");
-        card2 = new Keycard(new Role[] { STAFFMEMBER }, "A staff member", "02");
-        card3 = new Keycard(new Role[] { STUDENT }, "A student", "03");
-        card4 = new Keycard(new Role[] { CLEANER }, "A cleaner", "04");
-        card5 = new Keycard(new Role[] { MANAGER }, "A manager", "05");
-        card6 = new Keycard(new Role[] { SECURITY }, "A security", "06");
-        card7 = new Keycard(new Role[] { EMERGENCYRESPONDER }, "A responder", "07");        
+    public void setUp() {       
     }
     
     @After
@@ -58,13 +59,22 @@ public class LectureHallTest {
     @Test
     public void testAccessRequest() {
         System.out.println("Testing AccessRequest()");
-        assertEquals(true, room.AccessRequest(card1));
-        assertEquals(true, room.AccessRequest(card2));
-        assertEquals(true, room.AccessRequest(card3));
-        assertEquals(true, room.AccessRequest(card4));
-        assertEquals(true, room.AccessRequest(card5));
-        assertEquals(true, room.AccessRequest(card6));
-        assertEquals(true, room.AccessRequest(card7));
+        
+        assertEquals(true, TestAll(c1));
+        assertEquals(true, TestAll(c2));
+        assertEquals(true, TestAll(c3));
+        assertEquals(true, TestAll(c4));
+        assertEquals(true, TestAll(c5));
+        assertEquals(true, TestAll(c6));
+        assertEquals(true, TestAll(c7));
     }
     
+    private boolean TestAll(Keycard keycard){
+        for (LocationState state : LocationState.values()) {
+            room.SetRoomState(state, "test reason");
+            if (room.AccessRequest(keycard))
+                return true;
+        }
+        return false;
+    }
 }

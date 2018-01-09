@@ -14,7 +14,7 @@ import org.junit.runners.Suite;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ILogObserverTest.class, ILogSubjectTest.class, IAccessSubjectTest.class, IAccessObserverTest.class, IStateObserverTest.class, IStateSubjectTest.class})

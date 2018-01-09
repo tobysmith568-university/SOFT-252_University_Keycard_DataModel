@@ -5,6 +5,8 @@
  */
 package Control;
 
+import Locations.Room;
+import static Locations.RoomType.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,7 +16,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class RoomFactoryTest {
     
@@ -39,6 +41,16 @@ public class RoomFactoryTest {
 
     @Test
     public void testCreate() {
+        System.out.println("Testing Create()");
+        
+        Room r1 = RoomFactory.Create("1", LECTUREHALL);
+        Room r2 = RoomFactory.Create("2", SECUREROOM);
+        
+        assertEquals("01", r1.GetNumber());
+        assertEquals("Lecture Hall", r1.GetRoomType());
+        
+        assertEquals("02", r2.GetNumber());
+        assertEquals("Secure Room", r2.GetRoomType());
     }
     
 }

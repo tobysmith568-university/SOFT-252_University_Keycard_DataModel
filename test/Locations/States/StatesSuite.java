@@ -14,7 +14,7 @@ import org.junit.runners.Suite;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({NormalStateTest.class, LocationStateTest.class, EmergencyStateTest.class, ILocationStateTest.class})

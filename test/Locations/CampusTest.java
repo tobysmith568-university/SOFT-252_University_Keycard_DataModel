@@ -45,6 +45,12 @@ public class CampusTest {
 
     @Test
     public void testGetName() {
+        System.out.println("Testing GetName()");
+        this.one = new Campus("Test campus 1");
+        this.two = new Campus("Test campus 2");
+        
+        assertEquals("Test campus 1", one.GetName());
+        assertEquals("Test campus 2", two.GetName());
     }
 
     @Test

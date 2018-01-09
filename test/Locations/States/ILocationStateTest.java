@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class ILocationStateTest {
     

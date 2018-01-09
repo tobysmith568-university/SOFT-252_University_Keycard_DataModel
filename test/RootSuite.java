@@ -17,7 +17,7 @@ import org.junit.runners.Suite;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ControlSuite.class, ListenersSuite.class, PeopleSuite.class, LocationsSuite.class})

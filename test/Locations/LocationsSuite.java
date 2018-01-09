@@ -16,7 +16,7 @@ import org.junit.runners.Suite;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({FloorTest.class, IRoomTypeTest.class, BuildingTest.class, LocationTest.class, ParentLocationTest.class, RoomTypesSuite.class, RoomTypeTest.class, CampusTest.class, StatesSuite.class, RoomTest.class})

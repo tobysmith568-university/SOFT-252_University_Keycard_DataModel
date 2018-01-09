@@ -7,7 +7,6 @@ package Locations.States;
 
 import People.Keycard;
 import People.Role;
-import static People.Role.CLEANER;
 import static People.Role.EMERGENCYRESPONDER;
 import static People.Role.STUDENT;
 import org.junit.After;
@@ -19,12 +18,12 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class EmergencyStateTest {
     
     EmergencyState s1;
-    Keycard c1, c2;
+    Keycard c1, c2, c3;
     
     public EmergencyStateTest() {
     }
@@ -42,6 +41,7 @@ public class EmergencyStateTest {
         s1 = new EmergencyState();
         c1 = new Keycard(new Role[] { STUDENT }, "Dave", "0006");
         c2 = new Keycard(new Role[] { EMERGENCYRESPONDER }, "Fireman", "0007");
+        c3 = new Keycard(new Role[] { STUDENT, EMERGENCYRESPONDER }, "Fireman", "0008");
     }
     
     @After
@@ -51,8 +51,10 @@ public class EmergencyStateTest {
     @Test
     public void testAccessRequest() {
         System.out.println("Testing AccessRequest()");
+        
         assertEquals(false, s1.AccessRequest(c1));
         assertEquals(true, s1.AccessRequest(c2));
+        assertEquals(true, s1.AccessRequest(c3));
     }
     
 }

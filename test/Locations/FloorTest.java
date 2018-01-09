@@ -5,7 +5,6 @@
  */
 package Locations;
 
-import Control.RoomFactory;
 import Locations.States.LocationState;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,10 +45,23 @@ public class FloorTest {
 
     @Test
     public void testGetBuilding() {
+        System.out.println("Testing GetBuilding()");
+        
+        Building b = new Building("test building", "TB");
+        Floor f = b.AddFloor();
+        
+        assertEquals(b, f.GetBuilding());
     }
 
     @Test
     public void testGetFloorNumber() {
+        System.out.println("Testing GetFloorNumber()");
+        
+        Floor f1 = new Floor("1");
+        Floor f2 = new Floor("2");
+        
+        assertEquals("1", f1.GetFloorNumber());
+        assertEquals("2", f2.GetFloorNumber());
     }
 
     @Test
@@ -106,6 +118,13 @@ public class FloorTest {
 
     @Test
     public void testSetBuilding() {
+        System.out.println("Testing SetBuilding()");
+        
+        Building b = new Building("test building", "TB");
+        Floor f = new Floor("1");
+        f.SetBuilding(b);
+        
+        assertEquals(b, f.GetBuilding());
     }
 
     @Test

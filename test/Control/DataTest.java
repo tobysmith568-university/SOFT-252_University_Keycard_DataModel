@@ -5,6 +5,9 @@
  */
 package Control;
 
+import Locations.Campus;
+import People.Keycard;
+import java.util.HashMap;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,7 +17,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class DataTest {
     

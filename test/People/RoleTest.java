@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class RoleTest {
     
@@ -50,6 +50,7 @@ public class RoleTest {
     public void testHasTimeAccess() {
         System.out.println("Testing HasTimeAccess()\n(Note that test may fail"
                 + " at certain times of the day)");
+        
         assertEquals(true, VISITOR.HasTimeAccess());
         assertEquals(true, STAFFMEMBER.HasTimeAccess());
         assertEquals(true, SECURITY.HasTimeAccess());
@@ -57,10 +58,20 @@ public class RoleTest {
 
     @Test
     public void testGetName() {
+        System.out.println("Testing GetName()");
+        
+        assertEquals("Visitor", VISITOR.GetName());
+        assertEquals("Staff Member", STAFFMEMBER.GetName());
+        assertEquals("Security", SECURITY.GetName());
     }
 
     @Test
     public void testGetPluralName() {
+        System.out.println("Testing GetPluralName()");
+        
+        assertEquals("Visitors", VISITOR.GetPluralName());
+        assertEquals("Staff Members", STAFFMEMBER.GetPluralName());
+        assertEquals("Security", SECURITY.GetPluralName());
     }
     
 }

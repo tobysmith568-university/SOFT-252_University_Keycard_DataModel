@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author tsmith10
+ * @author Student
  */
 public class LocationStateTest {
     
@@ -48,10 +48,18 @@ public class LocationStateTest {
 
     @Test
     public void testGetLocationState() {
+        System.out.println("Testing GetLocationState()");
+        
+        assertEquals(true, EMERGENCY.GetLocationState() instanceof EmergencyState);
+        assertEquals(true, NOEMERGENCY.GetLocationState() instanceof NormalState);
     }
 
     @Test
     public void testGetName() {
+        System.out.println("Testing GetName()");
+        
+        assertEquals("Emergency", EMERGENCY.GetName());
+        assertEquals("No Emergency", NOEMERGENCY.GetName());
     }
     
 }
